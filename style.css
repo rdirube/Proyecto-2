@@ -1,0 +1,552 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+h1, h2, h3, h4, a {
+    font-family: 'Montserrat', sans-serif;
+}
+
+html {
+    font-size:16px;
+}
+h2 {
+    color:#6742E7;
+}
+
+p {
+    font-weight:400;
+}
+
+#barra {
+    display:flex;
+    width:100%;
+    justify-content: space-between;
+    position:relative;
+    z-index:100;
+    height:75px;
+}
+
+#logo-mobile {
+    width:50%;
+    padding:16px;}
+
+ #logo-n {
+       display:none;
+}
+.logo {
+    cursor:pointer;
+}
+#burga {
+    width:10%;
+    padding-top:25px;
+    padding-right:15px;
+    cursor:pointer;
+}
+
+#burger-n {
+    display:none;
+}
+
+
+
+#close-d {
+    display:none;
+}
+
+#close-n {
+    display:none;
+}
+
+#close-nh {
+    display:none;  
+}
+
+#menu {
+    display:none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items:center;
+    position:absolute;
+    top:75px;
+    width:100%;
+    z-index:1000;
+}
+
+#modoN {
+    display:none;
+}
+
+#menu ul{
+    display:flex;
+    align-items: center;
+    justify-content:start;
+    flex-direction: column;
+    align-items:center;
+    list-style: none;
+    opacity: 0.9;
+    background-color: #6742E7;
+    width:100%;
+    height:155vh;
+}
+
+
+.fila {
+    padding-top:25px;
+}
+
+.link  {
+    text-decoration: none;
+    color:white;
+}
+
+.crear {
+    display:none;
+}
+#buscador {
+    display:flex;
+    flex-direction: column;
+}
+
+#titulo {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    width:70%;
+    margin:25px auto 32px;
+    color: #6742E7;
+    font-size:1.3rem;
+    text-align: center;
+}
+
+span {
+    color:#4FE3C1;
+}
+
+#favoritos {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+}
+
+#favoritos h4 {
+    padding-top:5px;
+    font-size:1.1rem;
+    color: #6742E7;
+}
+
+#gifos {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+}
+
+#gifos h4 {
+    padding-top:5px;
+    font-size:1.1rem;
+    color: #6742E7;
+}
+
+#fav-0 {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    padding:55px 0 25px;
+    text-align: center;
+    width:90%;
+}
+
+#gif-0{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    padding:55px 0 25px;
+    text-align: center;
+    width:90%;
+
+}
+
+#fav-0 h2 {
+    color:#4FE3C1;
+    padding-top:22px;
+}
+
+#gif-0 h2 {
+    color:#4FE3C1;
+    padding-top:22px;
+}
+
+#camara-n {
+    display:none;
+}
+
+#cinta-n {
+    display:none;
+}
+
+#pantalla-completa {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#img-camara {
+    margin-left:-30px;
+}
+
+#luz-camara{
+    transform:translate(-5px,-15px);
+}
+
+#camara{
+    width:788px;
+    height:410px;
+    border: 1px solid #6742E7;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-20px);
+}
+
+.pcamara{
+   padding-top:5px;
+}
+
+#pantalla-camara {
+    text-align: center;
+   
+}
+
+.cinta {
+    transform:translate(60px,230px);
+}
+
+#ilustracion {  
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    width:75%;
+    margin: auto;
+    
+}
+
+#amigos {
+    width:100%;
+    height:100%;
+    align-self: center;
+}
+
+.busc {
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    margin:auto;
+    width:80%;
+    background-color:white;
+    padding:0 10px 0 30px;
+    border: 1px solid #6742E7;
+    border-radius:20px;
+    height:50px;    
+}
+
+ #search-n {
+     display:none;
+ }
+
+input {
+    width:80%;
+    margin:auto;
+    outline:none;
+    border-color:white;
+    border:0;
+}
+#gifos-encontrados {
+    display:none;
+    
+}
+
+.gifosBuscados {
+   width:320px;
+   height:100%;
+   padding:10px;
+}
+
+.gifosBuscados:hover {
+    cursor: pointer;
+}
+
+.search:hover{
+    cursor: pointer;
+}
+
+#trendings {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    margin:40px auto 0px; 
+    font-size:1.15rem;
+    color: #6742E7;
+}
+
+#categorias {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+    margin: auto; 
+    width:60%;
+    font-size:1.15rem;
+    color: #6742E7;
+    padding-bottom:15px;
+}
+
+ #trending {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color:#F4F5F9;
+    padding:50px 0px 80px;
+ }
+
+ #trending-g h2 {
+    color: #6742E7;
+    padding-bottom:10px;
+ }
+
+ #flechas {
+     display:flex;
+     justify-content: space-between;
+     align-items:center;
+     width:90%;
+     padding-bottom:30px;
+ }
+
+ .boton-izq {
+     display:none;
+ }
+
+ .boton-der {
+     display:none;
+ }
+
+ #gif-trending {
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height:270px;
+
+    
+}
+
+.gifs {
+    padding:15px;
+    width:380px;
+    height:100%;
+    cursor: pointer;
+}
+
+#verMasCont {
+    display:none;
+}
+
+#ver-mas-h {
+    display:none;
+}
+
+ #pasos {
+   width:65%;
+   margin:0 auto;
+   border-bottom: 7px solid #6742E7;
+   display:flex;
+   justify-content: center;
+   align-items:center;
+   padding: 20px 0 20px;
+ }
+
+ #gif-com {
+     width:60%;
+     margin:auto;
+     display:flex;
+     flex-direction: column;
+     padding-bottom:30px;
+ }
+
+ #p1 {
+     display:block;
+     width:100%;
+ }
+
+
+#footer {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+    margin:auto;
+    padding:40px 0 25px;
+    border-bottom: 5px solid #6742E7;
+    
+}
+
+#logos {
+    width:90px;
+    display:flex;
+    justify-content: space-between;
+    padding:25px 0 50px;
+}
+
+#facebook-n {
+    display:none;
+}
+
+#facebook-h {
+    display:none;
+}
+
+#twitter-n{
+    display:none;
+}
+
+#twitter-h{
+    display:none;
+}
+
+#instagram-n{
+    display:none;
+}
+
+#instagram-h{
+    display:none;
+}
+
+.redes{
+    cursor: pointer;
+}
+@media only screen and (min-width:780px) {
+    #barra {
+        height:95px;
+        display:flex;
+    }
+    
+    #menu {
+        display:flex;
+        flex-direction:row;
+        justify-content: flex-start;
+        width:100%;
+        float:right;
+        align-items: flex-end;
+        height:95px;
+        transform:translateY(-120px);
+
+    }
+
+    #menu ul {
+        display:flex;
+        flex-direction:row;
+        background-color: transparent;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width:100%;
+        
+    }
+
+    
+    .link {
+       color: #6742E7;
+       padding-right: 45px;
+    }
+    
+    #burga {
+        display:none;
+    }
+    
+    #crear-d {
+        display:block;
+    }
+    .crear {
+        transform: translateY(15px);
+        padding-right:25px;
+    }
+
+    .header {
+        border-top: 5px solid #6742E7;
+    }
+
+    #titulo {
+        width:45%;
+    }
+
+    #ilustracion {
+        width:30%;
+    }
+
+    #busc{
+        width:45%;
+    }
+     
+    #fav-0{
+        width:30%;
+        padding:85px 0 85px;
+    }
+
+    #gif-0{
+        width:30%;
+        padding:85px 0 85px;
+    }
+
+    #boton-izq-d {
+        display:block;
+        margin:5px;
+    }
+
+
+    #boton-der-d {
+        display:block;
+        margin:5px;
+    }
+    
+   
+    #footer{
+        flex-direction:row;
+        justify-content: space-between;
+        align-items: center;
+        padding:20px 0 20px;
+    }
+
+    #compartir-logo {
+        display: flex;
+        flex-direction:row;
+        align-items: center;
+        padding-left:130px;
+        
+    }
+
+    #logos {
+        padding-bottom:25px;
+    }
+
+    #compartir {
+        height:fit-content;
+        padding-right:25px;
+    }
+
+    #footer-f {
+        padding-right:130px;
+    }
+}
