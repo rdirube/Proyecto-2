@@ -11,11 +11,12 @@
 </head>
 <body>
     <header>
-        <nav class="header">
+        <nav id="header">
             <div id="barra">
                 <div id="logo-mobile">
+                    <a class="link 0" id="link-ppal" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index.html">
                     <img src="assets-usados/logo-mobile.svg" class="logo" id="logo-d">
-                    <img src="assets-usados/logo-mobile-modo-noct.svg" id="logo-n">
+                </a>
                 </div>
             <div id="burga">
                 <img src="assets-usados/burger.svg" class="burger" id="burger">
@@ -23,12 +24,12 @@
                 <img src="assets-usados/close.svg" class="close" id="close-d">
                 <img src="assets-usados/Button-close-modo-noc.svg" class="close" id="close-n">
                 <img src="assets-usados/Button-close-hover-modo-noc.svg" class="close" id="close-nh">
-                
+            
             </div>
         <div id="menu">
-            <ul>
-                <li class="fila 1"><a class="link 1" href="#modo"><b>Modo Nocturno</b></a></li>
-                <li class="fila 2"><a class="link 2" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Favoritos</b></a></li>
+            <ul id="menu-int">
+                <li class="fila 1"><a class="link 1" id="modo" href="#modo"><b>Modo Nocturno</b></a></li>
+                <li class="fila 2"><a class="link 2" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index2.html"><b>Favoritos</b></a></li>
                 <li class="fila 3"><a class="link 3" id="link-g" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Mis GIFOS</b></a></li>
                 <img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d">
                 <img src="assets-usados/CTA-crear-gifo-hover.svg" class="crear" id="crear-dh">
@@ -37,12 +38,12 @@
                 <img src="assets-usados/CTA-crear-gifo-hover-modo-noc.svg" class="crear" id="crear-nh">
                 <img src="assets-usados/CTA-crear-gifo-active-modo-noc.svg" class="crear" id="crear-na">
            </ul>
-            </div>
+        </div>
+    </div>
         </nav>
     </header>
-
     <main>
-       <section>
+       <section id="section-fav">
            <div id="favoritos">
               <img src="assets-usados/icon-favoritos.svg" id="fav">
               <h4>Favoritos</h4>
@@ -51,10 +52,15 @@
             <img src="assets-usados/icon-fav-sin-contenido.svg" id="fav-s">
             <h2>"¡Guarda tu primer GIFO en favoritos para que se muestre aquí!"</h2>
            </div>
+           <div id="contFavoritos">
+           </div>
+           <div id="verMasCont">
+            <img id="ver-mas" src="assets-usados/CTA-ver-mas.svg">
+            <img id="ver-mas-h" src="assets-usados/CTA-ver-mas-hover.svg">
+        </div>
        </section>
         </section>
-        <br>
-        <br>
+        
         <section id="GIFOS">
             <div id="trending">
                 <div id="trending-g">
@@ -68,11 +74,68 @@
                 <img src="assets-usados/button-slider-left.svg" class="boton-izq" id="boton-izq-d">
                 <img src="assets-usados/button-slider-left-md-noct.svg" class="boton-izq" id="boton-izq-n">
                 <img src="assets-usados/button-slider-left-hover.svg" class="boton-izq" id="boton-izq-h">
-                <div id="gif-trending"></div>
+                <div id="gif-trending">
+                  <div class="container">
+                      <img class="trending_gifs" id="trending1" src="">
+                      <div class="contenedor-trending">
+                          <div class="violeta">
+                              <div class="botones">
+                                  
+                                  <a class="link-descarga" download="gifo.gif"><img src="assets-usados/icon-download.svg" class="download icono">
+                                  </a>
+                                 <img src="assets-usados/icon-fav.svg" class="favor icono">
+                                 <img src="assets-usados/icon-max-normal.svg" class="max icono">
+                              </div>
+                              <div class="cont-titulo">
+                                  <h4 class="user">User</h4>
+                                 <h3 class="titulo"></h3>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <img class="trending_gifs" id="trending2" src="">
+                      <div class="contenedor-trending">
+                          <div class="violeta">
+                              <div class="botones">
+                                  <a class="link-descarga" download="mygifo.gif"><img src="assets-usados/icon-download.svg" class="download icono">
+                                  </a>
+                                 <img src="assets-usados/icon-fav.svg" class="favor icono">
+                                 <img src="assets-usados/icon-max-normal.svg" class="max icono">
+                             </div>
+                          <div class="cont-titulo">
+                              <h4 class="user">User</h4>
+                             <h3 class="titulo"></h3>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="container">
+                      <img class="trending_gifs" id="trending3" src="">
+                      <div class="contenedor-trending">
+                          
+                          <div class="violeta">
+                           <div class="botones">
+                              <a class="link-descarga" download="gifo.img"><img src="assets-usados/icon-download.svg" class="download icono">
+                              </a>
+                                 <img src="assets-usados/icon-fav.svg" class="favor icono">
+                                 <img src="assets-usados/icon-max-normal.svg" class="max icono">
+                          </div>
+                          <div class="cont-titulo">
+                              <h4 class="user">User</h4>
+                             <h3 class="titulo"></h3>
+                          </div>
+                              
+                      </div>
+                      </div>
+                  </div>
                 <img src="assets-usados/Button-Slider-right.svg" class="boton-der" id="boton-der-d">
                 <img src="assets-usados/button-slider-right-md-noct.svg" class="boton-der" id="boton-der-n">
                 <img src="assets-usados/Button-Slider-right-hover.svg" class="boton-der" id="boton-der-h">
               </div>
+          </div>
         </section>
     </main>
 
@@ -99,7 +162,7 @@
        </div>
      </div>
     </footer>
-    <script src="proyecto2.js"></script>
+    <script src="proyecto2_Fav.js"></script>
     
 </body>
 </html>
