@@ -66,6 +66,7 @@ link[2].style.color="rgb(150,150,150)";
 link[2].style.cursor="default";
 let GifosFavoritos1 = [];
 let TitulosFavoritos1 = [];
+let indexfav = 1
 //hovers y actives
 
 function checkForAddedFavoritos() {
@@ -80,6 +81,23 @@ function checkForAddedFavoritos() {
 
 checkForAddedFavoritos()
 
+
+verMas.addEventListener("mouseover", ()=> {
+    verMas.style.display="none";
+    verMasH.style.display="block";
+    verMasH.style.cursor="pointer";    
+} )
+
+verMasH.addEventListener("mouseout", ()=> {
+    verMas.style.display="block";
+    verMasH.style.display="none";
+} )
+
+botonIzqH.addEventListener("mouseout", ()=> {
+    botonIzqH.style.display="none";
+    botonIzqD.style.display="block";
+    
+} )
 botonIzqD.addEventListener("mouseover", ()=> { 
     botonIzqD.style.display="none";
     botonIzqH.style.display="block";
@@ -243,52 +261,6 @@ else if (modosToggle===true) {
 
 //Trendings
 
-function trendingF() {
-
-    async function buscarTrending() {
-        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=3&offset=0&rating=g&lang=en`;
-        const resp = await fetch(url);
-        const info = await resp.json();
-        return info;
-    }
-  let datos = buscarTrending();
-
-  datos.then(response=> {
-      console.log(response);
-    for(let i=0;i<3;i++) {
-        
-
-
-        
-    let imgid = i + 1
-    imgid = 'trending' + imgid
-    let gifo = document.getElementById(imgid);
-    gifo.setAttribute("src",response.data[i].images.original.url);
-    titulo[i].innerHTML=response.data[i].title;
-    download[i].addEventListener("click", ()=>{
-        let href = createBlob(response.data[i].images.original.url);
-        href.then(url => {
-
-            linkDescarga[i].setAttribute("href", url);
-        })
-        linkDescarga[i].setAttribute("download", "mygifo");
-
-        console.log(response.data[i].images.original.url);
-    })
-    favor[i].addEventListener("click", ()=> {
-          GifosFavoritos.push(response.data[i].images.original.url);
-          TitulosFavoritos.push(response.data[i].title);
-          console.log(GifosFavoritos);
-          localStorage.setItem("arrayFavoritos", JSON.stringify(GifosFavoritos));
-          localStorage.setItem("arrayTitulos", JSON.stringify(TitulosFavoritos));
-    })
-    max[i].addEventListener("click", ()=> {
-        agrandar(response.data[i].images.original.url, response.data[i].title);
-    })
-    
-    }
-   } ).catch(e=> console.log(e))
-}
 
 
 checkForAddedTitulos()
@@ -305,7 +277,9 @@ function checkForAddedTitulos() {
 
 let getFavoritos = JSON.parse(localStorage.getItem("arrayFavoritos"));
 let getTitulos = JSON.parse(localStorage.getItem("arrayTitulos"));
+let favoritosMas = getFavoritos.splice(12*indexfav, getFavoritos.length);
 
+console.log(favoritosMas);
 //Flechas
 
 function flecha(signo) {
@@ -334,11 +308,14 @@ function flecha(signo) {
         gifo.setAttribute("src", response.data[i].images.original.url);
         titulo[gif_id-1].innerHTML=response.data[i].title;
         
-        download[gif_id-1].addEventListener("click", ()=>{
-            const blob1 = new Blob([response.data[i].images.original.url]);
-            linkDescarga[gif_id-1].setAttribute("href", blob1);
-            linkDescarga[gif_id-1].href= URL.createObjectURL(blob1);
+        download[gif_id-1].addEventListener("click", ()=> {
+            let href = createBlob(response.data[i].images.original.url);
+           href.then(url => {
+            linkDescarga1[gif_id-1].setAttribute("href", url);
+        })
+        linkDescarga1[gif_id-1].setAttribute("download", "mygifo");
         });
+
         favor[gif_id-1].addEventListener("click", ()=> {
             GifosFavoritos1.push(response.data[i].images.original.url);
             TitulosFavoritos1.push(response.data[i].title);
@@ -393,7 +370,7 @@ favor[i].addEventListener("mouseover", ()=> {
 
 
 
-console.log(getFavoritos);
+console.log(getFavoritos[1]);
 
 
 function GrillaFavoritos () {
@@ -456,11 +433,8 @@ function FavoritosComp() {
        user1.innerHTML="User";
        user1.setAttribute("class", "user");
        contTitulo.appendChild(user1);
-       let titulo1 = document.createElement("h3");
-       titulo1.setAttribute("class", "titulo");
-       contTitulo.appendChild(titulo1);
-       titulo1.innerHTML= titulo;
-       contTitulo.style.padding="0px 0px 25px 10px";
+       
+
           download1.addEventListener("mouseover", ()=> {
               download1.removeAttribute("src");
               download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
@@ -502,14 +476,13 @@ function FavoritosComp() {
         
       })
       favor1.addEventListener("click", ()=> {
-         localStorage.removeItem("arrayFavoritos", element) })
+         localStorage.removeItem("arrayFavoritos", element)})
 
 
       max1.addEventListener("click", ()=> {
         agrandar(element, titulo1);
       })
        } )}         
-
 
 
 
@@ -523,6 +496,72 @@ function FavoritosComp() {
             console.log("ERROR: ", error);
         }
     }    
+
+
+    function VerMasIni() {
+    if(getFavoritos.length>11*indexfav) {
+        verMasCont.style.display="flex";
+        verMasCont.style.justifyContent= "center";
+        verMasCont.style.alignItems= "center";
+        verMasCont.style.margin="auto";
+        verMasCont.style.padding= "50px";
+    } else {
+        verMasCont.style.display="none";
+    }
+
+
+}
+
+
+function trendingF() {
+
+    async function buscarTrending() {
+        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=3&offset=0&rating=g&lang=en`;
+        const resp = await fetch(url);
+        const info = await resp.json();
+        return info;
+    }
+  let datos = buscarTrending();
+
+  datos.then(response=> {
+      console.log(response);
+    for(let i=0;i<3;i++) {
+    let imgid = i + 1
+    imgid = 'trending' + imgid
+    let gifo = document.getElementById(imgid);
+    gifo.setAttribute("src",response.data[i].images.original.url);
+    titulo[i].innerHTML=response.data[i].title;
+    download[i].addEventListener("click", ()=>{
+        let href = createBlob(response.data[i].images.original.url);
+        href.then(url => {
+
+            linkDescarga[i].setAttribute("href", url);
+        })
+        linkDescarga[i].setAttribute("download", "mygifo");
+
+        console.log(response.data[i].images.original.url);
+    })
+    favor[i].addEventListener("click", ()=> {
+          GifosFavoritos1.push(response.data[i].images.original.url);
+          TitulosFavoritos1.push(response.data[i].title);
+          localStorage.setItem("arrayFavoritos", JSON.stringify(GifosFavoritos1));
+          localStorage.setItem("arrayTitulos", JSON.stringify(TitulosFavoritos1));
+    })
+    max[i].addEventListener("click", ()=> {
+        agrandar(response.data[i].images.original.url, response.data[i].title);
+    })
+    
+    }
+   } ).catch(e=> console.log(e))
+}
+
+
+function VerMasBoton (){
+
+}
+
+
+VerMasIni();
 
  
        function agrandar(gif, titulo) {
@@ -626,13 +665,14 @@ function FavoritosComp() {
         favmax.style.height="45px";
         botonesmax.appendChild(favmax);
         let donwloadlinkmax = document.createElement("a");
+        downloadlinkmax.setAttribute("download", "mygifo");
+        botonesmax.appendChild(downloadlinkmax);
         let downloadmax = document.createElement("img");
         donwloadlinkmax.appendChild(downloadmax);
         downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
         downloadmax.style.width="45px";
         downloadmax.style.height="45px";
         downloadmax.style.margin="0 10px 0 20px";
-        botonesmax.appendChild(downloadmax);
         downloadmax.addEventListener("mouseover", ()=> {
             downloadmax.removeAttribute("src");
             downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
@@ -656,12 +696,17 @@ function FavoritosComp() {
           href.then(url => {
     
          downloadlinkmax.setAttribute("href", url);
+         downloadlinkmax.setAttribute("download", "mygifo");
         })
-        downloadlinkmax.setAttribute("download", "mygifo");
+        
     }
+
+  
         )}
     
 
+
+        console.log()
 
 function paginaFavoritos()
  {
@@ -674,7 +719,7 @@ if (getFavoritos.innerHTML="") {
     FavoritosComp();
 }}
 
-
+console.log(getFavoritos.length);
 paginaFavoritos()
 
 
