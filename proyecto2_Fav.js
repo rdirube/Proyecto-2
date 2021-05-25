@@ -59,24 +59,23 @@ const p = document.getElementsByTagName("p");
 const h2 = document.getElementsByTagName("h2");
 const h4 = document.getElementsByTagName("h4");
 const link = document.getElementsByTagName("a");
-const sectionFav = document.getElementById("section-fav");
+const GifosCont = document.getElementById("section-fav");
 let modosToggle = false;
 let position = 1;
 link[2].style.color="rgb(150,150,150)";
 link[2].style.cursor="default";
-let GifosFavoritos1 = [];
-let TitulosFavoritos1 = [];
+let dataFavoritos1 = [];
 let indexfav = 1
 //hovers y actives
 
 function checkForAddedFavoritos() {
     console.log("chequeo added Mis GIFOS");
-    if (localStorage.getItem("arrayFavoritos")) {
-        GifosFavoritos1 = JSON.parse(localStorage.getItem("arrayFavoritos"));
-    } else if (localStorage.getItem("arrayFavoritos") == null) {
-        GifosFavoritos1 = [];
+    if (localStorage.getItem("dataFavoritos")) {
+        dataFavoritos1 = JSON.parse(localStorage.getItem("dataFavoritos"));
+    } else if (localStorage.getItem("dataFavoritos") == null) {
+        dataFavoritos1 = [];
     }
-    return GifosFavoritos1;
+    return dataFavoritos1;
 }
 
 checkForAddedFavoritos()
@@ -188,8 +187,8 @@ modo.addEventListener("click", ()=> {
     logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
     trending.style.backgroundColor="#222326";
     favoritos.style.backgroundColor="#37383C";
-    contenedorFav0.removeAttribute("id");
-    contenedorFav0.setAttribute("id", "fav-0-noct");
+    imgFav0.removeAttribute("id");
+    imgFav0.setAttribute("id", "fav-0-noct");
     sectionFav.style.backgroundColor="#37383C";
     footer.removeAttribute("id");
     footer.setAttribute("id", "footerNoct");
@@ -261,25 +260,10 @@ else if (modosToggle===true) {
 
 //Trendings
 
+let getData = JSON.parse(localStorage.getItem("dataFavoritos"));
+console.log(getData);
 
 
-checkForAddedTitulos()
-
-function checkForAddedTitulos() {
-    console.log("chequeo added Mis GIFOS");
-    if (localStorage.getItem("arrayTitulos")) {
-        TitulosFavoritos1 = JSON.parse(localStorage.getItem("arrayTitulos"));
-    } else if (TitulosFavoritos1.getItem("arrayTitulos") == null) {
-        TitulosFavoritos1 = [];
-    }
-    return TitulosFavoritos1;}
-
-
-let getFavoritos = JSON.parse(localStorage.getItem("arrayFavoritos"));
-let getTitulos = JSON.parse(localStorage.getItem("arrayTitulos"));
-let favoritosMas = getFavoritos.splice(12*indexfav, getFavoritos.length);
-
-console.log(favoritosMas);
 //Flechas
 
 function flecha(signo) {
@@ -317,10 +301,14 @@ function flecha(signo) {
         });
 
         favor[gif_id-1].addEventListener("click", ()=> {
-            GifosFavoritos1.push(response.data[i].images.original.url);
-            TitulosFavoritos1.push(response.data[i].title);
-            console.log(GifosFavoritos1);})
-
+            dataFavoritos1.push(response.data[i]);
+            console.log(dataFavoritos1);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
+        })
+            
+            max[gif_id-1].addEventListener("click", ()=> {
+                agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i] );
+            })
             console.log(position);
             gif_id += 1;
     }}).catch(e=>console.log(e))
@@ -364,13 +352,10 @@ favor[i].addEventListener("mouseover", ()=> {
       favor[i].addEventListener("mousedown", ()=>{
       favor[i].removeAttribute("src");
       favor[i].setAttribute("src", "assets-usados/icon-fav-active.svg");})
-      
-    
 }
 
 
 
-console.log(getFavoritos[1]);
 
 
 function GrillaFavoritos () {
@@ -387,16 +372,15 @@ function GrillaFavoritos () {
 
 
 function FavoritosComp() {
-       getFavoritos.forEach(element => {
+       getData.forEach(element => {
        favoritos.style.width="100%";
        let gifofav = document.createElement("img");
-       gifofav.setAttribute("src", element);
+       gifofav.setAttribute("src", element.images.original.url);
        gifofav.style.width="100%";
        gifofav.style.height="100%";
        let container1 = document.createElement("div");
        contFavoritos.appendChild(container1);
        contenedorFav0.style.display="none";
-       console.log(element);
        container1.setAttribute("class", "container1");
        let contenedorBusqueda = document.createElement("div");
        container1.appendChild(gifofav);
@@ -412,7 +396,7 @@ function FavoritosComp() {
        let favor1 = document.createElement("img");
        let max1 = document.createElement("img");
        download1.setAttribute("src", "assets-usados/icon-download.svg");
-       favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+       favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");
        max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
        download1.setAttribute("class", "icono");
        favor1.setAttribute("class", "icono");
@@ -424,17 +408,22 @@ function FavoritosComp() {
        botones1.appendChild(favor1);
        botones1.appendChild(max1);
        botones1.style.padding="10px 10px";
-       let contTitulo = document.createElement("div");
-       contTitulo.setAttribute("class", "cont-titulo");
-       violeta1.appendChild(contTitulo);
-       violeta1.style.width="100%";
-       violeta1.style.height="100%";
-       let user1 = document.createElement("h4");
-       user1.innerHTML="User";
-       user1.setAttribute("class", "user");
-       contTitulo.appendChild(user1);
        
-
+        violeta1.style.width="100%";
+        violeta1.style.height="100%";
+        let contTitulo = document.createElement("div");
+        contTitulo.setAttribute("class", "cont-titulo");
+        violeta1.appendChild(contTitulo);
+        let user1 = document.createElement("h4");
+        violeta1.appendChild(contTitulo);
+        user1.innerHTML="User";
+        user1.setAttribute("class", "user");
+        contTitulo.appendChild(user1);
+        let titulo1 = document.createElement("h3");
+        titulo1.setAttribute("class", "titulo");
+        contTitulo.appendChild(titulo1);
+        titulo1.innerHTML=element.title;
+        contTitulo.style.padding="0px 0px 25px 10px";
           download1.addEventListener("mouseover", ()=> {
               download1.removeAttribute("src");
               download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
@@ -451,7 +440,7 @@ function FavoritosComp() {
           })
           favor1.addEventListener("mouseout", ()=> {
               favor1.removeAttribute("src");
-              favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+              favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");
           })
           max1.addEventListener("mouseover", ()=> {
               max1.removeAttribute("src");
@@ -466,24 +455,43 @@ function FavoritosComp() {
               favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})
           
       linkDescarga1.addEventListener("click", ()=>{
-        let href = createBlob(element);
+        let href = createBlob(element.images.original.url);
         href.then(url => {
 
             linkDescarga1.setAttribute("href", url);
         })
-        linkDescarga1.setAttribute("download", "mygifo");
-
-        
+        linkDescarga1.setAttribute("download", "mygifo");       
       })
-      favor1.addEventListener("click", ()=> {
-         localStorage.removeItem("arrayFavoritos", element)})
 
 
       max1.addEventListener("click", ()=> {
-        agrandar(element, titulo1);
+        agrandar(element.images.original.url, element.title, element);
       })
-       } )}         
+       } )
+    
+       function VerMasIni() {
+        if(getData.length>11*indexfav) {
+            verMasCont.style.display="flex";
+            verMasCont.style.justifyContent= "center";
+            verMasCont.style.alignItems= "center";
+            verMasCont.style.margin="auto";
+            verMasCont.style.padding= "50px";
+        } else {
+            verMasCont.style.display="none";
+        }}
+    
+    botonIzqD.addEventListener("mouseover", ()=> { 
+        botonIzqD.style.display="none";
+        botonIzqH.style.display="block";
+        
+      }
+    )
+    
+    VerMasIni()
+       
 
+
+    
 
 
 
@@ -499,7 +507,7 @@ function FavoritosComp() {
 
 
     function VerMasIni() {
-    if(getFavoritos.length>11*indexfav) {
+    if(getData.length>11*indexfav) {
         verMasCont.style.display="flex";
         verMasCont.style.justifyContent= "center";
         verMasCont.style.alignItems= "center";
@@ -542,13 +550,12 @@ function trendingF() {
         console.log(response.data[i].images.original.url);
     })
     favor[i].addEventListener("click", ()=> {
-          GifosFavoritos1.push(response.data[i].images.original.url);
-          TitulosFavoritos1.push(response.data[i].title);
-          localStorage.setItem("arrayFavoritos", JSON.stringify(GifosFavoritos1));
-          localStorage.setItem("arrayTitulos", JSON.stringify(TitulosFavoritos1));
+          dataFavoritos1.push(response.data[i]);
+          localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
+          
     })
     max[i].addEventListener("click", ()=> {
-        agrandar(response.data[i].images.original.url, response.data[i].title);
+        agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
     })
     
     }
@@ -564,23 +571,24 @@ function VerMasBoton (){
 VerMasIni();
 
  
-       function agrandar(gif, titulo) {
+       function agrandar(gif, titulo, fav) {
         let contenedorImgBig = document.createElement("div");
         body.appendChild(contenedorImgBig);
         contenedorImgBig.style.width="100%";
-        contenedorImgBig.style.height="100vh";
+        contenedorImgBig.style.height="600px";
         contenedorImgBig.style.backgroundColor="white";
         contenedorImgBig.style.display="flex";
         contenedorImgBig.style.flexDirection="column";
         contenedorImgBig.style.zIndex="1000";
         contenedorImgBig.style.top="0";
         contenedorImgBig.style.bottom="0";
+        contenedorFav0.style.margin="auto";
         contenedorImgBig.style.alignItems="flex-end";
         contenedorImgBig.style.justifyContent="center";
-        contenedorImgBig.style.position="sticky";
+        contenedorImgBig.style.position="fixed";
         contenedorImgBig.style.transform="translateY(-10px)";
-        contenedorImgBig.style.marginTop="30px";
-        contenedorImgBig.style.paddingBottom="80px";
+        contenedorImgBig.style.paddingTop="70px";
+        contenedorImgBig.style.paddingBottom="190px";
         let closeD1 = document.createElement("img");
         closeD1.setAttribute("src", "assets-usados/close.svg");
         closeD1.style.width="20px";
@@ -637,6 +645,7 @@ VerMasIni();
         titulo_botones.style.height="15%";
         titulo_botones.style.display="flex";
         titulo_botones.style.flexDirection="row";
+        titulo_botones.style.justifyContent="space-between";
         contcompleto.appendChild(titulo_botones);
         let titulosmax = document.createElement("div");
         titulosmax.style.width="50%";
@@ -653,10 +662,11 @@ VerMasIni();
         titulosmax.style.display="flex";
         titulosmax.style.flexDirection="column";
         titulosmax.style.alignItems="flex-start";
+        titulosmax.style.justifyContent="center";
         let botonesmax = document.createElement("div");
         botonesmax.style.width="50%";
         botonesmax.style.display="flex";
-        botonesmax.style.alignItems="center";
+        botonesmax.style.alignItems="flex-end";
         botonesmax.style.justifyContent="flex-end";
         titulo_botones.appendChild(botonesmax);
         let favmax = document.createElement("img");
@@ -664,11 +674,10 @@ VerMasIni();
         favmax.style.width="45px";
         favmax.style.height="45px";
         botonesmax.appendChild(favmax);
-        let donwloadlinkmax = document.createElement("a");
-        downloadlinkmax.setAttribute("download", "mygifo");
-        botonesmax.appendChild(downloadlinkmax);
+        let downloadlink = document.createElement("a");
         let downloadmax = document.createElement("img");
-        donwloadlinkmax.appendChild(downloadmax);
+        downloadlink.appendChild(downloadmax)
+        botonesmax.appendChild(downloadlink);
         downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
         downloadmax.style.width="45px";
         downloadmax.style.height="45px";
@@ -694,23 +703,26 @@ VerMasIni();
         downloadmax.addEventListener("click", ()=> {
             let href = createBlob(gif);
           href.then(url => {
-    
-         downloadlinkmax.setAttribute("href", url);
-         downloadlinkmax.setAttribute("download", "mygifo");
+         downloadlink.setAttribute("href", url);
+         downloadlink.setAttribute("download", "mygifo");
         })
-        
+        favmax.addEventListener("click", ()=> {
+            dataFavoritos1.push(fav);
+            console.log(dataFavoritos1);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
+          })
+    })
     }
 
-  
-        )}
-    
 
 
         console.log()
 
+
+
 function paginaFavoritos()
  {
-if (getFavoritos.innerHTML="") {
+if (getData.innerHTML="") {
     contenedorFav0.style.display="block";
     contFavoritos.style.display="none";
 } else {
@@ -719,11 +731,11 @@ if (getFavoritos.innerHTML="") {
     FavoritosComp();
 }}
 
-console.log(getFavoritos.length);
+trendingF()
 paginaFavoritos()
 
 
-trendingF()
+
 
 
 botonDerH.addEventListener("click", () => {
@@ -735,30 +747,4 @@ botonIzqH.addEventListener("click", () => {
     flecha('-');
 });
 
-
-function windowB () {
-    if (window.matchMedia("(min-width: 780px)").matches) {
-      menu.style.display="block";
-      crearD.style.display="block";
-    } else {
-      menu.style.display="none";
-      burger.addEventListener("click", ()=> {
-        menu.style.display="block";
-        closeD.style.display="block";
-        burger.style.display="none";
-    })
-    
-    closeD.addEventListener("click", ()=> {
-        menu.style.display="none";
-        closeD.style.display="none";
-        burger.style.display="block";
-    })
-    crearD.style.display="none";
-    }
-    }
-
-
-
-window.addEventListener("resize", ()=> {
-    windowB();
-})
+}

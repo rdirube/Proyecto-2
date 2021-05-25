@@ -95,24 +95,8 @@ p {
     align-items:center;
     position:absolute;
     top:75px;
-    background-color: #6742E7;
     width:100%;
     z-index: 50;
-}
-
-#menuNoct {
-    display:none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    align-items:center;
-    position:absolute;
-    top:75px;
-    background-color: #222326;
-    width:100%;
-    z-index: 50;
-}
-
 }
 
 #modoN {
@@ -127,7 +111,6 @@ p {
     align-items:center;
     list-style: none;
     opacity: 0.9;
-    background-color: #6742E7;
     width:100%;
     height:155vh;
 }
@@ -230,6 +213,10 @@ span {
     background-color:#37383C ;
 }
 
+#busc{
+    width:95%;
+}
+ 
 #gif-0{
     display:flex;
     flex-direction: column;
@@ -332,6 +319,9 @@ span {
     cursor:pointer;
 }
 
+#palabra-buscada {
+    display:none;
+}
 
 #busc {
     display:flex;
@@ -721,23 +711,8 @@ height:100%;
         position:relative;
         height:85px;
         top:0;
-        background-color: white;
         padding-top:5px;
 
-    }
-
-    #menuNoct {
-        display:flex;
-        flex-direction:row;
-        justify-content: flex-start;
-        width:90%;
-        float:right;
-        align-items: flex-end;
-        position:relative;
-        height:85px;
-        top:0;
-        background-color: #37383C;
-        padding-top:5px;
     }
 
     #menu ul {
@@ -746,6 +721,7 @@ height:100%;
         background-color: transparent;
         justify-content: flex-end;
         align-items: flex-start;
+
         width:100%;
         height: 85px;
         padding-top:5px;
@@ -788,12 +764,12 @@ height:100%;
      
     #fav-0{
         width:30%;
-        padding:85px 0 85px;
+        padding:20px 0 65px;
     }
 
     #fav-0-noct{
         width:30%;
-        padding:85px 0 85px;
+        padding:25px 0 0 0;
         background-color: #37383C;
     }
 

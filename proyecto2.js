@@ -83,8 +83,7 @@ const linkDescarga = document.getElementsByClassName("link-descarga");
 const GIFOSMEGA = document.getElementById("GIFOS");
 const tituloBusqueda = document.getElementById("palabra-buscada");
 let modosToggle = false;
-var GifosFavoritos = [];
-var TitulosFavoritos= [];
+var dataFavoritos=[];
 let name = "fel";
 let limit = 13;
 var count_2 = 3;
@@ -94,15 +93,6 @@ var position1 =
 //hovers y actives
 
 
-
-
-
-botonIzqD.addEventListener("mouseover", ()=> { 
-    botonIzqD.style.display="none";
-    botonIzqH.style.display="block";
-    
-  }
-)
 
 
 botonIzqH.addEventListener("mouseover", ()=> {
@@ -260,24 +250,25 @@ function autocompletar() {
 
 
 //Función para agrandar imagen
-function agrandar(gif, titulo) {
+function agrandar(gif, titulo,fav) {
     let contenedorImgBig = document.createElement("div");
     body.appendChild(contenedorImgBig);
     contenedorImgBig.style.width="100%";
-    contenedorImgBig.style.height="100vh";
+    contenedorImgBig.style.height="700px";
     contenedorImgBig.style.backgroundColor="white";
     contenedorImgBig.style.display="flex";
     contenedorImgBig.style.flexDirection="column";
     contenedorImgBig.style.zIndex="1000";
-    contenedorImgBig.style.position="sticky";
+    contenedorImgBig.style.position="fixed";
     contenedorImgBig.style.top="0";
     contenedorImgBig.style.bottom="0";
     contenedorImgBig.style.alignItems="flex-end";
     contenedorImgBig.style.justifyContent="center";
     contenedorImgBig.style.transform="translateY(-10px)";
-    contenedorImgBig.style.marginTop="30px";
-    contenedorImgBig.style.paddingBottom="80px";
+    contenedorImgBig.style.paddingTop="70px";
+    contenedorImgBig.style.paddingBottom="150px";
     let closeD1 = document.createElement("img");
+    contenedorImgBig.style.overflow= "auto";
     closeD1.setAttribute("src", "assets-usados/close.svg");
     closeD1.style.width="20px";
     closeD1.style.height="20px";
@@ -329,10 +320,11 @@ function agrandar(gif, titulo) {
     gifomaxi.style.height="100%";
     contenedorgifmax.appendChild(gifomaxi);
     let titulo_botones = document.createElement("div");
-    titulo_botones.style.width="48%";
-    titulo_botones.style.height="15%";
+    titulo_botones.style.width="700px";
+    titulo_botones.style.height="200px";
     titulo_botones.style.display="flex";
     titulo_botones.style.flexDirection="row";
+    titulo_botones.style.justifyContent="space-between";
     contcompleto.appendChild(titulo_botones);
     let titulosmax = document.createElement("div");
     titulosmax.style.width="50%";
@@ -361,8 +353,10 @@ function agrandar(gif, titulo) {
     favmax.style.width="45px";
     favmax.style.height="45px";
     botonesmax.appendChild(favmax);
+    let downloadlink = document.createElement("a");
     let downloadmax = document.createElement("img");
-    botonesmax.appendChild(downloadmax);
+    downloadlink.appendChild(downloadmax)
+    botonesmax.appendChild(downloadlink);
     downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
     downloadmax.style.width="45px";
     downloadmax.style.height="45px";
@@ -386,6 +380,20 @@ function agrandar(gif, titulo) {
         favmax.removeAttribute("src");
         favmax.setAttribute("src", "assets-usados/icon-fav.svg");
     })
+    
+    downloadmax.addEventListener("click", ()=> {
+        let href = createBlob(gif);
+      href.then(url => {
+
+     downloadlink.setAttribute("href", url);
+     downloadlink.setAttribute("download", "mygifo");
+    })
+    favmax.addEventListener("click", ()=> {
+        dataFavoritos.push(fav);
+        localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+        console.log(dataFavoritos);
+      })
+})
    
     }
 
@@ -427,16 +435,11 @@ function trendingF() {
   let datos = buscarTrending();
 
   datos.then(response=> {
-      console.log(response);
     for(let i=0;i<3;i++) {
-        
-
-
-        
     let imgid = i + 1
     imgid = 'trending' + imgid
     let gifo = document.getElementById(imgid);
-    gifo.setAttribute("src",response.data[i].images.original.url);
+    gifo.setAttribute("src", response.data[i].images.original.url);
     titulo[i].innerHTML=response.data[i].title;
     download[i].addEventListener("click", ()=>{
         let href = createBlob(response.data[i].images.original.url);
@@ -449,14 +452,12 @@ function trendingF() {
         console.log(response.data[i].images.original.url);
     })
     favor[i].addEventListener("click", ()=> {
-          GifosFavoritos.push(response.data[i].images.original.url);
-          TitulosFavoritos.push(response.data[i].title);
-          console.log(GifosFavoritos);
-          localStorage.setItem("arrayFavoritos", JSON.stringify(GifosFavoritos));
-          localStorage.setItem("arrayTitulos", JSON.stringify(TitulosFavoritos));
+          dataFavoritos.push(response.data[i]);
+          console.log(dataFavoritos);
+          localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
     })
     max[i].addEventListener("click", ()=> {
-        agrandar(response.data[i].images.original.url, response.data[i].title);
+        agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
     })
     
     }
@@ -534,10 +535,13 @@ async function createBlob(url) {
 
 
         favor[gif_id-1].addEventListener("click", ()=> {
-            GifosFavoritos.push(response.data[i].images.original.url);
-            TitulosFavoritos.push(response.data[i].title);
-            console.log(GifosFavoritos);})
-
+            dataFavoritos.push(response.data[i]);
+            console.log(dataFavoritos);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+        })
+         max[gif_id-1].addEventListener("click", ()=> {
+             agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+         })
             console.log(position);
             gif_id += 1;
     }}).catch(e=>console.log(e))
@@ -648,11 +652,9 @@ function searchF() {
 
 
         favor1.addEventListener("click", ()=> {
-                GifosFavoritos.push(response.data[i].images.original.url);
-                TitulosFavoritos.push(response.data[i].title);
-                console.log(GifosFavoritos);
-                localStorage.setItem("arrayFavoritos", JSON.stringify(GifosFavoritos));
-                localStorage.setItem("arrayTitulos", JSON.stringify(TitulosFavoritos));
+            dataFavoritos.push(response.data[i]);
+            console.log(dataFavoritos);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
           })
 
               max1.addEventListener("click", ()=> {
@@ -760,11 +762,9 @@ function searchF() {
         linkDescarga1.setAttribute("download", "mygifo");
             })
         favor1.addEventListener("click", ()=> {
-            GifosFavoritos.push(response.data[i].images.original.url);
-            TitulosFavoritos.push(response.data[i].title);
-            console.log(GifosFavoritos);
-            localStorage.setItem("arrayFavoritos", JSON.stringify(GifosFavoritos));
-            localStorage.setItem("arrayTitulos", JSON.stringify(TitulosFavoritos));
+            dataFavoritos.push(response.data[i]);
+          console.log(dataFavoritos);
+          localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
       })
         max1.addEventListener("click", ()=> {
             agrandar(response.data[i].images.original.url, response.data[i].title);
@@ -802,15 +802,20 @@ function windowB () {
       closeD.style.display="none";
       burger.style.display="block";
        menu.style.display="none";
+       buscCont.style.width="80%";
       burger.addEventListener("click", ()=> {
         menu.style.display="block";
         closeD.style.display="block";
         burger.style.display="none";
+        menu.style.backgroundColor="#6742E7";
+        menuint.style.backgroundColor="#6742E7";
       })
         closeD.addEventListener("click", ()=> {
             menu.style.display="none";
             closeD.style.display="none";
             burger.style.display="block";
+            menu.style.backgroundColor="white";
+            menuInt.style.backgroundColor="white";
         })
         
         }
@@ -899,27 +904,18 @@ verMasH.addEventListener("click", ()=> {
 
 
 checkForAddedFavoritos()
-checkForAddedTitulos()
+
 
 function checkForAddedFavoritos() {
     console.log("chequeo added Mis GIFOS");
-    if (localStorage.getItem("arrayFavoritos")) {
-        GifosFavoritos = JSON.parse(localStorage.getItem("arrayFavoritos"));
-    } else if (GifosFavoritos.getItem("arrayFavoritos") == null) {
-        GifosFavoritos = [];
+    if (localStorage.getItem("dataFavoritos")) {
+      let  dataFavoritos = JSON.parse(localStorage.getItem("dataFavoritos"));
+    } else if (dataFavoritos.getItem("dataFavoritos") == null) {
+       let dataFavoritos = [];
     }
-    return GifosFavoritos;
+    return dataFavoritos;
 }
 
-function checkForAddedTitulos() {
-    console.log("chequeo added Mis GIFOS");
-    if (localStorage.getItem("arrayTitulos")) {
-        TitulosFavoritos = JSON.parse(localStorage.getItem("arrayTitulos"));
-    } else if (TitulosFavoritos.getItem("arrayTitulos") == null) {
-        TitulosFavoritos = [];
-    }
-    return TitulosFavoritos;
-}
 
 
 
@@ -964,6 +960,10 @@ modo.addEventListener("click", ()=> {
     botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
     botonIzqD.removeAttribute("src");
     botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");
+    botonDerD.addEventListener("mouseover", ()=> {
+        botonDerD.removeAttribute("src");
+        botonDerD.setAttribute("src", "assets-usados/burger-modo-noct.svg")
+    })
     verMas.removeAttribute("src");
     verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
     closeD.removeAttribute("src");
@@ -976,19 +976,14 @@ modo.addEventListener("click", ()=> {
         verMas.removeAttribute("src");
         verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg"); 
     }); 
-    if (window.matchMedia("(max-width: 780px)").matches) {
-         menu.style.backgroundColor="#222326";
-         menuInt.style.backgroundColor="#222326";
-         burger.addEventListener("click", ()=> {
-            menu.style.display="block";
-            closeD.style.display="block";
-            burger.style.display="none";
-
-         })
-    } else {
-        menu.style.backgroundColor="#37383C";
-        menuInt.style.backgroundColor="#37383C";
-    }
+    window.addEventListener("resize", ()=> {if (window.matchMedia("(max-width: 780px)").matches) {
+        menu.style.backgroundColor="#222326";
+        menuInt.style.backgroundColor="#222326";
+   } else {
+       menu.style.backgroundColor="#37383C";
+       menuInt.style.backgroundColor="#37383C";
+   }})
+    
     
     modosToggle=true;   
 } 
@@ -1022,25 +1017,6 @@ else if (modosToggle===true) {
         link[i].style.color="#6742E7";
     }
     
-    if (window.matchMedia("(max-width: 780px)").matches) {
-        for(let i= 0; i<4 ; i++) {
-            link[i].style.color="white";
-        }
-        menu.style.backgroundColor="#6742E7";
-        menuInt.style.backgroundColor="#6742E7";
-        burger.addEventListener("click", ()=> {
-            menu.style.display="block";
-            closeD.style.display="block";
-            burger.style.display="none";
-         })}
-        else {
-            menu.style.backgroundColor="white";
-            menuInt.style.backgroundColor="white";
-            for(let i= 0; i<4 ; i++) {
-                link[i].style.color="#6742E7";
-            }
-        
-    }
     closeD.removeAttribute("src");
     closeD.setAttribute("src", "assets-usados/close.svg");
     buscCont.style.borderColor="#6742E7";
@@ -1061,11 +1037,16 @@ else if (modosToggle===true) {
     botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
     verMas.removeAttribute("src");
     verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
-   
+    window.addEventListener("resize", ()=> {if (window.matchMedia("(max-width: 780px)").matches) {
+        menu.style.backgroundColor="#6742E7";
+        menuInt.style.backgroundColor="#6742E7";
+   } else {
+       menu.style.backgroundColor="white";
+       menuInt.style.backgroundColor="white";
+   }})
     modosToggle=false
     
 }})
 
 
 
-console.log(GifosFavoritos);
