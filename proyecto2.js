@@ -17,11 +17,6 @@
  const linkF = document.getElementById("link-f");
  const linkG = document.getElementById("link-g");
  const crearD = document.getElementById("crear-d");
- const crearDH = document.getElementById("crear-dh");
- const crearDA = document.getElementById("crear-da")
- const crearN = document.getElementById("crear-n");
- const crearNH = document.getElementById("crear-nh");
- const crearNA = document.getElementById("crear-na");
 const buscador = document.getElementById("buscador");
 const busc = document.getElementById("busc");
 const buscCont = document.getElementById("busc-cont");
@@ -61,6 +56,7 @@ const gifosEncontrados= document.getElementById("gifos-encontrados");
 const categorias = document.getElementById("categorias");
 const trendingsN = document.getElementById("trendings-n");
  const verMasCont = document.getElementById("verMasCont");
+ const divFantasma = document.getElementsByClassName("div-fantasma");
  const verMas = document.getElementById("ver-mas");
  const botones = document.getElementsByClassName("botones");
  const verMasH = document.getElementById("ver-mas-h");
@@ -81,27 +77,34 @@ const body = document.getElementById("body");
 const icono1 = document.getElementsByClassName("icono");
 const linkDescarga = document.getElementsByClassName("link-descarga");
 const GIFOSMEGA = document.getElementById("GIFOS");
+const contPalabra = document.getElementById("contPalabra");
 const tituloBusqueda = document.getElementById("palabra-buscada");
+const contenedorMatch = document.getElementById("contenedor-match");
+let lupitaRes = document.getElementsByClassName("lupitaRes");
+let divResultado = document.getElementsByClassName("divResultado");
+const lupitaPrincipal = document.getElementById("lupitaPrincipal");
+const buscCont2 = document.getElementById("busc-cont2");
 let modosToggle = false;
 var dataFavoritos=[];
-let name = "fel";
 let limit = 13;
 var count_2 = 3;
 var position = 1;
 var imgData = {};
-var position1 = 
+let gifosSearchF = [];
 //hovers y actives
 
 
 
 
-botonIzqH.addEventListener("mouseover", ()=> {
-botonIzqH.style.cursor= "pointer";})
+botonIzqD.addEventListener("mouseover", ()=> {
+botonIzqD.removeAttribute("src");
+botonIzqD.setAttribute("src", "assets-usados/button-slider-left-hover.svg");
+botonIzqD.style.cursor= "pointer";})
 
 
-botonIzqH.addEventListener("mouseout", ()=> {
-    botonIzqH.style.display="none";
-    botonIzqD.style.display="block";
+botonIzqD.addEventListener("mouseout", ()=> {
+    botonIzqD.removeAttribute("src");
+    botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
     
 } )
 
@@ -126,27 +129,23 @@ botonDerH.addEventListener("mouseout", ()=> {
 
 
 crearD.addEventListener("mouseover", ()=> {
-    crearD.style.display="none";
-    crearDH.style.display="block";
-    crearDH.style.cursor="pointer";
+    crearD.src="/assets-usados/CTA-crear-gifo-hover.svg";
 })
 
-crearDH.addEventListener("mouseout", ()=> {
-    crearD.style.display="block";
-    crearDH.style.display="none";
+crearD.addEventListener("mouseout", ()=> {
+    crearD.src="/assets-usados/button-crear-gifo.svg";
 })
 
-crearDA.addEventListener("mouseup", ()=> {
-    crearD.style.display="block";
-    crearDA.style.display="none";
+crearD.addEventListener("mouseenter", ()=> {
+    crearD.src="CTA-crear-gifo-active.svg";
+    
 })
 
-crearDH.addEventListener("mousedown", ()=> {
-    crearDH.style.display="none";
-    crearDA.style.display="block";
-    crearDA.style.cursor="pointer";
-    crearD.style.display="none";
+crearD.addEventListener("mouseleave", ()=> {
+   crearD.src="/assets-usados/button-crear-hover.svg";
 })
+
+
 
 
 
@@ -171,36 +170,6 @@ verMasH.addEventListener("mouseout", ()=> {
 
 //Botones y hovers
 
-for(let i=0; i<3 ; i++) {
-    download[i].addEventListener("mouseover", ()=> {
-        download[i].removeAttribute("src");
-        download[i].setAttribute("src", "assets-usados/icon-download-hover.svg");
-    })
-    download[i].addEventListener("mouseout", ()=> {
-        download[i].removeAttribute("src");
-        download[i].setAttribute("src", "assets-usados/icon-download.svg");
-    })
-favor[i].addEventListener("mouseover", ()=> {
-    favor[i].removeAttribute("src");
-    favor[i].setAttribute("src", "assets-usados/icon-fav-hover.svg")});
-    favor[i].addEventListener("mouseout", ()=> {
-    favor[i].removeAttribute("src");
-    favor[i].setAttribute("src", "assets-usados/icon-fav.svg");
-    })
-    max[i].addEventListener("mouseover", ()=> {
-        max[i].removeAttribute("src");
-        max[i].setAttribute("src", "assets-usados/icon-max-hover.svg");
-    })
-    max[i].addEventListener("mouseout", ()=> {
-        max[i].removeAttribute("src");
-        max[i].setAttribute("src", "assets-usados/icon-max-normal.svg");
-    })
-    
-      favor[i].addEventListener("mousedown", ()=>{
-      favor[i].removeAttribute("src");
-      favor[i].setAttribute("src", "assets-usados/icon-fav-active.svg");})    
-}
-
 
 
 //Botón modo nocturno
@@ -223,31 +192,83 @@ function autocompletar() {
         return info;
     }
      let datos = autocompletar(buscar.value);
-     datos.then(respuesta=> {
+     datos.then(response=> {
          for(let i=0; i<6 ; i++) {
+           contenedorMatch.style.display="flex";
+           contenedorMatch.style.flexDirection="column";
+           contenedorMatch.style.alignItems="flex-start";
+           buscCont.style.height="220px";
            matchList.style.display="flex";
            matchList.style.flexDirection="column";
-           resultado[i].innerHTML= respuesta.data[i].name;
-           resultado[i].style.padding="5px";
-           resultado[i].style.color="rgb(100,100,100)";
-           resultado[i].style.cursor="pointer";
-           resultado[i].style.width="100%"
-           resultado[i].addEventListener("mouseover", ()=>{
-                resultado[i].style.backgroundColor="rgb(250,250,250)";
+           matchList.style.marginTop="15px";
+           matchList.style.width="95%";
+           buscCont2.style.marginTop="15px";
+           matchList.style.paddingBottom="15px";
+           lupitaPrincipal.style.display="block";
+           lupitaPrincipal.setAttribute("src", "assets-usados/icon-search.svg");
+           lupitaPrincipal.style.width="20px";
+           lupitaPrincipal.style.height="20px";
+           lupitaPrincipal.style.transform="translateX(-9px)";
+           lupitaRes[i].setAttribute("src", "assets-usados/icon-search.svg");
+           lupitaRes[i].style.width="20px";
+           lupitaRes[i].style.height="20px";
+           lupitaRes[i].style.transform="translateX(-25px)";
+           resultado[i].innerHTML= response.data[i].name;
+           divResultado[i].style.color="rgb(100,100,100)";
+           divResultado[i].style.cursor="pointer";
+           divResultado[i].style.width="100%";
+           divResultado[i].style.transform="translateX(18px)";
+           divResultado[i].addEventListener("mouseover", ()=>{
+            divResultado[i].style.backgroundColor="rgb(220,220,220)";
             })
-            resultado[i].addEventListener("mouseout", ()=>{
-                resultado[i].style.backgroundColor="white";
+            divResultado[i].addEventListener("mouseout", ()=>{
+                divResultado[i].style.backgroundColor="white";
             })
-            resultado[i].addEventListener("click", ()=>{
-                matchList.style.display="none";
-                buscar.value=resultado[i].innerHTML;
-                matchList.style.display="none";
-            })   
          } searchF();
          gifoEncontrados();
         }).catch(e=>console.log(e)) 
 }
 
+resultado[0].addEventListener("click", ()=> {
+    matchList.style.display="none";
+    buscar.value=resultado[0].innerHTML;
+    matchList.style.display="none";
+    buscCont.style.height="50px";
+    searchF();
+    gifoEncontrados();
+}) 
+resultado[1].addEventListener("click", ()=> {
+    matchList.style.display="none";
+    buscar.value=resultado[1].innerHTML;
+    matchList.style.display="none";
+    buscCont.style.height="50px";
+    searchF();
+    gifoEncontrados();
+}) 
+resultado[2].addEventListener("click", ()=> {
+    matchList.style.display="none";
+    buscar.value=resultado[2].innerHTML;
+    matchList.style.display="none";
+    buscCont.style.height="50px";
+    searchF();
+    gifoEncontrados();
+}) 
+resultado[3].addEventListener("click", ()=> {
+    matchList.style.display="none";
+    buscar.value=resultado[3].innerHTML;
+    matchList.style.display="none";
+    buscCont.style.height="50px";
+    searchF();
+    gifoEncontrados();
+}) 
+resultado[4].addEventListener("click", ()=> {
+    matchList.style.display="none";
+    buscar.value=resultado[4].innerHTML;
+    matchList.style.display="none";
+    buscCont.style.height="50px";
+    searchF();
+    gifoEncontrados();
+}) 
 
 //Función para agrandar imagen
 function agrandar(gif, titulo,fav) {
@@ -418,7 +439,10 @@ closeLup.addEventListener("click", ()=>{
     gifosEncontrados.style.display="none";
     verMasCont.style.display="none";
     categorias.style.display="block";
-    trendingsN.style.display="block";   
+    trendingsN.style.display="block";
+    contPalabra.style.display="none";
+    lupitaPrincipal.style.display="none"; 
+    buscCont.style.height="50px";
 }
 )
 
@@ -436,35 +460,221 @@ function trendingF() {
 
   datos.then(response=> {
     for(let i=0;i<3;i++) {
+
+    if(window.matchMedia("(min-width:780px)").matches) {
     let imgid = i + 1
-    imgid = 'trending' + imgid
+    imgid = 'trending' + imgid;
     let gifo = document.getElementById(imgid);
     gifo.setAttribute("src", response.data[i].images.original.url);
     titulo[i].innerHTML=response.data[i].title;
-    download[i].addEventListener("click", ()=>{
-        let href = createBlob(response.data[i].images.original.url);
-        href.then(url => {
-
-            linkDescarga[i].setAttribute("href", url);
-        })
-        linkDescarga[i].setAttribute("download", "mygifo");
-
-        console.log(response.data[i].images.original.url);
-    })
-    favor[i].addEventListener("click", ()=> {
-          dataFavoritos.push(response.data[i]);
-          console.log(dataFavoritos);
-          localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
-    })
-    max[i].addEventListener("click", ()=> {
-        agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
-    })
+    let download1 = document.createElement("img");
+    let favor1 = document.createElement("img");
+    let max1 = document.createElement("img");
+    download1.setAttribute("src", "assets-usados/icon-download.svg");
+    favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+    max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+    download1.setAttribute("class", "icono");
+    favor1.setAttribute("class", "icono");
+    max1.setAttribute("class", "icono");
+    let linkDescarga1 = document.createElement("a");
+    linkDescarga1.setAttribute("download", "mygifo.gif");
+    botones[i].appendChild(linkDescarga1);
+    linkDescarga1.appendChild(download1);
+    botones[i].appendChild(favor1);
+    botones[i].appendChild(max1);
+    favor1.addEventListener("click", ()=> {
+        dataFavoritos.push(response.data[i]);
+        console.log(dataFavoritos);
+        localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+      });
+     
+        max1.addEventListener("click", ()=> {
+            agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+        });
+        download1.addEventListener("click", ()=> {
+            let href = createBlob(response.data[i].images.original.url);
+           href.then(url => {
     
-    }
-   } ).catch(e=> console.log(e))
+            linkDescarga1.setAttribute("href", url);
+        })
+        linkDescarga1.setAttribute("download", "mygifo");})
+    
+        download1.addEventListener("mouseover", ()=> {
+            download1.removeAttribute("src");
+            download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
+        })
+        download1.addEventListener("mouseout", ()=> {
+            download1.removeAttribute("src");
+            download1.setAttribute("src", "assets-usados/icon-download.svg");
+        })
+    favor1.addEventListener("mouseover", ()=> {
+        favor1.removeAttribute("src");
+        favor1.setAttribute("src", "assets-usados/icon-fav-hover.svg")});
+        favor1.addEventListener("mouseout", ()=> {
+        favor1.removeAttribute("src");
+        favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+        })
+        max1.addEventListener("mouseover", ()=> {
+            max1.removeAttribute("src");
+            max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
+        })
+        max1.addEventListener("mouseout", ()=> {
+            max1.removeAttribute("src");
+            max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+        })
+        
+          favor1.addEventListener("mousedown", ()=>{
+          favor1.removeAttribute("src");
+          favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})    
+    
+    } else  ;{
+        let imgid = i + 1;
+        imgid = 'trending' + imgid;
+        let gifo = document.getElementById(imgid);
+        gifo.setAttribute("src", response.data[i].images.original.url);
+        titulo[i].innerHTML=response.data[i].title;
+        divFantasma[i].addEventListener("click", ()=> {
+            agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+        })}
+
+   } } ).catch(e=> console.log(e))
 }
 
 
+
+function agrandarMin(gif,titulo,fav){
+    let contenedorImgBig = document.createElement("div");
+    body.appendChild(contenedorImgBig);
+    contenedorImgBig.style.width="100%";
+    contenedorImgBig.style.height="700px";
+    contenedorImgBig.style.backgroundColor="white"
+    contenedorImgBig.style.display="flex";
+    contenedorImgBig.style.flexDirection="column";
+    contenedorImgBig.style.zIndex="1000";
+    contenedorImgBig.style.position="fixed";
+    contenedorImgBig.style.top="0";
+    contenedorImgBig.style.bottom="0";
+    contenedorImgBig.style.alignItems="flex-end";
+    contenedorImgBig.style.justifyContent="center";
+    contenedorImgBig.style.transform="translateY(-10px)";
+    contenedorImgBig.style.paddingTop="70px";
+    contenedorImgBig.style.paddingBottom="150px";
+    let closeD1 = document.createElement("img");
+    contenedorImgBig.style.overflow= "auto";
+    closeD1.setAttribute("src", "assets-usados/close.svg");
+    closeD1.style.width="15px";
+    closeD1.style.height="15px";
+    closeD1.style.marginTop="90px";
+    closeD1.style.marginRight="8%";
+    closeD1.style.marginBottom="100px";
+    closeD1.addEventListener("click", ()=> {
+        contenedorImgBig.style.display="none";
+    })
+    closeD1.addEventListener("mouseover", ()=> {
+        closeD1.style.cursor="pointer";
+    })
+    window.addEventListener("keyup", (e)=> {
+        if(e.keyCode===27) { 
+    
+            contenedorImgBig.style.display="none";
+        }
+    })
+    
+    contenedorImgBig.appendChild(closeD1);
+    let contcompleto = document.createElement("div");
+    contcompleto.style.display="flex";
+    contcompleto.style.flexDirection="column";
+    contcompleto.style.width="95%";
+    contcompleto.style.height="95%";
+    contcompleto.style.margin="auto";
+    contcompleto.style.justifyContent="center";
+    contcompleto.style.alignItems="center";
+    contcompleto.style.marginBottom="10px";
+    contenedorImgBig.appendChild(contcompleto);
+    let contenedorgifmax = document.createElement("div");
+    contenedorgifmax.style.width="95%";
+    contenedorgifmax.style.height="300px";
+    contcompleto.appendChild(contenedorgifmax);
+    const gifomaxi = document.createElement("img");
+    gifomaxi.setAttribute("src", gif);
+    gifomaxi.style.width="100%";
+    gifomaxi.style.height="100%";
+    contenedorgifmax.appendChild(gifomaxi);
+    let titulo_botones = document.createElement("div");
+    titulo_botones.style.width="95%";
+    titulo_botones.style.height="150px";
+    titulo_botones.style.display="flex";
+    titulo_botones.style.flexDirection="row";
+    titulo_botones.style.justifyContent="space-between";
+    contcompleto.appendChild(titulo_botones);
+    let titulosmax = document.createElement("div");
+    titulosmax.style.width="50%";
+    titulosmax.style.height="100%";
+    titulo_botones.appendChild(titulosmax);
+    let usermax = document.createElement("h4");
+    usermax.innerHTML="User";
+    usermax.style.fontWeight="100";
+    usermax.style.padding="15px 0 3px";
+    titulosmax.appendChild(usermax);
+    let titulogifmax = document.createElement("h3");
+    titulogifmax.innerHTML= titulo;
+    titulosmax.appendChild(titulogifmax);
+    titulosmax.style.display="flex";
+    titulosmax.style.flexDirection="column";
+    titulosmax.style.alignItems="flex-start";
+    let botonesmax = document.createElement("div");
+    botonesmax.style.width="50%";
+    botonesmax.style.display="flex";
+    botonesmax.style.alignItems="center";
+    botonesmax.style.justifyContent="flex-end";
+    let favmax = document.createElement("img");
+    favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+    favmax.style.width="35px";
+    favmax.style.height="35px";
+    botonesmax.appendChild(favmax);
+    let downloadlink = document.createElement("a");
+    let downloadmax = document.createElement("img");
+    downloadlink.appendChild(downloadmax)
+    botonesmax.appendChild(downloadlink);
+    downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    downloadmax.style.width="35px";
+    downloadmax.style.height="35px";
+    downloadmax.style.margin="0 10px 0 20px";
+    titulo_botones.appendChild(botonesmax);
+    downloadmax.addEventListener("mouseover", ()=> {
+        downloadmax.removeAttribute("src");
+        downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
+        downloadmax.style.cursor="pointer";
+    })
+    downloadmax.addEventListener("mouseout", ()=> {
+        downloadmax.removeAttribute("src");
+        downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    })
+    favmax.addEventListener("mouseover", ()=> {
+        favmax.removeAttribute("src");
+        favmax.setAttribute("src", "assets-usados/icon-fav-hover.svg")
+        favmax.style.cursor="pointer";
+    })
+    favmax.addEventListener("mouseout", ()=> {
+        favmax.removeAttribute("src");
+        favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+    })
+    
+    downloadmax.addEventListener("click", ()=> {
+        let href = createBlob(gif);
+      href.then(url => {
+
+     downloadlink.setAttribute("href", url);
+     downloadlink.setAttribute("download", "mygifo");
+    })
+    favmax.addEventListener("click", ()=> {
+        dataFavoritos.push(fav);
+        localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+        console.log(dataFavoritos);
+      })
+})
+  
+}
 
 
 async function createBlob(url) {
@@ -499,6 +709,8 @@ async function createBlob(url) {
     a_download.appendChild(download_svg);*/
 
 
+
+
 //Función cambio de Trendings
  function flecha(signo) {
     if (signo == '+') {
@@ -509,8 +721,7 @@ async function createBlob(url) {
     }
 
     async function buscarTrending() {
-        let limit = 3*position
-        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=${limit}&offset=0&rating=g&lang=en`;
+        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=12&offset=0&rating=g&lang=en`;
         const resp = await fetch(url);
         const info = await resp.json();
         return info;
@@ -521,25 +732,41 @@ async function createBlob(url) {
     let gif_id = 1
     datos.then(response=>{
     for(let i = n; i < n+3; i++) {
-        let imgid = 'trending' + gif_id
-        let gifo = document.getElementById(imgid);
-        gifo.setAttribute("src", response.data[i].images.original.url);
-        titulo[gif_id-1].innerHTML=response.data[i].title;
-        download[gif_id-1].addEventListener("click", ()=> {
+    let imgid = 'trending' + gif_id
+    let gifo = document.getElementById(imgid);
+    gifo.setAttribute("src", response.data[i].images.original.url);
+    titulo[gif_id-1].innerHTML=response.data[i].title;
+    let download1 = document.createElement("img");
+    let favor1 = document.createElement("img");
+    let max1 = document.createElement("img");
+    download1.setAttribute("src", "assets-usados/icon-download.svg");
+    favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+    max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+    download1.setAttribute("class", "icono");
+    favor1.setAttribute("class", "icono");
+    max1.setAttribute("class", "icono");
+    botones[gif_id-1].innerHTML="";
+    let linkDescarga = document.createElement("a");
+    linkDescarga.setAttribute("download", "mygifo.gif");
+    botones[gif_id-1].appendChild(linkDescarga);
+    linkDescarga.appendChild(download1);
+    botones[gif_id-1].appendChild(favor1);
+    botones[gif_id-1].appendChild(max1);
+        download1.addEventListener("click", ()=> {
             let href = createBlob(response.data[i].images.original.url);
            href.then(url => {
-            linkDescarga1[gif_id-1].setAttribute("href", url);
+            linkDescarga.setAttribute("href", url);
         })
-        linkDescarga1[gif_id-1].setAttribute("download", "mygifo");
+        linkDescarga.setAttribute("download", "mygifo");
         });
 
 
-        favor[gif_id-1].addEventListener("click", ()=> {
+        favor1.addEventListener("click", ()=> {
             dataFavoritos.push(response.data[i]);
             console.log(dataFavoritos);
             localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
         })
-         max[gif_id-1].addEventListener("click", ()=> {
+         max1.addEventListener("click", ()=> {
              agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
          })
             console.log(position);
@@ -549,7 +776,7 @@ async function createBlob(url) {
 
 
 
-//función titulo gif 
+
 
 
 
@@ -566,17 +793,42 @@ function searchF() {
     let datos = buscarGifos(buscar.value);
     gifosEncontrados.innerHTML="";
     datos.then(response=> {
-    for(let i=0;i<=12;i++) {
-     let gifo = document.createElement('img');
-     gifo.setAttribute("src",response.data[i].images.original.url);
-     gifo.setAttribute("class", "gifosBuscados");
-     let container1 = document.createElement("div");
-     gifosEncontrados.appendChild(container1);
-     container1.setAttribute("class", "container1");
-     let contenedorBusqueda = document.createElement("div");
-     container1.appendChild(gifo);
-     contenedorBusqueda.setAttribute("class", "contenedor-trending");
-     container1.appendChild(contenedorBusqueda);
+        console.log(response.data);
+        if (response.data == 0) {
+            trendingsN.style.display="block";
+            categorias.style.display="block";
+            categorias.style.paddingBottom="100px";
+            verMasCont.style.display="none";
+            gifosEncontrados.style.display="flex";
+            gifosEncontrados.style.flexDirection="column";
+            gifosEncontrados.style.justifyContent="center";
+            gifosEncontrados.style.alignItems="center";
+            gifosEncontrados.style.margin="80px auto 20px";
+            let ouch = document.createElement("img");
+            ouch.setAttribute("src", "assets-usados/icon-busqueda-sin-resultado.svg");
+            gifosEncontrados.appendChild(ouch);
+            let errorTexto = document.createElement("h2");
+            errorTexto.innerHTML= "Intenta con otra busqueda."
+            errorTexto.style.color="#4FE3C1";
+            errorTexto.style.padding="30px 0 40px";
+            gifosEncontrados.appendChild(errorTexto);
+         }  
+          else{
+        
+     for(let i=0;i<=12;i++) {
+        let gifo = document.createElement('img');
+        gifo.setAttribute("src",response.data[i].images.original.url);
+        gifosSearchF.push(response.data[i].images.original.url);
+        gifo.setAttribute("class", "gifosBuscados");
+        let container1 = document.createElement("div");
+        gifosEncontrados.appendChild(container1);
+        container1.setAttribute("class", "container1");
+       let contenedorBusqueda = document.createElement("div");
+       container1.appendChild(gifo);
+       contenedorBusqueda.setAttribute("class", "contenedor-trending");
+       container1.appendChild(contenedorBusqueda);
+    if((window.matchMedia("(min-width:780px)").matches)) {
+     
      let violeta1 = document.createElement("div");
      violeta1.setAttribute("class", "violeta1");
      contenedorBusqueda.appendChild(violeta1);
@@ -650,18 +902,25 @@ function searchF() {
             favor1.removeAttribute("src");
             favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})
 
-
         favor1.addEventListener("click", ()=> {
             dataFavoritos.push(response.data[i]);
             console.log(dataFavoritos);
             localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
           })
-
-              max1.addEventListener("click", ()=> {
-                agrandar(response.data[i].images.original.url, response.data[i].title);
-            }) 
-        
-             }}).catch(e=>console.log(e))}
+         
+            max1.addEventListener("click", ()=> {
+                agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+            });
+        }
+        else; {
+            let divFantasma1 = document.createElement("div");
+            divFantasma1.setAttribute("class", "div-fantasma1");
+            contenedorBusqueda.appendChild(divFantasma1);
+            divFantasma1.addEventListener("click", ()=> {
+                agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+            });
+        }
+            }}}).catch(e=>console.log(e))}
   
 
 
@@ -669,6 +928,7 @@ function searchF() {
   
 
 //función buscar más Gifos +12
+
   function searchMas() {
     async function buscarGifos(valor) {    
         let url = `https://api.giphy.com/v1/gifs/search?api_key=${ApiKey}&q=${valor}&limit=${limit + 11}offset=0&rating=g&lang=en`;
@@ -691,8 +951,13 @@ function searchF() {
      contenedorBusqueda.setAttribute("class", "contenedor-trending");
      container1.style.height="230px";
      container1.appendChild(contenedorBusqueda);
+
+     if((window.matchMedia("(min-width:780px)").matches)) {
      let violeta1 = document.createElement("div");
      violeta1.setAttribute("class", "violeta1");
+     let divFantasma1 = document.createElement("div");
+     divFantasma1.setAttribute("class", "div-fantasma1");
+     contenedorBusqueda.appendChild(divFantasma1);
      contenedorBusqueda.appendChild(violeta1);
      let botones1 = document.createElement("div");
      violeta1.appendChild(botones1);
@@ -768,11 +1033,19 @@ function searchF() {
       })
         max1.addEventListener("click", ()=> {
             agrandar(response.data[i].images.original.url, response.data[i].title);
-        })
+        })} 
+        else ; {
+            let divFantasma1 = document.createElement("div");
+            divFantasma1.setAttribute("class", "div-fantasma1");
+            contenedorBusqueda.appendChild(divFantasma1);
+            divFantasma1.addEventListener("click", ()=> {
+                agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+            });
+        }
             
     }limit=limit+12;
         
-     }
+  }
      ).catch(e=> console.log(e))
     }
 
@@ -801,8 +1074,8 @@ function windowB () {
       crearD.style.display="none";
       closeD.style.display="none";
       burger.style.display="block";
-       menu.style.display="none";
-       buscCont.style.width="80%";
+      menu.style.display="none";
+    buscCont.style.width="80%";
       burger.addEventListener("click", ()=> {
         menu.style.display="block";
         closeD.style.display="block";
@@ -810,6 +1083,7 @@ function windowB () {
         menu.style.backgroundColor="#6742E7";
         menuint.style.backgroundColor="#6742E7";
       })
+       
         closeD.addEventListener("click", ()=> {
             menu.style.display="none";
             closeD.style.display="none";
@@ -817,7 +1091,6 @@ function windowB () {
             menu.style.backgroundColor="white";
             menuInt.style.backgroundColor="white";
         })
-        
         }
     }
     /*if (modosToggle===true) {
@@ -848,8 +1121,10 @@ function gifoEncontrados() {
     trendingsN.style.display="none";
     categorias.style.display="none";
     contTituloF.innerHTML="";
+    contTituloF.style.display="block";
+    contPalabra.style.display="block";
     tituloBusqueda.style.display="flex";
-    contTituloF.appendChild(tituloBusqueda);
+    contPalabra.appendChild(tituloBusqueda);
     tituloBusqueda.innerHTML=`${buscar.value}`;
     tituloBusqueda.style.textTransform="uppercase";
     tituloBusqueda.style.fontWeight="bold";
@@ -870,8 +1145,8 @@ function gifoEncontrados() {
 //Eventos vinculados a funciones
 
 lupitaD.addEventListener("click",()=>{
-    searchF();
     gifoEncontrados();
+    searchF();
     verMasCont.style.display="flex";
     matchList.style.display="none";
 }  )
@@ -879,8 +1154,8 @@ lupitaD.addEventListener("click",()=>{
 
 buscar.addEventListener("keyup", (e)=> {
     if(e.keyCode===13) { 
-    searchF();
     gifoEncontrados();
+    searchF();
     matchList.style.display="none";
     }
 })
@@ -890,7 +1165,7 @@ botonDerH.addEventListener("click", () => {
 });
 
 
-botonIzqH.addEventListener("click", () => {
+botonIzqD.addEventListener("click", () => {
     flecha('-');
 });
 

@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="header">
+        <nav id="header">
             <div id="barra">
                 <div id="logo-mobile">
                     <img src="assets-usados/logo-mobile.svg" class="logo" id="logo-d">
@@ -51,8 +51,10 @@
                 <img src="assets-usados/element-luz-camara.svg" class ="camara" id="luz-camara">
             </div>
             <div id="camara">
+                
                 <div id="pantalla-camara">
-                    <h2 id="intro1" class="hcamara">Aquí podrás</h2><h2 class="hcamara"> crear tus propios <span>GIFOS</span></h2>
+                    <video id="video"></video>
+                    <h2 id="intro1" class="hcamara">Aquí podrás</h2><h2 id ="intro2" class="hcamara"> crear tus propios<span id="span"> GIFOS </span></h2> 
                     <p id="p-intro1" class="pcamara">¡Crea tu GIFO en sólo tres pasos!</p>
                     <p id="p-intro2" class="pcamara">(sólo necesitas una cámara para grabar un video)</p>
                 </div>
@@ -63,9 +65,14 @@
            </div>
         </div>
         <div id="pasos">
-            <img src="assets-usados/paso-a-paso.svg" class="paso">
+            <div class="paso" id="paso-1">1</div>
+            <div class="paso" id="paso-2">2</div>
+            <div class="paso" id="paso-3">3</div>
+            <div id="timer-vid"></div>
         </div>
-           
+           <div id="cont-btn">
+               <div id="btn-crear">COMENZAR</div>
+           </div>
        </section>
     </main>
 
@@ -92,7 +99,9 @@
        </div>
      </div>
     </footer>
-    <script src="proyecto2.js"></script>
+    <script src="Proyecto2_Crear.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+
     
 </body>
 </html>

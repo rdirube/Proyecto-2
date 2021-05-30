@@ -29,15 +29,14 @@
             </div>
         <div id="menu">
             <ul id="menu-int">
-                <li class="fila 1"><a class="link 1" id="modo" href="#modo"><b>Modo Nocturno</b></a></li>
-                <li class="fila 2"><a class="link 2" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index2.html"><b>Favoritos</b></a></li>
-                <li class="fila 3"><a class="link 3" id="link-g" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Mis GIFOS</b></a></li>
+                <li class="fila 1" id="fila_1"><a class="link 1" id="modo" href="#modo"><b>Modo Nocturno</b></a></li>
+                <li class="fila 2" id="fila_2"><a class="link 2" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index2.html"><b>Favoritos</b></a></li>
+                <li class="fila 3" id="fila_3"><a class="link 3" id="link-g" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Mis GIFOS</b></a></li>
                 <img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d">
-                <img src="assets-usados/CTA-crear-gifo-hover.svg" class="crear" id="crear-dh">
-                <img src="assets-usados/CTA-crear-gifo-active.svg" class="crear" id="crear-da">
-                <img src="assets-usados/CTA-crear-gifo-modo-noc.svg" class="crear" id="crear-n">
-                <img src="assets-usados/CTA-crear-gifo-hover-modo-noc.svg" class="crear" id="crear-nh">
-                <img src="assets-usados/CTA-crear-gifo-active-modo-noc.svg" class="crear" id="crear-na">
+                <div id="contenedor-crear">
+                    <a class="link 1" id="modo" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index4.html"><img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d"></a>
+                </div>
+                
            </ul>
         </div>
     </div>
@@ -55,27 +54,43 @@
                 </div>
             <div id="busc" class="busc">
                 <div id="busc-cont">
+                    <div id="busc-cont2">
+                    <img id="lupitaPrincipal">
                     <input type="text" id="buscar" placeholder="Busca GIFOS y más">
                     <img class="search" id="search-d" src="assets-usados/icon-search.svg">
                     <img src="assets-usados/close.svg" class="close" id="close-lup">
                     <img class="search" id="search-n" src="assets-usados/icon-search-mod-noc.svg">
-                </div>
-                <div id="contenedor-match">
-                    <ul id="matchList">
-                        <li class="resultado"><img> </li>
-                        <li class="resultado"><img> </li>
-                        <li class="resultado"><img> </li>
-                        <li class="resultado"><img> </li>
-                        <li class="resultado"><img> </li>
-                    </ul>
+                 </div>
+                    <div id="contenedor-match">
+                        <ul id="matchList">
+                            <div class="divResultado">
+                           <img class="lupitaRes"><li class="resultado"></li>
+                           </div>
+                           <div class="divResultado"> 
+                            <img class="lupitaRes"><li class="resultado"></li>
+                            </div>
+                            <div class="divResultado">
+                                <img class="lupitaRes"><li class="resultado"></li>
+                            </div>
+                            <div class="divResultado">
+                                <img class="lupitaRes"><li class="resultado"></li>
+                            </div>
+                            <div class="divResultado">
+                                <img class="lupitaRes"><li class="resultado"></li>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
             </div>
                 <div id="trendings">
                     <p id="trendings-n"><b>Trending:</b></p>
-                    <div id="contTituloF"><h3 id="palabra-buscada"></h3></div>
+                    <div id="contTituloF"></div>
                 </div>
                 <div id="categorias">
                     <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
+                </div>
+                <div id="contPalabra">
+                    <h3 id="palabra-buscada"></h3>
                 </div>
                 <div id="gifos-encontrados">
                 </div>
@@ -106,12 +121,9 @@
                     <div class="container">
                         <img class="trending_gifs" id="trending1">
                         <div class="contenedor-trending">
+                            <div class="div-fantasma"></div>
                             <div class="violeta">
                                 <div class="botones" id="botones">
-                                    <a class="link-descarga"><img src="assets-usados/icon-download.svg" class="download icono">
-                                    </a>
-                                   <img src="assets-usados/icon-fav.svg" class="favor icono">
-                                   <img src="assets-usados/icon-max-normal.svg" class="max icono">
                                 </div>
                                 <div class="cont-titulo">
                                     <h4 class="user">User</h4>
@@ -124,12 +136,10 @@
                     <div class="container">
                         <img class="trending_gifs" id="trending2">
                         <div class="contenedor-trending">
+                            <div class="div-fantasma"></div>
                             <div class="violeta">
                                 <div class="botones">
-                                    <a class="link-descarga"><img src="assets-usados/icon-download.svg" class="download icono">
-                                    </a>
-                                   <img src="assets-usados/icon-fav.svg" class="favor icono">
-                                   <img src="assets-usados/icon-max-normal.svg" class="max icono">
+                            
                                </div>
                             <div class="cont-titulo">
                                 <h4 class="user">User</h4>
@@ -142,13 +152,9 @@
                     <div class="container">
                         <img class="trending_gifs" id="trending3">
                         <div class="contenedor-trending">
-                            
+                            <div class="div-fantasma"></div>
                             <div class="violeta">
                              <div class="botones">
-                                <a class="link-descarga"><img src="assets-usados/icon-download.svg" class="download icono">
-                                </a>
-                                   <img src="assets-usados/icon-fav.svg" class="favor icono">
-                                   <img src="assets-usados/icon-max-normal.svg" class="max icono">
                             </div>
                             <div class="cont-titulo">
                                 <h4 class="user">User</h4>

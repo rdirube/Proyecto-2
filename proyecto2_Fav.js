@@ -1,5 +1,4 @@
 //Variables importadas
-
 const barra = document.getElementById("barra");
  const logoMobile = document.getElementById("logo-mobile");
  const logoD = document.getElementById("logo-d");
@@ -65,21 +64,22 @@ let position = 1;
 link[2].style.color="rgb(150,150,150)";
 link[2].style.cursor="default";
 let dataFavoritos1 = [];
-let indexfav = 1
+let indexfav = 1;
 //hovers y actives
 
 function checkForAddedFavoritos() {
     console.log("chequeo added Mis GIFOS");
     if (localStorage.getItem("dataFavoritos")) {
-        dataFavoritos1 = JSON.parse(localStorage.getItem("dataFavoritos"));
+      let  dataFavoritos1 = JSON.parse(localStorage.getItem("dataFavoritos"));
     } else if (localStorage.getItem("dataFavoritos") == null) {
-        dataFavoritos1 = [];
+       let dataFavoritos1 = [];
     }
     return dataFavoritos1;
 }
 
 checkForAddedFavoritos()
 
+console.log(dataFavoritos1);
 
 verMas.addEventListener("mouseover", ()=> {
     verMas.style.display="none";
@@ -146,17 +146,20 @@ crearDH.addEventListener("mouseout", ()=> {
     crearDH.style.display="none";
 })
 
-crearDA.addEventListener("mouseup", ()=> {
-    crearD.style.display="block";
-    crearDA.style.display="none";
-})
-
 crearDH.addEventListener("mousedown", ()=> {
     crearDH.style.display="none";
     crearDA.style.display="block";
     crearDA.style.cursor="pointer";
+   
+})
+
+crearDA.addEventListener("mouseup", ()=> {
+    crearDH.style.display="block";
+    crearDA.style.display="none";
     crearD.style.display="none";
 })
+
+
 
 burger.addEventListener("click", ()=> {
     menu.style.display="block";
@@ -275,8 +278,7 @@ function flecha(signo) {
     }
 
     async function buscarTrending() {
-        let limit = 3*position
-        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=${limit}&offset=0&rating=g&lang=en`;
+        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=12&offset=0&rating=g&lang=en`;
         const resp = await fetch(url);
         const info = await resp.json();
         return info;
@@ -287,33 +289,47 @@ function flecha(signo) {
     let gif_id = 1
     datos.then(response=>{
     for(let i = n; i < n+3; i++) {
-        let imgid = 'trending' + gif_id
-        let gifo = document.getElementById(imgid);
-        gifo.setAttribute("src", response.data[i].images.original.url);
-        titulo[gif_id-1].innerHTML=response.data[i].title;
-        
-        download[gif_id-1].addEventListener("click", ()=> {
+    let imgid = 'trending' + gif_id
+    let gifo = document.getElementById(imgid);
+    gifo.setAttribute("src", response.data[i].images.original.url);
+    titulo[gif_id-1].innerHTML=response.data[i].title;
+    let download1 = document.createElement("img");
+    let favor1 = document.createElement("img");
+    let max1 = document.createElement("img");
+    download1.setAttribute("src", "assets-usados/icon-download.svg");
+    favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+    max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+    download1.setAttribute("class", "icono");
+    favor1.setAttribute("class", "icono");
+    max1.setAttribute("class", "icono");
+    botones[gif_id-1].innerHTML="";
+    let linkDescarga = document.createElement("a");
+    linkDescarga.setAttribute("download", "mygifo.gif");
+    botones[gif_id-1].appendChild(linkDescarga);
+    linkDescarga.appendChild(download1);
+    botones[gif_id-1].appendChild(favor1);
+    botones[gif_id-1].appendChild(max1);
+        download1.addEventListener("click", ()=> {
             let href = createBlob(response.data[i].images.original.url);
            href.then(url => {
-            linkDescarga1[gif_id-1].setAttribute("href", url);
+            linkDescarga.setAttribute("href", url);
         })
-        linkDescarga1[gif_id-1].setAttribute("download", "mygifo");
+        linkDescarga.setAttribute("download", "mygifo");
         });
 
-        favor[gif_id-1].addEventListener("click", ()=> {
-            dataFavoritos1.push(response.data[i]);
-            console.log(dataFavoritos1);
-            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
+
+        favor1.addEventListener("click", ()=> {
+            dataFavoritos.push(response.data[i]);
+            console.log(dataFavoritos);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
         })
-            
-            max[gif_id-1].addEventListener("click", ()=> {
-                agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i] );
-            })
+         max1.addEventListener("click", ()=> {
+             agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+         })
             console.log(position);
             gif_id += 1;
     }}).catch(e=>console.log(e))
 }
-
 
 // titulo gif
 
@@ -322,37 +338,6 @@ function flecha(signo) {
 
 
 
-for(let i=0; i<3 ; i++) {
-    download[i].addEventListener("mouseover", ()=> {
-        download[i].removeAttribute("src");
-        download[i].setAttribute("src", "assets-usados/icon-download-hover.svg");
-    })
-    download[i].addEventListener("mouseout", ()=> {
-        download[i].removeAttribute("src");
-        download[i].setAttribute("src", "assets-usados/icon-download.svg");
-    })
-favor[i].addEventListener("mouseover", ()=> {
-    favor[i].removeAttribute("src");
-    favor[i].setAttribute("src", "assets-usados/icon-fav-hover.svg")});
-    favor[i].addEventListener("mouseout", ()=> {
-    favor[i].removeAttribute("src");
-    favor[i].setAttribute("src", "assets-usados/icon-fav.svg");
-    })
-    max[i].addEventListener("mouseover", ()=> {
-        max[i].removeAttribute("src");
-        max[i].setAttribute("src", "assets-usados/icon-max-hover.svg");
-    })
-    max[i].addEventListener("mouseout", ()=> {
-        max[i].removeAttribute("src");
-        max[i].setAttribute("src", "assets-usados/icon-max-normal.svg");
-    })
-    container[i].addEventListener("mouseover", ()=>{
-        
-      })
-      favor[i].addEventListener("mousedown", ()=>{
-      favor[i].removeAttribute("src");
-      favor[i].setAttribute("src", "assets-usados/icon-fav-active.svg");})
-}
 
 
 
@@ -368,6 +353,7 @@ function GrillaFavoritos () {
        contFavoritos.style.alignItems="center";
        contFavoritos.style.gridGap="30px";
 }
+
 
 
 
@@ -388,7 +374,6 @@ function FavoritosComp() {
        container1.appendChild(contenedorBusqueda);
        let violeta1 = document.createElement("div");
        violeta1.setAttribute("class", "violeta1");
-       violeta1.style.transform="translateY(0px)";
        contenedorBusqueda.appendChild(violeta1);
        let botones1 = document.createElement("div");
        violeta1.appendChild(botones1);
@@ -487,7 +472,7 @@ function FavoritosComp() {
       }
     )
     
-    VerMasIni()
+ 
        
 
 
@@ -516,56 +501,104 @@ function FavoritosComp() {
     } else {
         verMasCont.style.display="none";
     }
-
-
-}
-
-
-function trendingF() {
-
-    async function buscarTrending() {
-        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=3&offset=0&rating=g&lang=en`;
-        const resp = await fetch(url);
-        const info = await resp.json();
-        return info;
     }
-  let datos = buscarTrending();
 
-  datos.then(response=> {
-      console.log(response);
-    for(let i=0;i<3;i++) {
-    let imgid = i + 1
-    imgid = 'trending' + imgid
-    let gifo = document.getElementById(imgid);
-    gifo.setAttribute("src",response.data[i].images.original.url);
-    titulo[i].innerHTML=response.data[i].title;
-    download[i].addEventListener("click", ()=>{
-        let href = createBlob(response.data[i].images.original.url);
-        href.then(url => {
 
-            linkDescarga[i].setAttribute("href", url);
-        })
-        linkDescarga[i].setAttribute("download", "mygifo");
+    function trendingF() {
 
-        console.log(response.data[i].images.original.url);
-    })
-    favor[i].addEventListener("click", ()=> {
-          dataFavoritos1.push(response.data[i]);
-          localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
-          
-    })
-    max[i].addEventListener("click", ()=> {
-        agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
-    })
+        async function buscarTrending() {
+            let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=3&offset=0&rating=g&lang=en`;
+            const resp = await fetch(url);
+            const info = await resp.json();
+            return info;
+        }
+      let datos = buscarTrending();
     
+      datos.then(response=> {
+        for(let i=0;i<3;i++) {
+    
+        if(window.matchMedia("(min-width:780px)").matches) {
+        let imgid = i + 1
+        imgid = 'trending' + imgid;
+        let gifo = document.getElementById(imgid);
+        gifo.setAttribute("src", response.data[i].images.original.url);
+        titulo[i].innerHTML=response.data[i].title;
+        let download1 = document.createElement("img");
+        let favor1 = document.createElement("img");
+        let max1 = document.createElement("img");
+        download1.setAttribute("src", "assets-usados/icon-download.svg");
+        favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+        max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+        download1.setAttribute("class", "icono");
+        favor1.setAttribute("class", "icono");
+        max1.setAttribute("class", "icono");
+        let linkDescarga1 = document.createElement("a");
+        linkDescarga1.setAttribute("download", "mygifo.gif");
+        botones[i].appendChild(linkDescarga1);
+        linkDescarga1.appendChild(download1);
+        botones[i].appendChild(favor1);
+        botones[i].appendChild(max1);
+        favor1.addEventListener("click", ()=> {
+            dataFavoritos.push(response.data[i]);
+            console.log(dataFavoritos);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+          });
+         
+            max1.addEventListener("click", ()=> {
+                agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+            });
+            download1.addEventListener("click", ()=> {
+                let href = createBlob(response.data[i].images.original.url);
+               href.then(url => {
+        
+                linkDescarga1.setAttribute("href", url);
+            })
+            linkDescarga1.setAttribute("download", "mygifo");})
+        
+            download1.addEventListener("mouseover", ()=> {
+                download1.removeAttribute("src");
+                download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
+            })
+            download1.addEventListener("mouseout", ()=> {
+                download1.removeAttribute("src");
+                download1.setAttribute("src", "assets-usados/icon-download.svg");
+            })
+        favor1.addEventListener("mouseover", ()=> {
+            favor1.removeAttribute("src");
+            favor1.setAttribute("src", "assets-usados/icon-fav-hover.svg")});
+            favor1.addEventListener("mouseout", ()=> {
+            favor1.removeAttribute("src");
+            favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+            })
+            max1.addEventListener("mouseover", ()=> {
+                max1.removeAttribute("src");
+                max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
+            })
+            max1.addEventListener("mouseout", ()=> {
+                max1.removeAttribute("src");
+                max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+            })
+            
+              favor1.addEventListener("mousedown", ()=>{
+              favor1.removeAttribute("src");
+              favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})    
+        
+        } else  ;{
+            let imgid = i + 1;
+            imgid = 'trending' + imgid;
+            let gifo = document.getElementById(imgid);
+            gifo.setAttribute("src", response.data[i].images.original.url);
+            titulo[i].innerHTML=response.data[i].title;
+            divFantasma[i].addEventListener("click", ()=> {
+                agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+            })}
+    
+       } } ).catch(e=> console.log(e))
     }
-   } ).catch(e=> console.log(e))
-}
+    
 
 
-function VerMasBoton (){
 
-}
 
 
 VerMasIni();
