@@ -198,6 +198,7 @@ function autocompletar() {
            contenedorMatch.style.flexDirection="column";
            contenedorMatch.style.alignItems="flex-start";
            buscCont.style.height="220px";
+           buscCont.style.marginBottom="20px";
            matchList.style.display="flex";
            matchList.style.flexDirection="column";
            matchList.style.marginTop="15px";
@@ -426,8 +427,8 @@ function agrandar(gif, titulo,fav) {
 //AddEventListener del input
 buscar.addEventListener("input", ()=> {
 autocompletar();
-lupitaD.style.display="none";
-closeLup.style.display="block";
+lupitaD.removeAttribute("src");
+lupitaD.setAttribute("src", "assets-usados/close.svg");
 })
 
 
@@ -525,7 +526,10 @@ function trendingF() {
         
           favor1.addEventListener("mousedown", ()=>{
           favor1.removeAttribute("src");
-          favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})    
+          favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})  
+          favor1.addEventListener("mouseup", ()=>{
+            favor1.removeAttribute("src");
+            favor1.setAttribute("src", "assets-usados/icon-fav.svg");})     
     
     } else  ;{
         let imgid = i + 1;
@@ -533,6 +537,7 @@ function trendingF() {
         let gifo = document.getElementById(imgid);
         gifo.setAttribute("src", response.data[i].images.original.url);
         titulo[i].innerHTML=response.data[i].title;
+        gifTrending.style.overflow="hidden";
         divFantasma[i].addEventListener("click", ()=> {
             agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
         })}
@@ -1065,7 +1070,7 @@ function windowB () {
       gifosEncontrados.style.gridTemplateRows ="repeat(3, 230px)";
       console.log("entre!");
       gifosEncontrados.style.gridTemplateColumns="repeat(4, minmax(200px, 1fr))";
-      menu.style.display="block";
+      menu.style.display="flex";
       crearD.style.display="block";
     } else {
       gifosEncontrados.style.gridTemplateRows ="repeat(6, 230px)";
@@ -1075,24 +1080,9 @@ function windowB () {
       closeD.style.display="none";
       burger.style.display="block";
       menu.style.display="none";
-    buscCont.style.width="80%";
-      burger.addEventListener("click", ()=> {
-        menu.style.display="block";
-        closeD.style.display="block";
-        burger.style.display="none";
-        menu.style.backgroundColor="#6742E7";
-        menuint.style.backgroundColor="#6742E7";
-      })
-       
-        closeD.addEventListener("click", ()=> {
-            menu.style.display="none";
-            closeD.style.display="none";
-            burger.style.display="block";
-            menu.style.backgroundColor="white";
-            menuInt.style.backgroundColor="white";
-        })
-        }
-    }
+      buscCont.style.width="80%";
+      
+    }}
     /*if (modosToggle===true) {
         menu.style.backgroundColor="#222326";
     }
@@ -1100,16 +1090,27 @@ function windowB () {
         menu.style.backgroundColor="#37383C";
     } */
     
-    closeD.addEventListener("click", ()=> {
-        menu.style.display="none";
-        closeD.style.display="none";
-        burger.style.display="block";
-    })
     
-
+    
+    burger.addEventListener("click", ()=> {
+        menu.style.display="block";
+        closeD.style.display="block";
+        burger.style.display="none";
+  
+        })
+         
+          closeD.addEventListener("click", ()=> {
+              menu.style.display="none";
+              closeD.style.display="none";
+              burger.style.display="block";
+              menu.style.backgroundColor="white";
+              menuInt.style.backgroundColor="white";
+          })
+          
 
 window.addEventListener("resize", ()=> {
     windowB();
+    
 })
 
 
@@ -1157,11 +1158,13 @@ buscar.addEventListener("keyup", (e)=> {
     gifoEncontrados();
     searchF();
     matchList.style.display="none";
+    buscCont.style.height="50px";
     }
 })
 
 botonDerH.addEventListener("click", () => {
     flecha('+');
+    gifTrending.scrollBy({left: 384, behavior: 'smooth'});
 });
 
 
@@ -1185,7 +1188,7 @@ function checkForAddedFavoritos() {
     console.log("chequeo added Mis GIFOS");
     if (localStorage.getItem("dataFavoritos")) {
       let  dataFavoritos = JSON.parse(localStorage.getItem("dataFavoritos"));
-    } else if (dataFavoritos.getItem("dataFavoritos") == null) {
+    } else if (localStorage.getItem("dataFavoritos") == null) {
        let dataFavoritos = [];
     }
     return dataFavoritos;
@@ -1219,6 +1222,7 @@ modo.addEventListener("click", ()=> {
     }
     buscCont.style.borderColor="white";
     buscCont.style.backgroundColor="#37383C";
+    buscCont2.style.backgroundColor="#37383C";
     buscar.style.backgroundColor="#37383C";
     buscar.style.color="white";
     lupitaD.removeAttribute("src");
@@ -1251,14 +1255,17 @@ modo.addEventListener("click", ()=> {
         verMas.removeAttribute("src");
         verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg"); 
     }); 
-    window.addEventListener("resize", ()=> {if (window.matchMedia("(max-width: 780px)").matches) {
+    
+        if (window.matchMedia("(max-width: 780px)").matches) {
         menu.style.backgroundColor="#222326";
         menuInt.style.backgroundColor="#222326";
+        menu.style.opacity="1";
    } else {
        menu.style.backgroundColor="#37383C";
        menuInt.style.backgroundColor="#37383C";
-   }})
+   }
     
+
     
     modosToggle=true;   
 } 
@@ -1288,14 +1295,12 @@ else if (modosToggle===true) {
     for(let i=2; i<6; i++){
         p[i].style.color="black";
     }
-    for(let i=0 ; i<4; i++) {
-        link[i].style.color="#6742E7";
-    }
     
     closeD.removeAttribute("src");
     closeD.setAttribute("src", "assets-usados/close.svg");
     buscCont.style.borderColor="#6742E7";
     buscCont.style.backgroundColor="white";
+    buscCont2.style.backgroundColor="white";
     buscar.style.backgroundColor="white";
     buscar.style.color="black";
     lupitaD.removeAttribute("src");
@@ -1312,13 +1317,25 @@ else if (modosToggle===true) {
     botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
     verMas.removeAttribute("src");
     verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
-    window.addEventListener("resize", ()=> {if (window.matchMedia("(max-width: 780px)").matches) {
+    if (window.matchMedia("(max-width: 780px)").matches) {
         menu.style.backgroundColor="#6742E7";
         menuInt.style.backgroundColor="#6742E7";
+        menu.style.opacity="0.8";
+        for(let i=0 ; i<4; i++) {
+            link[i].style.color="white";
+        }
    } else {
+       menu.style.display="flex";
        menu.style.backgroundColor="white";
        menuInt.style.backgroundColor="white";
-   }})
+       menu.style.opacity="1";
+       for(let i=0 ; i<4; i++) {
+        link[i].style.color="#6742E7";
+    }
+   } 
+    
+   
+
     modosToggle=false
     
 }})

@@ -10,6 +10,9 @@ const span = document.getElementById("span");
 let video = document.getElementById("video");
 const timerVid = document.getElementById("timer-vid");
 const pantallaCamara = document.getElementById("pantalla-camara");
+let MisGifos = [];
+const pantallaCompleta = document.getElementById("pantalla-completa");
+const ApiKey = "og2cGOovwMy2VkjKm8PCJRTApTXFM8BJ";
 
 
 
@@ -107,6 +110,7 @@ function startRecording() {
 
 function stopVideo() {
     btnCrear.removeEventListener('click',stopVideo);
+    recorder.stopRecording(stopRecordingCallback);
     stopTime();
     timerVid.innerHTML = "REPETIR CAPTURA";
     timerVid.style.cursor = "pointer";
@@ -118,6 +122,15 @@ function stopVideo() {
     timerVid.style.textDecorationThickness = "2.5px";
     // agregar event listener uploadGif()
     btnCrear.addEventListener('click', GifoUpload);
+}
+
+function stopRecordingCallback() {
+    video.src = URL.createObjectURL(recorder.getBlob());
+    const gif_preview = document.createElement("img");
+    gif_preview.src = URL.createObjectURL(recorder.getBlob());
+    gif_preview.style.position = "absolute";
+    pantallaCompleta.appendChild(gif_preview);
+    recorder.camera.stop();
 }
 
 
@@ -163,14 +176,7 @@ function stopTime() {
 }
 
 
-function stopRecordingCallback() {
-    video.src = URL.createObjectURL(recorder.getBlob());
-    const gif_preview = document.createElement("img");
-    gif_preview.src = URL.createObjectURL(recorder.getBlob());
-    gif_preview.style.position = "absolute";
-    pantallaCamara.appendChild(gif_preview);
-    recorder.camera.stop();
-}
+
 
 
 
@@ -181,20 +187,105 @@ function GifoUpload() {
     // UPLOADING BUFFER???
     gifBuffering();
 
-    fetch(`https://upload.giphy.com/v1/gifs?api_key=${APIKEY}`, {
+    fetch(`https://upload.giphy.com/v1/gifs?api_key=${ApiKey}`, {
         method: "POST",
         body: form
     })
     .then(response => response.json())
     .then(response => {
         upload_card.remove();
-        let this_gif_src = `${GIPHY_URL}${response.data.id}/giphy.gif`;
-        uploadSuccesfull(this_gif_src,response.data.id);
-        let id_toLocal = JSON.stringify(response.data);
-        list_mis_gifos.push(response.data);
-        localStorage.setItem('myGifoKey',JSON.stringify(list_mis_gifos));
+        let gifsrc = `${GIPHY_URL}${response.data.id}/giphy.gif`;
+        uploadSuccesfull(gifsrc,response.data.id);
+        let datagif = JSON.stringify(response.data);
+        MisGifos.push(datagif);
+        localStorage.setItem('myGifoKey',JSON.stringify(MisGifos));
     })
     .catch(error => {
         console.log({error: `${error}`});
     });
 };
+
+
+function uploadSuccesfull(this_gif_src,gif_id) {
+    const upload_card = document.createElement("div");
+    upload_card.id = "upload_card";
+    upload_card.style.backgroundColor = "#6742E7";
+    upload_card.style.height = "320px";
+    upload_card.style.width = "480px";
+    upload_card.style.opacity = "0.6";
+    upload_card.style.position = "absolute";
+    upload_card.style.display = "flex";
+    upload_card.style.flexDirection = "column";
+    upload_card.style.alignItems = "center";
+    upload_card.style.justifyContent = "center";
+    const buffer_img = document.createElement("img");
+    buffer_img.setAttribute('src', "assets/ok.svg");
+    buffer_img.style.height = "22px";
+    buffer_img.style.width = "22px";
+    buffer_img.style.marginBottom = "10px";
+    const buffer_txt = document.createElement("p");
+    buffer_txt.innerHTML = "GIFO subido con éxito";
+    buffer_txt.style.color = "#FFFFFF";
+    buffer_txt.style.fontSize = "15px";
+    buffer_txt.style.textAlign = "center";
+    buffer_txt.style.fontFamily = "'Montserrat'";
+    buffer_txt.style.fontWeight = "800";
+    // download and link btns
+    const btns_cnt = document.createElement("div");
+    btns_cnt.style.position = "absolute";
+    btns_cnt.style.top = "0";
+    btns_cnt.style.right = "0";
+    btns_cnt.style.marginTop = "11px";
+    btns_cnt.style.marginRight = "12px";
+    const link_icon = document.createElement("img");
+    link_icon.setAttribute('src', "assets/icon-link-normal.svg");
+    link_icon.style.height = "32px";
+    link_icon.style.width = "32px";
+    link_icon.style.marginLeft = "10px"
+    link_icon.style.cursor = "pointer";
+    const download_icon = document.createElement("img");
+    download_icon.setAttribute('src', "assets-usados/icon-download.svg");
+    download_icon.style.height = "32px";
+    download_icon.style.width = "32px";
+    download_icon.id = "download-icon"}
+
+
+
+    function gifBuffering() {
+        // Violet card
+        const upload_card = document.createElement("div");
+        upload_card.id = "upload_card";
+        upload_card.style.backgroundColor = "#572EE5";
+        upload_card.style.height = "320px";
+        upload_card.style.width = "480px";
+        upload_card.style.opacity = "0.6";
+        upload_card.style.position = "absolute";
+        upload_card.style.display = "flex";
+        upload_card.style.flexDirection = "column";
+        upload_card.style.alignItems = "center";
+        upload_card.style.justifyContent = "center";
+        const buffer_img = document.createElement("img");
+        buffer_img.setAttribute('src', "./assets/loader.svg");
+        buffer_img.style.height = "22px";
+        buffer_img.style.width = "22px";
+        buffer_img.style.marginBottom = "10px";
+        const buffer_txt = document.createElement("p");
+        buffer_txt.innerHTML = "Estamos subiendo tu GIFO";
+        buffer_txt.style.color = "#FFFFFF";
+        buffer_txt.style.fontSize = "15px";
+        buffer_txt.style.textAlign = "center";
+        buffer_txt.style.fontFamily = "'Montserrat'";
+        buffer_txt.style.fontWeight = "800";
+        upload_card.appendChild(buffer_img);
+        upload_card.appendChild(buffer_txt);
+        pantallaCompleta.appendChild(upload_card);
+        // Clear btn and "repetir captura"
+        btnCrear.style.visibility = "hidden";
+        timerVid.style.visibility = "hidden";
+        // Pintar paso 3, despintar paso 2
+        paso3.style.backgroundColor = "#572EE5";
+        paso3.style.color = "#FFFFFF";
+        paso2.style.backgroundColor = "#FFFFFF";
+        paso2.style.color = "#572EE5";
+    
+    }

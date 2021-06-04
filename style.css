@@ -384,7 +384,7 @@ span {
     border-top: 1px solid rgb(200, 200, 200);
     width:100%;
     position: relative;
-    bottom: 6px; /* your padding + border-width */
+    bottom: 10px; /* your padding + border-width */
   }
 
 
@@ -419,6 +419,10 @@ span {
     list-style: none;
     display:none;
    
+}
+
+#search-d{
+    margin-right: 10px;
 }
 
  #search-n {
@@ -498,10 +502,19 @@ height:100%;
     text-align: center;
     background-color:#F4F5F9;
     padding:50px 0px 80px;
-    overflow-x: hidden;
+   
  }
 
+#contPalabra::before{
 
+    content: "";
+    display: block;
+    border-top: 1px solid #6742E7;
+    width: 100%;
+    position: relative;
+    bottom: 10px;
+    
+}
 
  #trending-g h2 {
     color: #6742E7;
@@ -829,7 +842,6 @@ height:100%;
         background-color: transparent;
         justify-content: flex-end;
         align-items: flex-start;
-
         width:100%;
         height: 85px;
         padding-top:5px;
@@ -838,7 +850,10 @@ height:100%;
 
         
     }
-
+    
+    .fila {
+        padding-top:25px;
+    }
     
     .link {
        color: #6742E7;

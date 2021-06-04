@@ -319,9 +319,9 @@ function flecha(signo) {
 
 
         favor1.addEventListener("click", ()=> {
-            dataFavoritos.push(response.data[i]);
-            console.log(dataFavoritos);
-            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+            dataFavoritos1.push(response.data[i]);
+            console.log(dataFavoritos1);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
         })
          max1.addEventListener("click", ()=> {
              agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
@@ -539,9 +539,9 @@ function FavoritosComp() {
         botones[i].appendChild(favor1);
         botones[i].appendChild(max1);
         favor1.addEventListener("click", ()=> {
-            dataFavoritos.push(response.data[i]);
-            console.log(dataFavoritos);
-            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+            dataFavoritos1.push(response.data[i]);
+            console.log(dataFavoritos1);
+            localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
           });
          
             max1.addEventListener("click", ()=> {
@@ -592,7 +592,8 @@ function FavoritosComp() {
             divFantasma[i].addEventListener("click", ()=> {
                 agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
             })}
-    
+            gifTrending.addEventListener('mousedown', handleKeyPressed, true);
+
        } } ).catch(e=> console.log(e))
     }
     
