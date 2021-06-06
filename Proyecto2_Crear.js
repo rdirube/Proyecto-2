@@ -1,26 +1,90 @@
+const menu = document.getElementById("menu");
+const menuInt = document.getElementById("menu-int");
+const modo = document.getElementById("modo");
+const linkF = document.getElementById("link-f");
+const linkG = document.getElementById("link-g");
+const logoMobile = document.getElementById("logo-mobile");
+const logoD = document.getElementById("logo-d");
+const body = document.getElementById("body");
+const pasos = document.getElementById("pasos");
+const paso = document.getElementsByClassName("paso");
 const paso1 = document.getElementById("paso-1");
 const paso2 = document.getElementById("paso-2");
 const paso3 = document.getElementById("paso-3");
-let btnCrear = document.getElementById("btn-crear");
+const imgCamara = document.getElementById("camara-d");
+const imgCinta = document.getElementById("cinta-d");
+const crearD = document.getElementById("crear-d");
+const footer = document.getElementById("footer");
+const link = document.getElementsByClassName("link");
+const btnCont = document.getElementById("cont-btn");
+var btnCrear = document.getElementById("btn-crear");
 const intro1 = document.getElementById("intro1");
 const intro2 = document.getElementById("intro2");
 const pintro1 = document.getElementById("p-intro1");
 const pintro2 = document.getElementById("p-intro2");
 const span = document.getElementById("span");
 let video = document.getElementById("video");
+const facebook = document.getElementById("facebook-d");
+const twitter = document.getElementById("twitter-d");
+const instagram = document.getElementById("instagram-d");
 const timerVid = document.getElementById("timer-vid");
+const camara = document.getElementById("camara");
+const camaraBis = document.getElementById("camara-bis");
+const pantallaCompl = document.getElementById("pantalla-completa");
 const pantallaCamara = document.getElementById("pantalla-camara");
-let MisGifos = [];
+var MisGifos = [];
 const pantallaCompleta = document.getElementById("pantalla-completa");
 const ApiKey = "og2cGOovwMy2VkjKm8PCJRTApTXFM8BJ";
+const GIPHY_URL = 'https://media.giphy.com/media/';
+
+console.log(MisGifos);
+
+
+function checkForAddedMisGifos() {
+    if (localStorage.getItem('myGifostorage')) {
+        MisGifos = JSON.parse(localStorage.getItem('myGifostorage'));
+    } else if (localStorage.getItem('myGifostorage') == null) {
+        MisGifos = [];
+    }
+    return MisGifos;
+}
+checkForAddedMisGifos();
 
 
 
 
+twitter.addEventListener("mouseover", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter-hover.svg");
+})
+
+twitter.addEventListener("mouseout", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter.svg");
+})
 
 
+facebook.addEventListener("mouseover", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon_facebook_hover.svg");
 
+})
 
+facebook.addEventListener("mouseout", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon_facebook.svg");
+
+})
+
+instagram.addEventListener("mouseover", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram-hover.svg")
+})
+
+instagram.addEventListener("mouseout", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram.svg");
+})
 
 
 
@@ -86,8 +150,8 @@ function startRecording() {
             type: 'gif',
             frameRate: 1,
             quality: 10,
-            width: 450,
-            height: 200,
+            width: 480,
+            height: 320,
             hidden: 140,
             onGifRecordingStarted: function () {
                 console.log('started');
@@ -116,13 +180,16 @@ function stopVideo() {
     timerVid.style.cursor = "pointer";
     // agregar evento repetir captura
     timerVid.addEventListener('click', repetirVideo);
-    btnCrear.innerHTML = "SUBIR GIFO";
+    
     timerVid.style.textDecoration = "underline";
     timerVid.style.textDecorationColor = "#4FE3C1";
     timerVid.style.textDecorationThickness = "2.5px";
+    btnCrear.innerHTML = "SUBIR GIFO";
     // agregar event listener uploadGif()
     btnCrear.addEventListener('click', GifoUpload);
+    
 }
+
 
 function stopRecordingCallback() {
     video.src = URL.createObjectURL(recorder.getBlob());
@@ -169,6 +236,8 @@ function looper() {
 
 function printTimer() {
     timerVid.innerHTML = calculateTimer((new Date().getTime() - dateStarted) / 1000);
+    timerVid.style.color="#6742E7";
+    timerVid.style.fontFamily="'Montserrat', sans-serif";
 };
 
 function stopTime() {
@@ -193,31 +262,36 @@ function GifoUpload() {
     })
     .then(response => response.json())
     .then(response => {
-        upload_card.remove();
+        fondogif.remove();
         let gifsrc = `${GIPHY_URL}${response.data.id}/giphy.gif`;
         uploadSuccesfull(gifsrc,response.data.id);
-        let datagif = JSON.stringify(response.data);
+        let datagif = response.data.id;
+        console.log(response.data.id);
         MisGifos.push(datagif);
-        localStorage.setItem('myGifoKey',JSON.stringify(MisGifos));
+        localStorage.setItem('myGifostorage',JSON.stringify(MisGifos));
+        
     })
     .catch(error => {
         console.log({error: `${error}`});
     });
 };
 
+let getData = localStorage.getItem("myGifostorage");
+console.log(getData);
+
 
 function uploadSuccesfull(this_gif_src,gif_id) {
-    const upload_card = document.createElement("div");
-    upload_card.id = "upload_card";
-    upload_card.style.backgroundColor = "#6742E7";
-    upload_card.style.height = "320px";
-    upload_card.style.width = "480px";
-    upload_card.style.opacity = "0.6";
-    upload_card.style.position = "absolute";
-    upload_card.style.display = "flex";
-    upload_card.style.flexDirection = "column";
-    upload_card.style.alignItems = "center";
-    upload_card.style.justifyContent = "center";
+    const fondogif = document.createElement("div");
+    fondogif.id = "fondogif";
+    fondogif.style.backgroundColor = "#6742E7";
+    fondogif.style.height = "320px";
+    fondogif.style.width = "480px";
+    fondogif.style.opacity = "0.6";
+    fondogif.style.position = "absolute";
+    fondogif.style.display = "flex";
+    fondogif.style.flexDirection = "column";
+    fondogif.style.alignItems = "center";
+    fondogif.style.justifyContent = "center";
     const buffer_img = document.createElement("img");
     buffer_img.setAttribute('src', "assets/ok.svg");
     buffer_img.style.height = "22px";
@@ -247,23 +321,59 @@ function uploadSuccesfull(this_gif_src,gif_id) {
     download_icon.setAttribute('src', "assets-usados/icon-download.svg");
     download_icon.style.height = "32px";
     download_icon.style.width = "32px";
-    download_icon.id = "download-icon"}
+    download_icon.id = "download-icon";
+    let a_download = document.createElement("a");
+    a_download.setAttribute("download", "download");
+    a_download.style.cursor = "pointer";
+    let href = createBlob(this_gif_src);
+    href.then(url => {
+        a_download.setAttribute("href", url);
+    })
+    a_download.setAttribute("download", "myGif.gif");
+    a_download.appendChild(download_icon);
+    btns_cnt.appendChild(a_download);
+    btns_cnt.appendChild(link_icon);
+    fondogif.appendChild(btns_cnt);
+    fondogif.appendChild(buffer_img);
+    fondogif.appendChild(buffer_txt);
+    pantallaCompleta.appendChild(fondogif);
+
+
+    // Hover events
+    download_icon.addEventListener('mouseenter', () => {
+        download_icon.setAttribute('src', "assets-usados/icon-download-hover.svg");
+    });
+    download_icon.addEventListener('mouseleave', () => {
+        download_icon.setAttribute('src', "assets-usados/icon-download.svg");
+    });
+    link_icon.addEventListener('mouseenter', () => {
+        link_icon.setAttribute('src', "assets/icon-link-hover.svg");
+    });
+    link_icon.addEventListener('mouseleave', () => {
+        link_icon.setAttribute('src', "assets/icon-link-normal.svg")
+    });
+    // ===== COPY LINK TO CLIPBOARD =====
+    link_icon.addEventListener('click', () => {
+        const copyLink = `${GIPHY_URL}${gif_id}/giphy.gif`;
+        copy(copyLink);
+    })
+}
 
 
 
     function gifBuffering() {
         // Violet card
-        const upload_card = document.createElement("div");
-        upload_card.id = "upload_card";
-        upload_card.style.backgroundColor = "#572EE5";
-        upload_card.style.height = "320px";
-        upload_card.style.width = "480px";
-        upload_card.style.opacity = "0.6";
-        upload_card.style.position = "absolute";
-        upload_card.style.display = "flex";
-        upload_card.style.flexDirection = "column";
-        upload_card.style.alignItems = "center";
-        upload_card.style.justifyContent = "center";
+        const fondogif = document.createElement("div");
+        fondogif.id = "fondogif";
+        fondogif.style.backgroundColor = "#572EE5";
+        fondogif.style.height = "320px";
+        fondogif.style.width = "480px";
+        fondogif.style.opacity = "0.6";
+        fondogif.style.position = "absolute";
+        fondogif.style.display = "flex";
+        fondogif.style.flexDirection = "column";
+        fondogif.style.alignItems = "center";
+        fondogif.style.justifyContent = "center";
         const buffer_img = document.createElement("img");
         buffer_img.setAttribute('src', "./assets/loader.svg");
         buffer_img.style.height = "22px";
@@ -276,9 +386,9 @@ function uploadSuccesfull(this_gif_src,gif_id) {
         buffer_txt.style.textAlign = "center";
         buffer_txt.style.fontFamily = "'Montserrat'";
         buffer_txt.style.fontWeight = "800";
-        upload_card.appendChild(buffer_img);
-        upload_card.appendChild(buffer_txt);
-        pantallaCompleta.appendChild(upload_card);
+        fondogif.appendChild(buffer_img);
+        fondogif.appendChild(buffer_txt);
+        pantallaCompleta.appendChild(fondogif);
         // Clear btn and "repetir captura"
         btnCrear.style.visibility = "hidden";
         timerVid.style.visibility = "hidden";
@@ -289,3 +399,128 @@ function uploadSuccesfull(this_gif_src,gif_id) {
         paso2.style.color = "#572EE5";
     
     }
+
+
+   
+
+
+
+    function copy(urltext) {
+        const copyText = urltext;
+        const area = document.createElement('textarea');
+        area.value = copyText;
+        area.setAttribute('readonly', '');
+        area.style = {
+            position: 'absolute',
+            left: '-9999px'
+        };
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        document.body.removeChild(area);
+        alert("Link copiado en clipboard! :)");
+    };
+    
+
+
+
+    async function createBlob(url) {
+        try {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            return URL.createObjectURL(blob);
+        } catch (error) {
+            console.log("ERROR: ", error);
+        }
+    };
+
+
+
+
+    //Modo Nocturno
+
+    let nightmode_check = localStorage.getItem("nightmode-status");
+
+modo.addEventListener('click', nightMode);
+modo.addEventListener('click', () => {
+    if (nightmode_check !== "true") {
+        nightmode_check = "true";
+        localStorage.setItem("nightmode-status", "true");
+    } else {
+        nightmode_check = "false";
+        localStorage.setItem("nightmode-status", "false");
+    }
+})
+
+let b = true;
+function nightMode() {
+    menu.classList.toggle("menuNoct");
+    barra.classList.toggle("noctBarra");
+    menuInt.classList.toggle("menu-intNoct");
+    footer.classList.toggle("footerNoct");
+    header.classList.toggle("headerNoct");
+    camara.classList.toggle("camaraNoct");
+    camaraBis.classList.toggle("camara-bisNoct");
+    pantallaCompleta.classList.toggle("pantalla-completaNoct");
+    btnCrear.classList.toggle("btn-crearNoct");
+    btnCont.classList.toggle("cont-btnNoct");
+    pasos.classList.toggle("pasosNoct");
+    for (let i = 0; i < link.length; i++) {
+        link[i].classList.toggle("linkNoct");
+    }
+    
+    
+    // toggle logo + menú icons
+    if (b) {
+        logoD.removeAttribute("src");
+        logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crar-gifo-modo-noc.svg");
+        for(let i=0; i<6; i++){
+            p[i].style.color="white";
+        }
+        modo.innerHTML="Modo Diurno";
+        body.style.backgroundColor="#37383C";
+        h1[0].style.color="white";
+        h4[0].style.color="white";
+        h2[0].style.color="white";
+        buscar.style.backgroundColor="#37383C";
+        buscar.style.color="white";
+        imgCinta.removeAttribute("src");
+        imgCinta.setAttribute("src", "assets-usados/pelicula-modo-noc.svg");
+        b = false;
+        
+    }
+    
+       
+    else if (!b) {
+    logoD.removeAttribute("src");
+    logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
+    
+    for(let i=0; i<2; i++){
+        p[i].style.color="#6742E7";
+    }
+
+    for(let i=2; i<6; i++){
+        p[i].style.color="black";
+    }
+        h1[0].style.color="#6742E7";
+        h4[0].style.color="#6742E7";
+        h2[0].style.color="#6742E7";
+        buscar.style.backgroundColor="white";
+        buscar.style.color="black";
+        modo.innerHTML="Modo Nocturno";
+
+
+        b = true;
+
+
+
+    }
+    if (nightmode_check === "true") {
+        nightMode();
+    }
+    
+    // toggle "modo nocturno" - "modo diurno"
+}
+

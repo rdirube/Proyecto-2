@@ -21,7 +21,7 @@ const barra = document.getElementById("barra");
  const crearNH = document.getElementById("crear-nh");
  const crearNA = document.getElementById("crear-na");
  const gifos = document.getElementById("gifos");
- const contFavoritos = document.getElementById("contFavoritos");
+ const contGifs = document.getElementById("contGifs");
  const verMasCont = document.getElementById("verMasCont");
  const verMas = document.getElementById("ver-mas");
  const verMasH = document.getElementById("ver-mas-h");
@@ -60,12 +60,18 @@ const link = document.getElementsByTagName("a");
 const sectionGif = document.getElementById("gifosCont");
 const botones = document.getElementsByClassName("botones");
 const divFantasma = document.getElementsByClassName("div-fantasma");
+const GIPHY_URL = 'https://media.giphy.com/media/';
 let modosToggle = false;
 let position = 1;
 link[3].style.color="rgb(150,150,150)";
 link[3].style.cursor="default";
+let MisGifos=[];
+let gifarray = [];
+let indexgif = 1;
+let getData = JSON.parse(localStorage.getItem("myGifostorage"));
+console.log(getData);
 
-
+console.log(getData.innerHTML);
 verMas.addEventListener("mouseover", ()=> {
     verMas.style.display="none";
     verMasH.style.display="block";
@@ -165,6 +171,94 @@ logoD.addEventListener("click", ()=> {
 
 
 
+function GifosComp() {
+    if (getData.length>0){
+    getData.forEach(element => {
+    console.log(element);
+    console.log(`${GIPHY_URL}${element}/giphy.gif`)
+    gifos.style.width="100%";
+    let gifofav = document.createElement("img");
+    gifofav.setAttribute("src", `${GIPHY_URL}${element}/giphy.gif`);
+    gifofav.style.width="100%";
+    gifofav.style.height="100%";
+    let container1 = document.createElement("div");
+    contGifs.appendChild(container1);
+    contenedorGif0.style.display="none";
+    container1.setAttribute("class", "container1");
+    let contenedorBusqueda = document.createElement("div");
+    container1.appendChild(gifofav);
+    contenedorBusqueda.setAttribute("class", "contenedor-trending");
+    container1.appendChild(contenedorBusqueda);
+    let violeta1 = document.createElement("div");
+    violeta1.setAttribute("class", "violeta1");
+    violeta1.style.transform="translateY(0px)";
+    contenedorBusqueda.appendChild(violeta1);
+    let botones1 = document.createElement("div");
+    violeta1.appendChild(botones1);
+    let trash1 = document.createElement("img");
+    let download1 = document.createElement("img");
+    let max1 = document.createElement("img");
+    trash1.setAttribute("src", "assets/icon-trash-normal.svg");
+    download1.setAttribute("src", "assets-usados/icon-download.svg");
+    max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+    download1.setAttribute("class", "icono");
+    trash1.setAttribute("class", "icono");
+    max1.setAttribute("class", "icono");
+    let linkDescarga1 = document.createElement("a");
+    linkDescarga1.setAttribute("download", "mygifo.gif");
+    botones1.appendChild(trash1);
+    botones1.appendChild(linkDescarga1);
+    linkDescarga1.appendChild(download1);
+    botones1.appendChild(max1);
+    botones1.style.padding="10px 10px";
+    violeta1.style.width="100%";
+    violeta1.style.height="100%";
+       download1.addEventListener("mouseover", ()=> {
+           download1.removeAttribute("src");
+           download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
+       })
+       
+       download1.addEventListener("mouseout", ()=> {
+           download1.removeAttribute("src");
+           download1.setAttribute("src", "assets-usados/icon-download.svg");
+       })
+       
+       trash1.addEventListener("mouseover", ()=> {
+        trash1.removeAttribute("src");
+        trash1.setAttribute("src", "assets/icon-trash-hover.svg");
+       })
+       trash1.addEventListener("mouseout", ()=> {
+        trash1.removeAttribute("src");
+        trash1.setAttribute("src", "assets/icon-trash-normal.svg");
+       })
+       max1.addEventListener("mouseover", ()=> {
+           max1.removeAttribute("src");
+           max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
+       })
+       max1.addEventListener("mouseout", ()=> {
+           max1.removeAttribute("src");
+           max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+       })
+    
+       
+       linkDescarga1.addEventListener("click", ()=>{
+       let href = createBlob(`${GIPHY_URL}${element}/giphy.gif`);
+       href.then(url => {
+
+         linkDescarga1.setAttribute("href", url);
+       })
+       linkDescarga1.setAttribute("download", "mygifo");       
+       })
+      
+       trash1.addEventListener("click", ()=> {
+           removegifo(element);
+       })
+
+       max1.addEventListener("click", ()=> {
+           agrandarMisgifs(`${GIPHY_URL}${element}/giphy.gif`, element);
+       })
+
+})}}
 
 
 
@@ -350,8 +444,7 @@ botonIzqH.addEventListener("click", () => {
 
 
 
-
-function agrandar(gif, titulo, fav) {
+function agrandar(gif, titulo,fav) {
     let contenedorImgBig = document.createElement("div");
     body.appendChild(contenedorImgBig);
     contenedorImgBig.style.width="100%";
@@ -360,16 +453,16 @@ function agrandar(gif, titulo, fav) {
     contenedorImgBig.style.display="flex";
     contenedorImgBig.style.flexDirection="column";
     contenedorImgBig.style.zIndex="1000";
+    contenedorImgBig.style.position="fixed";
     contenedorImgBig.style.top="0";
     contenedorImgBig.style.bottom="0";
-    contenedorGif0.style.margin="auto";
     contenedorImgBig.style.alignItems="flex-end";
     contenedorImgBig.style.justifyContent="center";
-    contenedorImgBig.style.position="fixed";
     contenedorImgBig.style.transform="translateY(-10px)";
     contenedorImgBig.style.paddingTop="70px";
-    contenedorImgBig.style.paddingBottom="190px";
+    contenedorImgBig.style.paddingBottom="150px";
     let closeD1 = document.createElement("img");
+    contenedorImgBig.style.overflow= "auto";
     closeD1.setAttribute("src", "assets-usados/close.svg");
     closeD1.style.width="20px";
     closeD1.style.height="20px";
@@ -411,8 +504,8 @@ function agrandar(gif, titulo, fav) {
     contflechas.style.alignItems="center";
     contcompleto.appendChild(contflechas);
     let contenedorgifmax = document.createElement("div");
-    contenedorgifmax.style.width="650px";
-    contenedorgifmax.style.height="350px";
+    contenedorgifmax.style.width="700px";
+    contenedorgifmax.style.height="400px";
     contflechas.appendChild(contenedorgifmax);
     let FlechaDer1 = document.createElement("img");
     const gifomaxi = document.createElement("img");
@@ -421,11 +514,11 @@ function agrandar(gif, titulo, fav) {
     gifomaxi.style.height="100%";
     contenedorgifmax.appendChild(gifomaxi);
     let titulo_botones = document.createElement("div");
-    titulo_botones.style.width="650px";
+    titulo_botones.style.width="700px";
     titulo_botones.style.height="200px";
     titulo_botones.style.display="flex";
     titulo_botones.style.flexDirection="row";
-    titulo_botones.style.flexDirection="row";
+    titulo_botones.style.justifyContent="space-between";
     contcompleto.appendChild(titulo_botones);
     let titulosmax = document.createElement("div");
     titulosmax.style.width="50%";
@@ -447,7 +540,8 @@ function agrandar(gif, titulo, fav) {
     botonesmax.style.display="flex";
     botonesmax.style.alignItems="center";
     botonesmax.style.justifyContent="flex-end";
-    titulo_botones.appendChild(botonesmax);
+   
+    
     let favmax = document.createElement("img");
     favmax.setAttribute("src", "assets-usados/icon-fav.svg");
     favmax.style.width="45px";
@@ -461,6 +555,7 @@ function agrandar(gif, titulo, fav) {
     downloadmax.style.width="45px";
     downloadmax.style.height="45px";
     downloadmax.style.margin="0 10px 0 20px";
+    titulo_botones.appendChild(botonesmax);
     downloadmax.addEventListener("mouseover", ()=> {
         downloadmax.removeAttribute("src");
         downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
@@ -479,19 +574,199 @@ function agrandar(gif, titulo, fav) {
         favmax.removeAttribute("src");
         favmax.setAttribute("src", "assets-usados/icon-fav.svg");
     })
+    
     downloadmax.addEventListener("click", ()=> {
         let href = createBlob(gif);
       href.then(url => {
+
      downloadlink.setAttribute("href", url);
      downloadlink.setAttribute("download", "mygifo");
     })
     favmax.addEventListener("click", ()=> {
         dataFavoritos.push(fav);
-        console.log(dataFavoritos);
         localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+        console.log(dataFavoritos);
       })
 })
-}
+   
+    }
+
+
+
+
+function agrandarMisgifs (gif, gifremove) {
+    let contenedorImgBig = document.createElement("div");
+    body.appendChild(contenedorImgBig);
+    contenedorImgBig.style.width="100%";
+    contenedorImgBig.style.height="700px";
+    contenedorImgBig.style.backgroundColor="white";
+    contenedorImgBig.style.display="flex";
+    contenedorImgBig.style.flexDirection="column";
+    contenedorImgBig.style.zIndex="1000";
+    contenedorImgBig.style.position="fixed";
+    contenedorImgBig.style.top="0";
+    contenedorImgBig.style.bottom="0";
+    contenedorImgBig.style.alignItems="flex-end";
+    contenedorImgBig.style.justifyContent="center";
+    contenedorImgBig.style.transform="translateY(-10px)";
+    contenedorImgBig.style.paddingTop="70px";
+    contenedorImgBig.style.paddingBottom="150px";
+    let closeD1 = document.createElement("img");
+    contenedorImgBig.style.overflow= "auto";
+    closeD1.setAttribute("src", "assets-usados/close.svg");
+    closeD1.style.width="20px";
+    closeD1.style.height="20px";
+    closeD1.style.marginTop="90px";
+    closeD1.style.marginRight="180px";
+    closeD1.style.marginBottom="100px";
+    closeD1.addEventListener("click", ()=> {
+        contenedorImgBig.style.display="none";
+    })
+    closeD1.addEventListener("mouseover", ()=> {
+        closeD1.style.cursor="pointer";
+    })
+    window.addEventListener("keyup", (e)=> {
+        if(e.keyCode===27) { 
+    
+            contenedorImgBig.style.display="none";
+        }
+    })
+    
+    contenedorImgBig.appendChild(closeD1);
+    let contcompleto = document.createElement("div");
+    contcompleto.style.display="flex";
+    contcompleto.style.flexDirection="column";
+    contcompleto.style.width="95%";
+    contcompleto.style.height="95%";
+    contcompleto.style.margin="auto";
+    contcompleto.style.justifyContent="center";
+    contcompleto.style.alignItems="center";
+    contcompleto.style.marginRight="95px";
+    contcompleto.style.marginBottom="10px";
+    contenedorImgBig.appendChild(contcompleto);
+    let contflechas = document.createElement("div");
+    contflechas.style.display="flex";
+    contflechas.style.flexDirection="row";
+    contflechas.style.margin="0 auto";
+    contflechas.style.width="100%";
+    contflechas.style.height="100%";
+    contflechas.style.justifyContent="center";
+    contflechas.style.alignItems="center";
+    contcompleto.appendChild(contflechas);
+    let contenedorgifmax = document.createElement("div");
+    contenedorgifmax.style.width="700px";
+    contenedorgifmax.style.height="400px";
+    contflechas.appendChild(contenedorgifmax);
+    let FlechaDer1 = document.createElement("img");
+    const gifomaxi = document.createElement("img");
+    gifomaxi.setAttribute("src", gif);
+    gifomaxi.style.width="100%";
+    gifomaxi.style.height="100%";
+    contenedorgifmax.appendChild(gifomaxi);
+    let titulo_botones = document.createElement("div");
+    titulo_botones.style.width="700px";
+    titulo_botones.style.height="200px";
+    titulo_botones.style.display="flex";
+    titulo_botones.style.flexDirection="row";
+    titulo_botones.style.justifyContent="space-between";
+    contcompleto.appendChild(titulo_botones);
+    let botonesmax = document.createElement("div");
+    botonesmax.style.width="50%";
+    botonesmax.style.display="flex";
+    botonesmax.style.alignItems="center";
+    botonesmax.style.justifyContent="flex-end";
+   
+    
+    let trash1 = document.createElement("img");
+    trash1.setAttribute("src", "assets/icon-trash-normal.svg");
+    trash1.style.width="45px";
+    trash1.style.height="45px";
+    botonesmax.appendChild(trash1);
+    let downloadlink = document.createElement("a");
+    let downloadmax = document.createElement("img");
+    downloadlink.appendChild(downloadmax)
+    botonesmax.appendChild(downloadlink);
+    downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    downloadmax.style.width="45px";
+    downloadmax.style.height="45px";
+    downloadmax.style.margin="0 10px 0 20px";
+    titulo_botones.appendChild(botonesmax);
+    downloadmax.addEventListener("mouseover", ()=> {
+        downloadmax.removeAttribute("src");
+        downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
+        downloadmax.style.cursor="pointer";
+    })
+    downloadmax.addEventListener("mouseout", ()=> {
+        downloadmax.removeAttribute("src");
+        downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    })
+    trash1.addEventListener("mouseover", ()=> {
+        trash1.removeAttribute("src");
+        trash1.setAttribute("src", "assets/icon-trash-hover.svg")
+        trash1.style.cursor="pointer";
+    })
+    trash1.addEventListener("mouseout", ()=> {
+        trash1.removeAttribute("src");
+        trash1.setAttribute("src", "assets/icon-trash-normal.svg.svg");
+    })
+    
+    downloadmax.addEventListener("click", ()=> {
+        let href = createBlob(gif);
+      href.then(url => {
+
+     downloadlink.setAttribute("href", url);
+     downloadlink.setAttribute("download", "mygifo");
+    })
+    trash1.addEventListener("click", ()=> {
+        removegifo(gifremove);
+      })
+})
+   
+ }
+
+console.log(getData.length);
+
+
+function removegifo(element) {
+for(let i=0; i< getData.length; i++) {
+    let gifarray = getData[i];
+    console.log(gifarray);
+    if (gifarray===element) {
+        localStorage.clear();
+        getData.splice(i,1);
+        renovarLocalStorage(getData);
+        location.reload();
+    }}}
+
+
+
+    function renovarLocalStorage(gifos) {
+        localStorage.setItem("myGifostorage", JSON.stringify(gifos));
+     }
+
+
+
+
+    function VerMasIni() {
+        if(getData.length>11*indexgif) {
+            verMasCont.style.display="flex";
+            verMasCont.style.justifyContent= "center";
+            verMasCont.style.alignItems= "center";
+            verMasCont.style.margin="auto";
+            verMasCont.style.padding= "50px";
+            indexgif++;
+        } else {
+            verMasCont.style.display="none";
+        }}
+
+
+        VerMasIni();
+
+
+
+
+
+
 
 
 async function createBlob(url) {
@@ -505,14 +780,14 @@ async function createBlob(url) {
 }    
 
 function GrillaMisGifos () {
-    contFavoritos.style.width="100%";
-    contFavoritos.style.marginTop="40px";
-    contFavoritos.style.display="grid";
-    contFavoritos.style.gridTemplateColumns="repeat(4, 300px)";
-    contFavoritos.style.gridTemplateRows="repeat(2, 230px)";
-    contFavoritos.style.justifyContent="center";
-    contFavoritos.style.alignItems="center";
-    contFavoritos.style.gridGap="30px";
+    contGifs.style.width="100%";
+    contGifs.style.marginTop="40px";
+    contGifs.style.display="grid";
+    contGifs.style.gridTemplateColumns="repeat(4, 300px)";
+    contGifs.style.gridTemplateRows="repeat(2, 230px)";
+    contGifs.style.justifyContent="center";
+    contGifs.style.alignItems="center";
+    contGifs.style.gridGap="30px";
 }
 
 
@@ -587,6 +862,23 @@ else if (modosToggle===true) {
     botonDerD.setAttribute("src", "assets-usados/Button-Slider-right.svg");
     botonIzqD.removeAttribute("src");
     botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
-    modosToggle=false
+    modosToggle=false;
     
 }})
+
+
+
+function paginaGifos()
+ {
+if (getData.length=0) {
+    contenedorGif0.style.display="block";
+    contGifs.style.display="none";
+} else {
+    contenedorGif0.style.display="none";
+    
+    GrillaMisGifos(); 
+   
+}}
+
+GifosComp();
+paginaGifos();

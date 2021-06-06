@@ -4,7 +4,6 @@
  const barra = document.getElementById("barra");
  const logoMobile = document.getElementById("logo-mobile");
  const logoD = document.getElementById("logo-d");
- const logoN = document.getElementById("logo-n");
  const burga = document.getElementById("burga");
  const burger = document.getElementById("burger");
  const burgerN = document.getElementById("burguer-n");
@@ -25,20 +24,13 @@ const lupitaD = document.getElementById("search-d");
 const lupitaN = document.getElementById("search-n");
 const trending = document.getElementById("trending");
  const botonIzqD = document.getElementById("boton-izq-d");
- const botonIzqN = document.getElementById("boton-izq-n");
- const botonIzqH = document.getElementById("boton-izq-h");
+ const botonDerH= document.getElementById("boton-der-h");
+ const botonIzqH= document.getElementById("boton-izq-h");
  const botonDerD = document.getElementById("boton-der-d");
- const botonDerN = document.getElementById("boton-der-n");
- const botonDerH = document.getElementById("boton-der-h");
  const facebook = document.getElementById("facebook-d");
- const facebookN = document.getElementById("facebook-n");
- const facebookH = document.getElementById("facebook-h");
  const twitter = document.getElementById("twitter-d");
- const twitterN = document.getElementById("twitter-n");
- const twitterH = document.getElementById("twitter-h");
+ const flechas = document.getElementById("flechas");
  const instagram = document.getElementById("instagram-d");
- const instagramN = document.getElementById("instagram-n");
- const instagramH = document.getElementById("instagram-h");
  const header = document.getElementById("header");
  const imgFav0 = document.getElementById("fav-s");
  const contenedorGif0 = document.getElementById("gif-0");
@@ -50,8 +42,8 @@ const h1 = document.getElementsByTagName("h1");
 const p = document.getElementsByTagName("p");
 const h2 = document.getElementsByTagName("h2");
 const h4 = document.getElementsByTagName("h4");
-const link = document.getElementsByTagName("a");
- const ApiKey = "og2cGOovwMy2VkjKm8PCJRTApTXFM8BJ";
+const link = document.getElementsByClassName("link");
+const ApiKey = "og2cGOovwMy2VkjKm8PCJRTApTXFM8BJ";
 const gifosEncontrados= document.getElementById("gifos-encontrados");
 const categorias = document.getElementById("categorias");
 const trendingsN = document.getElementById("trendings-n");
@@ -129,24 +121,59 @@ botonDerH.addEventListener("mouseout", ()=> {
 
 
 crearD.addEventListener("mouseover", ()=> {
-    crearD.src="/assets-usados/CTA-crear-gifo-hover.svg";
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-hover.svg");
 })
 
 crearD.addEventListener("mouseout", ()=> {
-    crearD.src="/assets-usados/button-crear-gifo.svg";
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
 })
 
-crearD.addEventListener("mouseenter", ()=> {
-    crearD.src="CTA-crear-gifo-active.svg";
+crearD.addEventListener("mousedown", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-active.svg");
     
 })
 
-crearD.addEventListener("mouseleave", ()=> {
-   crearD.src="/assets-usados/button-crear-hover.svg";
+crearD.addEventListener("mouseup", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
 })
 
 
+twitter.addEventListener("mouseover", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter-hover.svg");
+})
 
+twitter.addEventListener("mouseout", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter.svg");
+})
+
+
+facebook.addEventListener("mouseover", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon_facebook_hover.svg");
+
+})
+
+facebook.addEventListener("mouseout", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon_facebook.svg");
+
+})
+
+instagram.addEventListener("mouseover", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram-hover.svg")
+})
+
+instagram.addEventListener("mouseout", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram.svg");
+})
 
 
 
@@ -156,15 +183,16 @@ logoD.addEventListener("click", ()=> {
 
 
 verMas.addEventListener("mouseover", ()=> {
-    verMas.style.display="none";
-    verMasH.style.display="block";
-    verMasH.style.cursor= "pointer";
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
+    verMas.style.cursor="pointer";
 })
 
-verMasH.addEventListener("mouseout", ()=> {
-    verMas.style.display="block";
-    verMasH.style.display="none";
+verMas.addEventListener("mouseout", ()=> {
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "assets-usados/CTA-ver-mas.svg");
 })
+
 
 
 
@@ -215,61 +243,25 @@ function autocompletar() {
            lupitaRes[i].style.height="20px";
            lupitaRes[i].style.transform="translateX(-25px)";
            resultado[i].innerHTML= response.data[i].name;
-           divResultado[i].style.color="rgb(100,100,100)";
-           divResultado[i].style.cursor="pointer";
-           divResultado[i].style.width="100%";
-           divResultado[i].style.transform="translateX(18px)";
-           divResultado[i].addEventListener("mouseover", ()=>{
-            divResultado[i].style.backgroundColor="rgb(220,220,220)";
-            })
-            divResultado[i].addEventListener("mouseout", ()=>{
-                divResultado[i].style.backgroundColor="white";
-            })
+           
          } searchF();
          gifoEncontrados();
         }).catch(e=>console.log(e)) 
 }
 
-resultado[0].addEventListener("click", ()=> {
-    matchList.style.display="none";
-    buscar.value=resultado[0].innerHTML;
-    matchList.style.display="none";
-    buscCont.style.height="50px";
-    searchF();
-    gifoEncontrados();
-}) 
-resultado[1].addEventListener("click", ()=> {
-    matchList.style.display="none";
-    buscar.value=resultado[1].innerHTML;
-    matchList.style.display="none";
-    buscCont.style.height="50px";
-    searchF();
-    gifoEncontrados();
-}) 
-resultado[2].addEventListener("click", ()=> {
-    matchList.style.display="none";
-    buscar.value=resultado[2].innerHTML;
-    matchList.style.display="none";
-    buscCont.style.height="50px";
-    searchF();
-    gifoEncontrados();
-}) 
-resultado[3].addEventListener("click", ()=> {
-    matchList.style.display="none";
-    buscar.value=resultado[3].innerHTML;
-    matchList.style.display="none";
-    buscCont.style.height="50px";
-    searchF();
-    gifoEncontrados();
-}) 
-resultado[4].addEventListener("click", ()=> {
-    matchList.style.display="none";
-    buscar.value=resultado[4].innerHTML;
-    matchList.style.display="none";
-    buscCont.style.height="50px";
-    searchF();
-    gifoEncontrados();
-}) 
+
+for (let i=0 ; i<5 ; i++) {
+
+    resultado[i].addEventListener("click", ()=> {
+        matchList.style.display="none";
+        buscar.value=resultado[0].innerHTML;
+        matchList.style.display="none";
+        buscCont.style.height="50px";
+        searchF();
+        gifoEncontrados();
+    }) 
+}
+
 
 //Función para agrandar imagen
 function agrandar(gif, titulo,fav) {
@@ -427,8 +419,8 @@ function agrandar(gif, titulo,fav) {
 //AddEventListener del input
 buscar.addEventListener("input", ()=> {
 autocompletar();
-lupitaD.removeAttribute("src");
-lupitaD.setAttribute("src", "assets-usados/close.svg");
+lupitaD.style.display="none";
+closeLup.style.display="block";
 })
 
 
@@ -444,6 +436,7 @@ closeLup.addEventListener("click", ()=>{
     contPalabra.style.display="none";
     lupitaPrincipal.style.display="none"; 
     buscCont.style.height="50px";
+    categorias.style.paddingBottom="15px";
 }
 )
 
@@ -460,8 +453,9 @@ function trendingF() {
   let datos = buscarTrending();
 
   datos.then(response=> {
+    console.log(response.data);
     for(let i=0;i<3;i++) {
-
+    
     if(window.matchMedia("(min-width:780px)").matches) {
     let imgid = i + 1
     imgid = 'trending' + imgid;
@@ -529,15 +523,17 @@ function trendingF() {
           favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})  
           favor1.addEventListener("mouseup", ()=>{
             favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav.svg");})     
-    
+            favor1.setAttribute("src", "assets-usados/icon-fav.svg");}) 
+            gifTrending.style.overflow="visible";
     } else  ;{
         let imgid = i + 1;
         imgid = 'trending' + imgid;
         let gifo = document.getElementById(imgid);
         gifo.setAttribute("src", response.data[i].images.original.url);
         titulo[i].innerHTML=response.data[i].title;
-        gifTrending.style.overflow="hidden";
+        flechas.style.overflowX="hidden";
+        gifTrending.style.overflowX="scroll";
+        gifTrending.style.overflowY="hidden";
         divFantasma[i].addEventListener("click", ()=> {
             agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
         })}
@@ -1102,9 +1098,7 @@ function windowB () {
           closeD.addEventListener("click", ()=> {
               menu.style.display="none";
               closeD.style.display="none";
-              burger.style.display="block";
-              menu.style.backgroundColor="white";
-              menuInt.style.backgroundColor="white";
+              burger.style.display="block"
           })
           
 
@@ -1196,7 +1190,7 @@ function checkForAddedFavoritos() {
 
 
 
-
+/*
 modo.addEventListener("click", ()=> {
     if (modosToggle===false) {
     barra.removeAttribute("id");
@@ -1217,9 +1211,11 @@ modo.addEventListener("click", ()=> {
     for(let i=0; i<6; i++){
         p[i].style.color="white";
     }
+
     for(let i=0 ; i<4; i++) {
         link[i].style.color="white";
     }
+   
     buscCont.style.borderColor="white";
     buscCont.style.backgroundColor="#37383C";
     buscCont2.style.backgroundColor="#37383C";
@@ -1255,19 +1251,13 @@ modo.addEventListener("click", ()=> {
         verMas.removeAttribute("src");
         verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg"); 
     }); 
-    
-        if (window.matchMedia("(max-width: 780px)").matches) {
-        menu.style.backgroundColor="#222326";
-        menuInt.style.backgroundColor="#222326";
-        menu.style.opacity="1";
-   } else {
-       menu.style.backgroundColor="#37383C";
-       menuInt.style.backgroundColor="#37383C";
-   }
+    menu.removeAttribute("id");
+    menu.setAttribute("id", "menuNoct");
     
 
     
     modosToggle=true;   
+    console.log(modosToggle);
 } 
 
 
@@ -1295,6 +1285,11 @@ else if (modosToggle===true) {
     for(let i=2; i<6; i++){
         p[i].style.color="black";
     }
+   
+    for(let i=0 ; i<4; i++) {
+        link[i].style.color="#6742E7";
+    }
+    
     
     closeD.removeAttribute("src");
     closeD.setAttribute("src", "assets-usados/close.svg");
@@ -1317,28 +1312,164 @@ else if (modosToggle===true) {
     botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
     verMas.removeAttribute("src");
     verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
-    if (window.matchMedia("(max-width: 780px)").matches) {
-        menu.style.backgroundColor="#6742E7";
-        menuInt.style.backgroundColor="#6742E7";
-        menu.style.opacity="0.8";
-        for(let i=0 ; i<4; i++) {
-            link[i].style.color="white";
-        }
-   } else {
-       menu.style.display="flex";
-       menu.style.backgroundColor="white";
-       menuInt.style.backgroundColor="white";
-       menu.style.opacity="1";
-       for(let i=0 ; i<4; i++) {
-        link[i].style.color="#6742E7";
-    }
-   } 
+    menu.removeAttribute("id");
+    menu.setAttribute("id", "menu");
     
    
 
     modosToggle=false
+    console.log(modosToggle);
     
-}})
+}})  */
+
+let nightmode_check = localStorage.getItem("nightmode-status");
+
+modo.addEventListener('click', nightMode);
+modo.addEventListener('click', () => {
+    if (nightmode_check !== "true") {
+        nightmode_check = "true";
+        localStorage.setItem("nightmode-status", "true");
+    } else {
+        nightmode_check = "false";
+        localStorage.setItem("nightmode-status", "false");
+    }
+})
+
+let b = true;
+function nightMode() {
+    menu.classList.toggle("menuNoct");
+    buscador.classList.toggle("buscadorNoct");
+    barra.classList.toggle("noctBarra");
+    menuInt.classList.toggle("menu-intNoct");
+    trending.classList.toggle("trendingNoct");
+    footer.classList.toggle("footerNoct");
+    buscCont.classList.toggle("busc-contNoct");
+    buscCont2.classList.toggle("busc-contNoct2");
+    header.classList.toggle("headerNoct");
+    for (let i = 0; i < link.length; i++) {
+        link[i].classList.toggle("linkNoct");
+    }
+    for(let i =0 ; i<5;i++) {
+        divResultado[i].classList.toggle("divResultadoNoct");
+        
+    }
+    // toggle logo + menú icons
+    if (b) {
+        logoD.removeAttribute("src");
+        logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
+        lupitaD.removeAttribute("src");
+        lupitaD.setAttribute("src", "assets-usados/icon-search-mod-noc.svg");
+        closeLup.removeAttribute("src");
+        closeLup.setAttribute("src", "assets-usados/close-modo-noct.svg");
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crar-gifo-modo-noc.svg");
+        burger.removeAttribute("src");
+        burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
+        botonDerD.removeAttribute("src");
+        botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
+        botonIzqD.removeAttribute("src");
+        buscador.removeAttribute("id");
+        buscador.setAttribute("id", "buscadorNoct");
+        botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");
+        
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
+        closeD.removeAttribute("src");
+        closeD.setAttribute("src", "assets-usados/close-modo-noct.svg");
+        for(let i=0; i<6; i++){
+            p[i].style.color="white";
+        }
+        modo.innerHTML="Modo Diurno";
+
+        h1[0].style.color="white";
+        h4[0].style.color="white";
+        h2[0].style.color="white";
+        buscar.style.backgroundColor="#37383C";
+        buscar.style.color="white";
+        b = false;
+        for(let i =0 ; i<5;i++) {
+            lupitaRes[i].removeAttribute("src");
+            lupitaRes[i].setAttribute("src", "assets-usados/icon-search-mod-noc.svg");
+        }
+        verMas.addEventListener("mouseover", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "assets-usados/CTA-ver+hover-modo-noc.svg");
+            verMas.style.cursor="pointer";
+        })
+        verMas.addEventListener("mouseout", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
+        })
+        lupitaPrincipal.removeAttribute("src");
+        lupitaPrincipal.setAttribute("src", "assets-usados/icon-search-mod-noc.svg")
+
+        tituloBusqueda.style.color="white";
+       
+    }
+    
+       
+    else if (!b) {
+    logoD.removeAttribute("src");
+    logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
+    closeLup.removeAttribute("src");
+    closeLup.setAttribute("src", "assets-usados/close.svg"); 
+    lupitaD.removeAttribute("src");
+    lupitaD.setAttribute("src", "assets-usados/icon-search.svg");
+    closeD.removeAttribute("src");
+    closeD.setAttribute("src", "assets-usados/close.svg");
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    burger.removeAttribute("src");
+    burger.setAttribute("src", "assets-usados/burger.svg");
+    botonDerD.removeAttribute("src");
+    botonDerD.setAttribute("src", "assets-usados/Button-Slider-right.svg");
+    botonIzqD.removeAttribute("src");
+    botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
+    lupitaPrincipal.removeAttribute("src");
+    lupitaPrincipal.setAttribute("src", "assets-usados/icon-search.svg");
+    verMas.addEventListener("mouseover", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
+        verMas.style.cursor="pointer";
+    })
+    
+    verMas.addEventListener("mouseout", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver-mas.svg");
+    })
+    for(let i=0; i<2; i++){
+        p[i].style.color="#6742E7";
+    }
+
+    for(let i=2; i<6; i++){
+        p[i].style.color="black";
+    }
+    for(let i =0 ; i<5;i++) {
+        lupitaRes[i].removeAttribute("src");
+        lupitaRes[i].setAttribute("src", "assets-usados/icon-search.svg");
+    }
+        h1[0].style.color="#6742E7";
+        h4[0].style.color="#6742E7";
+        h2[0].style.color="#6742E7";
+        buscar.style.backgroundColor="white";
+        buscar.style.color="black";
+        modo.innerHTML="Modo Nocturno";
+
+        tituloBusqueda.style.color="#6742E7";
+        tituloBusqueda.style.color="white";
+
+        b = true;
+
+
+
+    }
+  
+    
+    // toggle "modo nocturno" - "modo diurno"
+}
+// IF CHECK FOR NIGHTMODE STATUS IN LOCAL STORAGE
 
 
 

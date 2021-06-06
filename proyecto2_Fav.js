@@ -63,21 +63,20 @@ let modosToggle = false;
 let position = 1;
 link[2].style.color="rgb(150,150,150)";
 link[2].style.cursor="default";
-let dataFavoritos1 = [];
+let dataFavoritos1 = []
 let indexfav = 1;
 //hovers y actives
 
 function checkForAddedFavoritos() {
     console.log("chequeo added Mis GIFOS");
     if (localStorage.getItem("dataFavoritos")) {
-      let  dataFavoritos1 = JSON.parse(localStorage.getItem("dataFavoritos"));
+        dataFavoritos1 = JSON.parse(localStorage.getItem("dataFavoritos"));
     } else if (localStorage.getItem("dataFavoritos") == null) {
-       let dataFavoritos1 = [];
+       dataFavoritos1 = [];
     }
     return dataFavoritos1;
 }
 
-checkForAddedFavoritos()
 
 console.log(dataFavoritos1);
 
@@ -180,6 +179,38 @@ logoD.addEventListener("click", ()=> {
     window.location.reload();
 })
 
+twitter.addEventListener("mouseover", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter-hover.svg");
+})
+
+twitter.addEventListener("mouseout", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter.svg");
+})
+
+
+facebook.addEventListener("mouseover", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon-facebook.svg");
+
+})
+
+facebook.addEventListener("mouseout", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon-facebook_hover.svg");
+
+})
+
+instagram.addEventListener("mouseover", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram-hover.svg")
+})
+
+instagram.addEventListener("mouseout", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram.svg");
+})
 
 
 modo.addEventListener("click", ()=> {
@@ -264,7 +295,7 @@ else if (modosToggle===true) {
 //Trendings
 
 let getData = JSON.parse(localStorage.getItem("dataFavoritos"));
-console.log(getData);
+
 
 
 //Flechas
@@ -453,7 +484,9 @@ function FavoritosComp() {
         agrandar(element.images.original.url, element.title, element);
       })
        } )
-    
+
+
+
        function VerMasIni() {
         if(getData.length>11*indexfav) {
             verMasCont.style.display="flex";
@@ -465,6 +498,8 @@ function FavoritosComp() {
             verMasCont.style.display="none";
         }}
     
+
+        
     botonIzqD.addEventListener("mouseover", ()=> { 
         botonIzqD.style.display="none";
         botonIzqH.style.display="block";
@@ -490,18 +525,7 @@ function FavoritosComp() {
         }
     }    
 
-
-    function VerMasIni() {
-    if(getData.length>11*indexfav) {
-        verMasCont.style.display="flex";
-        verMasCont.style.justifyContent= "center";
-        verMasCont.style.alignItems= "center";
-        verMasCont.style.margin="auto";
-        verMasCont.style.padding= "50px";
-    } else {
-        verMasCont.style.display="none";
-    }
-    }
+    
 
 
     function trendingF() {
@@ -754,19 +778,11 @@ VerMasIni();
 
 
 
-function paginaFavoritos()
- {
-if (getData.innerHTML="") {
-    contenedorFav0.style.display="block";
-    contFavoritos.style.display="none";
-} else {
-    contenedorFav0.style.display="none";
-    GrillaFavoritos();
-    FavoritosComp();
-}}
 
-trendingF()
-paginaFavoritos()
+
+
+trendingF();
+
 
 
 

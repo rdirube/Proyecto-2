@@ -12,8 +12,8 @@
 </head>
 <body id ="body">
     <header>
-        <nav id="header">
-            <div id="barra">
+        <nav id="header" class="header">
+            <div id="barra" class="barra">
                 <div id="logo-mobile">
                     <a class="link 0" id="link-ppal" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index.html">
                     <img src="assets-usados/logo-mobile.svg" class="logo" id="logo-d">
@@ -27,14 +27,14 @@
                 <img src="assets-usados/Button-close-hover-modo-noc.svg" class="close" id="close-nh">
             
             </div>
-        <div id="menu">
-            <ul id="menu-int">
-                <li class="fila 1" id="fila_1"><a class="link 1" id="modo" href="#modo"><b>Modo Nocturno</b></a></li>
-                <li class="fila 2" id="fila_2"><a class="link 2" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index2.html"><b>Favoritos</b></a></li>
-                <li class="fila 3" id="fila_3"><a class="link 3" id="link-g" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Mis GIFOS</b></a></li>
+        <div class="menu" id="menu">
+            <ul class="menu-int" id="menu-int">
+                <li class="fila 1" id="fila_1"><a class="link" id="modo" href="#modo"><b>Modo Nocturno</b></a></li>
+                <li class="fila 2" id="fila_2"><a class="link" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index2.html"><b>Favoritos</b></a></li>
+                <li class="fila 3" id="fila_3"><a class="link" id="link-g" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Mis GIFOS</b></a></li>
                 <img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d">
                 <div id="contenedor-crear">
-                    <a class="link 1" id="modo" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index4.html"><img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d"></a>
+                    <a class="link" id="modo" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index4.html"><img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d"></a>
                 </div>
                 
            </ul>
@@ -45,7 +45,7 @@
 
     <main>
         <section name="buscador">
-            <div id="buscador">
+            <div class="buscador" id="buscador">
                 <div id="titulo">
                     <h1 id="ppal">Inspírate, busca, guarda, y crea los mejores <span id="GIFOS">GIFOS</span></h1>
                 </div>
@@ -53,8 +53,8 @@
                     <img id="amigos" src="assets-usados/ilustra_header.svg">
                 </div>
             <div id="busc" class="busc">
-                <div id="busc-cont">
-                    <div id="busc-cont2">
+                <div id="busc-cont" class="busc-cont">
+                    <div id="busc-cont2" class="busc-cont2">
                     <img id="lupitaPrincipal">
                     <input type="text" id="buscar" placeholder="Busca GIFOS y más">
                     <img class="search" id="search-d" src="assets-usados/icon-search.svg">
@@ -82,19 +82,19 @@
                     </div>
                 </div>
             </div>
-                <div id="trendings">
+                <div id="trendings" class="trendings">
                     <p id="trendings-n"><b>Trending:</b></p>
                     <div id="contTituloF"></div>
                 </div>
                 <div id="categorias">
                     <p>Reactions, Entertainment, Sports, Stickers, Artists</p>
                 </div>
-                <div id="contPalabra">
+                <div id="contPalabra" class="contPalabra">
                     <h3 id="palabra-buscada"></h3>
                 </div>
                 <div id="gifos-encontrados">
                 </div>
-                <div id="verMasCont">
+                <div id="verMasCont" class="verMasCont">
                     <img id="ver-mas" src="assets-usados/CTA-ver-mas.svg">
                     <img id="ver-mas-h" src="assets-usados/CTA-ver-mas-hover.svg">
                     
@@ -103,7 +103,7 @@
             </div>
         </section>
         <section id="GIFOS">
-            <div id="trending">
+            <div id="trending" class="trending">
                 <div id="trending-g">
                     <h2>Trending GIFOS</h2>
                </div> 
@@ -113,7 +113,7 @@
                </div>
                <div id="gifos-encontradoscont">
                </div>    
-                <div id="flechas">
+                <div id="flechas" class="flechas">
                   <img src="assets-usados/button-slider-left.svg" class="boton-izq" id="boton-izq-d">
                   <img src="assets-usados/button-slider-left-md-noct.svg" class="boton-izq" id="boton-izq-n">
                   <img src="assets-usados/button-slider-left-hover.svg" class="boton-izq" id="boton-izq-h">
@@ -164,30 +164,25 @@
                         </div>
                         </div>
                     </div>
+                </div>
                   <img src="assets-usados/Button-Slider-right.svg" class="boton-der" id="boton-der-d">
                   <img src="assets-usados/button-slider-right-md-noct.svg" class="boton-der" id="boton-der-n">
                   <img src="assets-usados/Button-Slider-right-hover.svg" class="boton-der" id="boton-der-h">
-                </div>
+                
             </div>
         </section>
     </main>
 
     <footer>
-     <div id="footer">
+     <div id="footer" class="footer">
        <div id="compartir-logo">
            <div id="compartir">
             <p>Compartir en:</p>
            </div>
        <div id="logos">
         <img src="assets-usados/icon_facebook.svg" class="redes" id="facebook-d">
-        <img src="assets-usados/icon_facebook_hover.svg" class="redes" id="facebook-n">
-        <img src="assets-usados/icon_facebook_noc.svg" class="redes" id="facebook-h">
         <img src="assets-usados/icon-twitter.svg" class="redes" id="twitter-d">
-        <img src="assets-usados/icon-twitter-hover.svg" class="redes" id="twitter-h">
-        <img src="assets-usados/icon_twitter_noc.svg" class="redes" id="twitter-n">
         <img src="assets-usados/icon_instagram.svg" class="redes" id="instagram-d">
-        <img src="assets-usados/icon_instagram-hover.svg" class="redes" id="instagram-h">
-        <img src="assets-usados/icon_instagram_noc.svg" class="redes" id="instagram-n">
        </div>
     </div>
        <div id="footer-f">

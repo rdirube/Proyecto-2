@@ -12,8 +12,8 @@
 </head>
 <body>
     <header>
-        <nav id="header">
-            <div id="barra">
+        <nav id="header" class="header">
+            <div id="barra" class="barra">
                 <div id="logo-mobile">
                     <img src="assets-usados/logo-mobile.svg" class="logo" id="logo-d">
                     <img src="assets-usados/logo-mobile-modo-noct.svg" id="logo-n">
@@ -26,58 +26,55 @@
                 <img src="assets-usados/Button-close-hover-modo-noc.svg" class="close" id="close-nh">
                 
             </div>
-        <div id="menu">
-            <ul>
-                <li class="fila 1"><a class="link 1" href="#modo" id="modoD"><b>Modo Nocturno</b></a></li>
-                <li class="fila 2"><a class="link 2" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Favoritos</b></a></li>
-                <li class="fila 3"><a class="link 3" id="link-g" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Mis GIFOS</b></a></li>
-                <img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d">
-                <img src="assets-usados/CTA-crear-gifo-hover.svg" class="crear" id="crear-dh">
-                <img src="assets-usados/CTA-crear-gifo-active.svg" class="crear" id="crear-da">
-                <img src="assets-usados/CTA-crear-gifo-modo-noc.svg" class="crear" id="crear-n">
-                <img src="assets-usados/CTA-crear-gifo-hover-modo-noc.svg" class="crear" id="crear-nh">
-                <img src="assets-usados/CTA-crear-gifo-active-modo-noc.svg" class="crear" id="crear-na">
-           </ul>
+            <div class="menu" id="menu">
+                <ul class="menu-int" id="menu-int">
+                    <li class="fila 1" id="fila_1"><a class="link" id="modo" href="#modo"><b>Modo Nocturno</b></a></li>
+                    <li class="fila 2" id="fila_2"><a class="link" id="link-f" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index2.html"><b>Favoritos</b></a></li>
+                    <li class="fila 3" id="fila_3"><a class="link" id="link-g" href="file:///C:/Users/rodri/Documents/Ac%C3%A1mica/Proyecto-2/index3.html"><b>Mis GIFOS</b></a></li>
+                    <img src="assets-usados/button-crear-gifo.svg" class="crear" id="crear-d">
+                    <div id="contenedor-crear">
+                       <img src="assets-usados/CTA-crear-gifo-active.svg" class="crear" id="crear-d">
+                    </div>
+                    
+               </ul>
             </div>
         </nav>
     </header>
 
     <main>
        <section>
-        <div id="pantalla-completa">
+        <div id="pantalla-completa" class="pantalla-completa">
             <div id="img-camara">
-                <img src="assets-usados/camara.svg" class ="camara" id="camara-d">
-                <img src="assets-usados/camara-modo-noc.svg" class ="camara" id="camara-n">
-                <img src="assets-usados/element-luz-camara.svg" class ="camara" id="luz-camara">
+                <img src="assets-usados/camara.svg" class ="camaraImg" id="camara-d">>
+                <img src="assets-usados/element-luz-camara.svg" class ="camaraImg" id="luz-camara">
             </div>
-            <div id="camara">
-                
-                <div id="pantalla-camara">
+            <div id="camara" class="camara">
+                <div id="camara-bis" class="camara-bis">
+                <div id="pantalla-camara" class="pantalla-camara">
                     <video id="video"></video>
                     <h2 id="intro1" class="hcamara">Aquí podrás</h2><h2 id ="intro2" class="hcamara"> crear tus propios<span id="span"> GIFOS </span></h2> 
                     <p id="p-intro1" class="pcamara">¡Crea tu GIFO en sólo tres pasos!</p>
                     <p id="p-intro2" class="pcamara">(sólo necesitas una cámara para grabar un video)</p>
-                </div>
+                </div></div>
             </div>
            <div id="cinta">
                <img src="assets-usados/pelicula.svg" class="cinta" id="cinta-d">
-               <img src="assets-usados/pelicula-modo-noc.svg" class="cinta" id="cinta-n">
            </div>
         </div>
-        <div id="pasos">
+        <div id="pasos" class="pasos">
             <div class="paso" id="paso-1">1</div>
             <div class="paso" id="paso-2">2</div>
             <div class="paso" id="paso-3">3</div>
             <div id="timer-vid"></div>
         </div>
-           <div id="cont-btn">
-               <div id="btn-crear">COMENZAR</div>
+           <div id="cont-btn" class="cont-btn">
+               <div id="btn-crear" class="btn-crear">COMENZAR</div>
            </div>
        </section>
     </main>
 
     <footer>
-     <div id="footer">
+     <div id="footer" class="footer">
        <div id="compartir-logo">
            <div id="compartir">
             <p>Compartir en:</p>
