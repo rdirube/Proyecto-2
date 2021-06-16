@@ -3,29 +3,20 @@ const barra = document.getElementById("barra");
  const logoMobile = document.getElementById("logo-mobile");
  const logoD = document.getElementById("logo-d");
  const body = document.getElementById("body");
- const logoN = document.getElementById("logo-n");
  const burga = document.getElementById("burga");
  const burger = document.getElementById("burger");
- const burgerN = document.getElementById("burguer-n");
  const closeD = document.getElementById("close-d");
- const closeN = document.getElementById("close-n");
- const closeH = document.getElementById("close-h");
  const menu = document.getElementById("menu");
+ const menuInt = document.getElementById("menu-int");
  const modo = document.getElementById("modo");
  const linkF = document.getElementById("link-f");
  const linkG = document.getElementById("link-g");
  const header = document.getElementById("header");
  const crearD = document.getElementById("crear-d");
- const crearDH = document.getElementById("crear-dh");
- const crearDA = document.getElementById("crear-da")
- const crearN = document.getElementById("crear-n");
- const crearNH = document.getElementById("crear-nh");
- const crearNA = document.getElementById("crear-na");
  const favoritos = document.getElementById("favoritos");
  const contFavoritos = document.getElementById("contFavoritos");
- const verMasCont = document.getElementById("verMasCont");
+ const verMasCont = document.getElementById("ver-mas-cont");
  const verMas = document.getElementById("ver-mas");
- const verMasH = document.getElementById("ver-mas-h");
  const botonIzqD = document.getElementById("boton-izq-d");
  const botonIzqN = document.getElementById("boton-izq-n");
  const botonIzqH = document.getElementById("boton-izq-h");
@@ -36,6 +27,7 @@ const barra = document.getElementById("barra");
  const twitter = document.getElementById("twitter-d");
  const instagram = document.getElementById("instagram-d");
 const contenedorFav0 = document.getElementById("fav-0");
+const gifTrending = document.getElementById("gif-trending");
 const imgFav0 = document.getElementById("fav-s");
 const ApiKey = "og2cGOovwMy2VkjKm8PCJRTApTXFM8BJ";
 const cursor = document.getElementsByClassName("pointer");
@@ -46,9 +38,11 @@ const trendingGif = document.getElementsByClassName("trending_gifs");
 const matchList = document.getElementById("matchList");
 const resultado= document.getElementsByClassName("resultado");
 const closeLup = document.getElementById("close-lup");
+const botones = document.getElementsByClassName("botones");
 const download= document.getElementsByClassName("download");
 const favor = document.getElementsByClassName("favor");
 const max = document.getElementsByClassName("max");
+const divFantasma = document.getElementsByClassName("div-fantasma");
 const titulo = document.getElementsByClassName("titulo");
 const icono1 = document.getElementsByClassName("icono");
 const linkDescarga = document.getElementsByClassName("link-descarga");
@@ -58,38 +52,34 @@ const p = document.getElementsByTagName("p");
 const h2 = document.getElementsByTagName("h2");
 const h4 = document.getElementsByTagName("h4");
 const link = document.getElementsByTagName("a");
-const GifosCont = document.getElementById("section-fav");
+const sectionFav = document.getElementById("section-fav");
 let modosToggle = false;
 let position = 1;
 link[2].style.color="rgb(150,150,150)";
 link[2].style.cursor="default";
 let dataFavoritos1 = []
+let hiddenfav = []
 let indexfav = 1;
 //hovers y actives
 
-function checkForAddedFavoritos() {
-    console.log("chequeo added Mis GIFOS");
-    if (localStorage.getItem("dataFavoritos")) {
-        dataFavoritos1 = JSON.parse(localStorage.getItem("dataFavoritos"));
-    } else if (localStorage.getItem("dataFavoritos") == null) {
-       dataFavoritos1 = [];
-    }
-    return dataFavoritos1;
-}
+
 
 
 console.log(dataFavoritos1);
 
 verMas.addEventListener("mouseover", ()=> {
-    verMas.style.display="none";
-    verMasH.style.display="block";
-    verMasH.style.cursor="pointer";    
-} )
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
+    verMas.style.cursor="pointer";
+})
 
-verMasH.addEventListener("mouseout", ()=> {
-    verMas.style.display="block";
-    verMasH.style.display="none";
-} )
+verMas.addEventListener("mouseout", ()=> {
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "assets-usados/CTA-ver-mas.svg");
+})
+
+
+
 
 botonIzqH.addEventListener("mouseout", ()=> {
     botonIzqH.style.display="none";
@@ -134,34 +124,36 @@ botonDerH.addEventListener("mouseout", ()=> {
 } )
 
 
+
 crearD.addEventListener("mouseover", ()=> {
-    crearD.style.display="none";
-    crearDH.style.display="block";
-    crearDH.style.cursor="pointer";
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg");
 })
 
-crearDH.addEventListener("mouseout", ()=> {
-    crearD.style.display="block";
-    crearDH.style.display="none";
+crearD.addEventListener("mouseout", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
 })
 
-crearDH.addEventListener("mousedown", ()=> {
-    crearDH.style.display="none";
-    crearDA.style.display="block";
-    crearDA.style.cursor="pointer";
-   
+crearD.addEventListener("mousedown", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
+    
 })
 
-crearDA.addEventListener("mouseup", ()=> {
-    crearDH.style.display="block";
-    crearDA.style.display="none";
-    crearD.style.display="none";
+crearD.addEventListener("mouseup", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
 })
+
+
+
 
 
 
 burger.addEventListener("click", ()=> {
-    menu.style.display="block";
+    menu.style.display="flex";
+    menuInt.style.display="flex";
     closeD.style.display="block";
     burger.style.display="none";
     menu.style.backgroundColor="#6742E7";
@@ -213,93 +205,313 @@ instagram.addEventListener("mouseout", ()=> {
 })
 
 
-modo.addEventListener("click", ()=> {
-    if (modosToggle===false) {
-    barra.style.backgroundColor="#37383C";
-    menu.style.backgroundColor="#37383C";
-    logoD.removeAttribute("src");
-    logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
-    trending.style.backgroundColor="#222326";
-    favoritos.style.backgroundColor="#37383C";
-    imgFav0.removeAttribute("id");
-    imgFav0.setAttribute("id", "fav-0-noct");
-    sectionFav.style.backgroundColor="#37383C";
-    footer.removeAttribute("id");
-    footer.setAttribute("id", "footerNoct");
-    footer.style.borderBottomColor="#222326"
-    modo.innerHTML="Modo Diurno";
-    h4[0].style.color="white";
-    h2[0].style.color="white";
-    h2[1].style.color="white";
-    link[2].style.color="rgb(150,150,150)";
-    link[2].style.cursor="default";
-    for(let i=0; i<4; i++){
-        p[i].style.color="white";
+function agregarfav() {
+    if (localStorage.getItem('dataFavoritos')) {
+        dataFavoritos1 = JSON.parse(localStorage.getItem('dataFavoritos'));
+    } else if (localStorage.getItem('dataFavoritos') == null) {
+        dataFavoritos1 = [];
     }
-    link[1].style.color="white";
-    link[3].style.color="white";
-    crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/CTA-crar-gifo-modo-noc.svg");
-    burger.removeAttribute("src");
-    burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
-    header.removeAttribute("id");
-    header.setAttribute("id", "headerNoct");
-    botonDerD.removeAttribute("src");
-    botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
-    botonIzqD.removeAttribute("src");
-    botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");    
-    modosToggle=true;
-} 
-else if (modosToggle===true) {
-    barra.style.backgroundColor="white";
-    logoD.removeAttribute("src");
-    logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
-    trending.style.backgroundColor="#F4F5F9";
-    footer.removeAttribute("id");
-    footer.setAttribute("id", "footer");
-    menu.style.backgroundColor="white";
-    favoritos.style.backgroundColor="white";
-    sectionFav.style.backgroundColor="white";
-    favoritos.setAttribute("id", "favoritos");
-    footer.style.borderBottomColor="white";
-    contenedorFav0.removeAttribute("id");
-    contenedorFav0.setAttribute("id", "fav-0");
-    modo.innerHTML="Modo Nocturno";
-    h4[0].style.color="#6742E7";
-    h2[0].style.color="#6742E7";
-    h2[1].style.color="#6742E7";
-    for(let i=0; i<4; i++){
-        p[i].style.color="black";
-    }
-    link[2].style.color="rgb(150,150,150)";
-    link[2].style.cursor="default";
-    link[1].style.color="#6742E7";
-    link[3].style.color="#6742E7";
-    crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
-    burger.removeAttribute("src");
-    burger.setAttribute("src", "assets-usados/burger.svg");
-    header.removeAttribute("id");
-    header.setAttribute("id", "header");
-    botonDerD.removeAttribute("src");
-    botonDerD.setAttribute("src", "assets-usados/Button-Slider-right.svg");
-    botonIzqD.removeAttribute("src");
-    botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
-    modosToggle=false
-    
-}})
+    return dataFavoritos1;
+}
 
-
+agregarfav();
 
 
 //Trendings
 
 let getData = JSON.parse(localStorage.getItem("dataFavoritos"));
 
-
-
+console.log(getData);
+console.log(getData[0].images.original.url);
 //Flechas
 
+
+
+
+let nightmode_check = localStorage.getItem("nightmode-status");
+
+modo.addEventListener('click', nightMode);
+modo.addEventListener('click', () => {
+    if (nightmode_check !== "true") {
+        nightmode_check = "true";
+        localStorage.setItem("nightmode-status", "true");
+    } else {
+        nightmode_check = "false";
+        localStorage.setItem("nightmode-status", "false");
+    }
+})
+
+let b = true;
+function nightMode() {
+    menu.classList.toggle("menuNoct");
+    barra.classList.toggle("noctBarra");
+    favoritos.classList.toggle("favoritosNoct");
+    menuInt.classList.toggle("menu-intNoct");
+    contFavoritos.classList.toggle("contFavoritosNoct")
+    contenedorFav0.classList.toggle("fav-0-noct");
+    trending.classList.toggle("trendingNoct");
+    footer.classList.toggle("footerNoct");
+    header.classList.toggle("headerNoct");
+    for (let i = 0; i < link.length; i++) {
+        link[i].classList.toggle("linkNoct");
+    }
+    // toggle logo + menú icons
+    if (b) {
+        verMasCont.style.backgroundColor="#37383C";
+        logoD.removeAttribute("src");
+        logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
+        
+        burger.removeAttribute("src");
+        burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
+        botonDerD.removeAttribute("src");
+        botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
+        botonIzqD.removeAttribute("src");
+        botonIzqD.removeAttribute("src");
+        botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");
+        botonIzqD.addEventListener("mouseover", ()=>{
+           botonIzqD.removeAttribute("src");
+           botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg")
+        })
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
+        closeD.removeAttribute("src");
+        closeD.setAttribute("src", "assets-usados/close-modo-noct.svg");
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg");
+        crearD.addEventListener("mouseover", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover-modo-noc.svg")
+        })
+        crearD.addEventListener("mouseout", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg")
+        })
+        for(let i=0; i<4; i++){
+            p[i].style.color="white";
+        }
+        modo.innerHTML="Modo Diurno";
+        h4[0].style.color="white";
+        for(let i=0; i<2; i++){
+            h2[i].style.color="white";
+        }
+        
+        b = false;
+        verMas.addEventListener("mouseover", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "assets-usados/CTA-ver+hover-modo-noc.svg");
+            verMas.style.cursor="pointer";
+        })
+        verMas.addEventListener("mouseout", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
+        })
+
+       
+    }
+    
+       
+    else if (!b) {
+    logoD.removeAttribute("src");
+    logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
+    closeD.removeAttribute("src");
+    closeD.setAttribute("src", "assets-usados/close.svg");
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    burger.removeAttribute("src");
+    burger.setAttribute("src", "assets-usados/burger.svg");
+    botonDerD.removeAttribute("src");
+    botonDerD.setAttribute("src", "assets-usados/Button-Slider-right.svg");
+    botonIzqD.removeAttribute("src");
+    botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
+    verMasCont.style.backgroundColor="white";
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
+    crearD.addEventListener("mouseover", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg");
+    })
+    
+    crearD.addEventListener("mouseout", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    })
+    
+    crearD.addEventListener("mousedown", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
+        
+    })
+    
+    crearD.addEventListener("mouseup", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    })
+    verMas.addEventListener("mouseover", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
+        verMas.style.cursor="pointer";
+    })
+    
+    verMas.addEventListener("mouseout", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver-mas.svg");
+    })
+    for(let i=0; i<4; i++){
+        p[i].style.color="black";
+    }
+        h4[0].style.color="#6742E7";
+    for(let i=0; i<2; i++){
+        h2[i].style.color="#6742E7";
+     }
+        modo.innerHTML="Modo Nocturno";
+        b = true;
+    }
+}
+
+
+
+
+
+function FavoritosComp() {
+    let favMostrados = getData.filter(function (favs, index){
+        return index < 12*indexfav})   
+    favMostrados.forEach(element => {
+    favoritos.style.width="100%";
+    let gifofav = document.createElement("img");
+    gifofav.setAttribute("src", element.images.original.url);
+    gifofav.style.width="100%";
+    gifofav.style.height="100%";
+    let container1 = document.createElement("div");
+    contFavoritos.appendChild(container1);
+    contenedorFav0.style.display="none";
+    container1.setAttribute("class", "container1");
+    let contenedorBusqueda = document.createElement("div");
+    container1.appendChild(gifofav);
+    contenedorBusqueda.setAttribute("class", "contenedor-trending");
+    container1.appendChild(contenedorBusqueda);
+
+     if((window.matchMedia("(min-width:780px)").matches)) {
+    let violeta1 = document.createElement("div");
+    violeta1.setAttribute("class", "violeta1");
+    contenedorBusqueda.appendChild(violeta1);
+    violeta1.style.transform="translateY(0px)";
+    let botones1 = document.createElement("div");
+    violeta1.appendChild(botones1);
+    let download1 = document.createElement("img");
+    let favor1 = document.createElement("img");
+    let max1 = document.createElement("img");
+    download1.setAttribute("src", "assets-usados/icon-download.svg");
+    favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");
+    max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+    download1.setAttribute("class", "icono");
+    favor1.setAttribute("class", "icono");
+    max1.setAttribute("class", "icono");
+    let linkDescarga1 = document.createElement("a");
+    linkDescarga1.setAttribute("download", "mygifo.gif");
+    botones1.appendChild(linkDescarga1);
+    linkDescarga1.appendChild(download1);
+    botones1.appendChild(favor1);
+    botones1.appendChild(max1);
+    botones1.style.padding="10px 10px";
+     violeta1.style.width="100%";
+     violeta1.style.height="100%";
+     let contTitulo = document.createElement("div");
+     contTitulo.setAttribute("class", "cont-titulo");
+     violeta1.appendChild(contTitulo);
+     let user1 = document.createElement("h4");
+     violeta1.appendChild(contTitulo);
+     user1.innerHTML="User";
+     user1.setAttribute("class", "user");
+     contTitulo.appendChild(user1);
+     let titulo1 = document.createElement("h3");
+     titulo1.setAttribute("class", "titulo");
+     contTitulo.appendChild(titulo1);
+     titulo1.innerHTML=element.title;
+     contTitulo.style.padding="0px 0px 25px 10px";
+       download1.addEventListener("mouseover", ()=> {
+           download1.removeAttribute("src");
+           download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
+       })
+       
+       download1.addEventListener("mouseout", ()=> {
+           download1.removeAttribute("src");
+           download1.setAttribute("src", "assets-usados/icon-download.svg");
+       })
+       
+       favor1.addEventListener("mouseover", ()=> {
+           favor1.removeAttribute("src");
+           favor1.setAttribute("src", "assets-usados/icon-fav-hover.svg");
+       })
+       favor1.addEventListener("mouseout", ()=> {
+           favor1.removeAttribute("src");
+           favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");
+       })
+       max1.addEventListener("mouseover", ()=> {
+           max1.removeAttribute("src");
+           max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
+       })
+       max1.addEventListener("mouseout", ()=> {
+           max1.removeAttribute("src");
+           max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+       })
+       favor1.addEventListener("mousedown", ()=>{
+           favor1.removeAttribute("src");
+           favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})
+       
+   linkDescarga1.addEventListener("click", ()=>{
+     let href = createBlob(element.images.original.url);
+     href.then(url => {
+
+         linkDescarga1.setAttribute("href", url);
+     })
+     linkDescarga1.setAttribute("download", "mygifo");       
+   })
+
+   max1.addEventListener("click", ()=> {
+     agrandar(element.images.original.url, element.title, element);
+   })
+
+   favor1.addEventListener("click", ()=> {
+       removefav(element.images.original.url);
+   })
+    } else ;{
+        let divFantasma1 = document.createElement("div");
+        divFantasma1.setAttribute("class", "div-fantasma1");
+        contenedorBusqueda.appendChild(divFantasma1);
+        divFantasma1.addEventListener("click", ()=> {
+            agrandarMin(element.images.original.url, element.title, element);
+        });
+    }}
+    )
+
+    indexfav+=1;
+console.log(favMostrados)}
+
+
+
+
+function VerMasIni() {
+    
+    if (getData.length>12){
+     verMasCont.style.display="flex";
+     verMasCont.style.justifyContent= "center";
+     verMasCont.style.alignItems= "center";
+     verMasCont.style.margin="auto";
+     verMasCont.style.paddingBottom= "50px";
+    }
+    
+     verMas.addEventListener("click", ()=> {
+        FavoritosComp();
+        GrillaFavoritos(3*indexfav);
+        
+  })}
+ 
+  VerMasIni();
+  FavoritosComp()
+
+   
+
+    
 function flecha(signo) {
     if (signo == '+') {
         position = position + 1
@@ -362,142 +574,42 @@ function flecha(signo) {
     }}).catch(e=>console.log(e))
 }
 
+console.log(getData.length);
 // titulo gif
 
 
 
 
+    
 
 
-
-
-
-
-
-function GrillaFavoritos () {
+function GrillaFavoritos (cantidad) {
        contFavoritos.style.width="100%";
-       contFavoritos.style.marginTop="40px";
+       contFavoritos.style.paddingTop="40px";
        contFavoritos.style.display="grid";
        contFavoritos.style.gridTemplateColumns="repeat(4, 300px)";
-       contFavoritos.style.gridTemplateRows="repeat(3, 230px)";
+       contFavoritos.style.gridTemplateRows=`repeat(${cantidad}, 230px)`;
        contFavoritos.style.justifyContent="center";
        contFavoritos.style.alignItems="center";
        contFavoritos.style.gridGap="30px";
+       contFavoritos.style.paddingBottom="60px";
 }
 
 
 
 
-function FavoritosComp() {
-       getData.forEach(element => {
-       favoritos.style.width="100%";
-       let gifofav = document.createElement("img");
-       gifofav.setAttribute("src", element.images.original.url);
-       gifofav.style.width="100%";
-       gifofav.style.height="100%";
-       let container1 = document.createElement("div");
-       contFavoritos.appendChild(container1);
-       contenedorFav0.style.display="none";
-       container1.setAttribute("class", "container1");
-       let contenedorBusqueda = document.createElement("div");
-       container1.appendChild(gifofav);
-       contenedorBusqueda.setAttribute("class", "contenedor-trending");
-       container1.appendChild(contenedorBusqueda);
-       let violeta1 = document.createElement("div");
-       violeta1.setAttribute("class", "violeta1");
-       contenedorBusqueda.appendChild(violeta1);
-       let botones1 = document.createElement("div");
-       violeta1.appendChild(botones1);
-       let download1 = document.createElement("img");
-       let favor1 = document.createElement("img");
-       let max1 = document.createElement("img");
-       download1.setAttribute("src", "assets-usados/icon-download.svg");
-       favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");
-       max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
-       download1.setAttribute("class", "icono");
-       favor1.setAttribute("class", "icono");
-       max1.setAttribute("class", "icono");
-       let linkDescarga1 = document.createElement("a");
-       linkDescarga1.setAttribute("download", "mygifo.gif");
-       botones1.appendChild(linkDescarga1);
-       linkDescarga1.appendChild(download1);
-       botones1.appendChild(favor1);
-       botones1.appendChild(max1);
-       botones1.style.padding="10px 10px";
-       
-        violeta1.style.width="100%";
-        violeta1.style.height="100%";
-        let contTitulo = document.createElement("div");
-        contTitulo.setAttribute("class", "cont-titulo");
-        violeta1.appendChild(contTitulo);
-        let user1 = document.createElement("h4");
-        violeta1.appendChild(contTitulo);
-        user1.innerHTML="User";
-        user1.setAttribute("class", "user");
-        contTitulo.appendChild(user1);
-        let titulo1 = document.createElement("h3");
-        titulo1.setAttribute("class", "titulo");
-        contTitulo.appendChild(titulo1);
-        titulo1.innerHTML=element.title;
-        contTitulo.style.padding="0px 0px 25px 10px";
-          download1.addEventListener("mouseover", ()=> {
-              download1.removeAttribute("src");
-              download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
-          })
-          
-          download1.addEventListener("mouseout", ()=> {
-              download1.removeAttribute("src");
-              download1.setAttribute("src", "assets-usados/icon-download.svg");
-          })
-          
-          favor1.addEventListener("mouseover", ()=> {
-              favor1.removeAttribute("src");
-              favor1.setAttribute("src", "assets-usados/icon-fav-hover.svg");
-          })
-          favor1.addEventListener("mouseout", ()=> {
-              favor1.removeAttribute("src");
-              favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");
-          })
-          max1.addEventListener("mouseover", ()=> {
-              max1.removeAttribute("src");
-              max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
-          })
-          max1.addEventListener("mouseout", ()=> {
-              max1.removeAttribute("src");
-              max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
-          })
-          favor1.addEventListener("mousedown", ()=>{
-              favor1.removeAttribute("src");
-              favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})
-          
-      linkDescarga1.addEventListener("click", ()=>{
-        let href = createBlob(element.images.original.url);
-        href.then(url => {
-
-            linkDescarga1.setAttribute("href", url);
-        })
-        linkDescarga1.setAttribute("download", "mygifo");       
-      })
-
-
-      max1.addEventListener("click", ()=> {
-        agrandar(element.images.original.url, element.title, element);
-      })
-       } )
-
-
-
-       function VerMasIni() {
-        if(getData.length>11*indexfav) {
-            verMasCont.style.display="flex";
-            verMasCont.style.justifyContent= "center";
-            verMasCont.style.alignItems= "center";
-            verMasCont.style.margin="auto";
-            verMasCont.style.padding= "50px";
-        } else {
-            verMasCont.style.display="none";
-        }}
+function paginaGifos()
+ {
+if (getData.length=0) {
+    contenedorFav0.style.display="block";
+    contGifs.style.display="none";
+} else {
+    contenedorFav0.style.display="none";
+    GrillaFavoritos(3); 
     
+}}
+
+paginaGifos();
 
         
     botonIzqD.addEventListener("mouseover", ()=> { 
@@ -506,15 +618,8 @@ function FavoritosComp() {
         
       }
     )
-    
- 
-       
-
 
     
-
-
-
        async function createBlob(url) {
         try {
             const response = await fetch(url);
@@ -525,7 +630,25 @@ function FavoritosComp() {
         }
     }    
 
+
+
+    function renovarLocalStorage(gifos) {
+        localStorage.setItem("dataFavoritos", JSON.stringify(gifos));
+     }
     
+    function removefav(element) {
+        let arrayfavs = JSON.parse(localStorage.getItem("dataFavoritos"));
+        console.log(arrayfavs);
+    for(let i = 0 ; i< arrayfavs.length; i++) {
+        if (arrayfavs[i].images.original.url===element) {  
+            localStorage.clear();   
+            arrayfavs.splice(i,1); 
+            renovarLocalStorage(arrayfavs);
+            location.reload();   
+        }}}
+
+
+
 
 
     function trendingF() {
@@ -568,22 +691,22 @@ function FavoritosComp() {
             localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
           });
          
-            max1.addEventListener("click", ()=> {
+        max1.addEventListener("click", ()=> {
                 agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
             });
-            download1.addEventListener("click", ()=> {
+        download1.addEventListener("click", ()=> {
                 let href = createBlob(response.data[i].images.original.url);
                href.then(url => {
         
-                linkDescarga1.setAttribute("href", url);
+            linkDescarga1.setAttribute("href", url);
             })
-            linkDescarga1.setAttribute("download", "mygifo");})
+        linkDescarga1.setAttribute("download", "mygifo");})
         
-            download1.addEventListener("mouseover", ()=> {
+        download1.addEventListener("mouseover", ()=> {
                 download1.removeAttribute("src");
                 download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
             })
-            download1.addEventListener("mouseout", ()=> {
+        download1.addEventListener("mouseout", ()=> {
                 download1.removeAttribute("src");
                 download1.setAttribute("src", "assets-usados/icon-download.svg");
             })
@@ -594,46 +717,73 @@ function FavoritosComp() {
             favor1.removeAttribute("src");
             favor1.setAttribute("src", "assets-usados/icon-fav.svg");
             })
-            max1.addEventListener("mouseover", ()=> {
+        max1.addEventListener("mouseover", ()=> {
                 max1.removeAttribute("src");
                 max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
             })
-            max1.addEventListener("mouseout", ()=> {
+        max1.addEventListener("mouseout", ()=> {
                 max1.removeAttribute("src");
                 max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
             })
             
-              favor1.addEventListener("mousedown", ()=>{
+        favor1.addEventListener("mousedown", ()=>{
               favor1.removeAttribute("src");
-              favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})    
-        
+              favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})   
         } else  ;{
+            flechas.style.overflowX="hidden";
             let imgid = i + 1;
             imgid = 'trending' + imgid;
             let gifo = document.getElementById(imgid);
+            flechas.style.overflowX="hidden";
+            gifTrending.style.overflowX="scroll";
+            gifTrending.style.overflowY="hidden";
             gifo.setAttribute("src", response.data[i].images.original.url);
             titulo[i].innerHTML=response.data[i].title;
             divFantasma[i].addEventListener("click", ()=> {
                 agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
             })}
-            gifTrending.addEventListener('mousedown', handleKeyPressed, true);
+        
 
        } } ).catch(e=> console.log(e))
     }
-    
 
 
 
 
 
-VerMasIni();
+    function windowB () {
+        if (window.matchMedia("(min-width: 780px)").matches) {
+          contFavoritos.style.gridTemplateRows ="repeat(3, 230px)";
+          contFavoritos.style.gridTemplateColumns="repeat(4, minmax(200px, 1fr))";
+          contFavoritos.style.gridGap="30px";
+          menu.style.display="flex";
+          menuInt.style.display="flex";
+          crearD.style.display="block";
+        } else {
+          contFavoritos.style.gridTemplateRows ="repeat(6, 230px)";
+          contFavoritos.style.gridTemplateColumns="repeat(2, minmax(200px, 1fr))";
+          gifTrending.style.justifyContent="flex-start";
+          crearD.style.display="none";
+          closeD.style.display="none";
+          burger.style.display="block";
+          menu.style.display="none";
+          menuInt.style.display="none";
+        }}
+
+
+
+        window.addEventListener("resize", ()=> {
+            windowB();
+            
+        })
+        
 
  
        function agrandar(gif, titulo, fav) {
         let contenedorImgBig = document.createElement("div");
         body.appendChild(contenedorImgBig);
         contenedorImgBig.style.width="100%";
-        contenedorImgBig.style.height="600px";
+        contenedorImgBig.style.height="700px";
         contenedorImgBig.style.backgroundColor="white";
         contenedorImgBig.style.display="flex";
         contenedorImgBig.style.flexDirection="column";
@@ -692,7 +842,6 @@ VerMasIni();
         contenedorgifmax.style.width="650px";
         contenedorgifmax.style.height="350px";
         contflechas.appendChild(contenedorgifmax);
-        let FlechaDer1 = document.createElement("img");
         const gifomaxi = document.createElement("img");
         gifomaxi.setAttribute("src", gif);
         gifomaxi.style.width="100%";
@@ -704,6 +853,7 @@ VerMasIni();
         titulo_botones.style.display="flex";
         titulo_botones.style.flexDirection="row";
         titulo_botones.style.justifyContent="space-between";
+        titulo_botones.style.transform="translateY(25px)";
         contcompleto.appendChild(titulo_botones);
         let titulosmax = document.createElement("div");
         titulosmax.style.width="50%";
@@ -763,29 +913,154 @@ VerMasIni();
           href.then(url => {
          downloadlink.setAttribute("href", url);
          downloadlink.setAttribute("download", "mygifo");
-        })
+        })})
         favmax.addEventListener("click", ()=> {
             dataFavoritos1.push(fav);
             console.log(dataFavoritos1);
             localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos1));
           })
-    })
-    }
+        }
+
+
+        function agrandarMin(gif,titulo,fav){
+            let contenedorImgBig = document.createElement("div");
+            body.appendChild(contenedorImgBig);
+            contenedorImgBig.style.width="100%";
+            contenedorImgBig.style.height="700px";
+            contenedorImgBig.style.backgroundColor="white"
+            contenedorImgBig.style.display="flex";
+            contenedorImgBig.style.flexDirection="column";
+            contenedorImgBig.style.zIndex="1000";
+            contenedorImgBig.style.position="fixed";
+            contenedorImgBig.style.top="0";
+            contenedorImgBig.style.bottom="0";
+            contenedorImgBig.style.alignItems="flex-end";
+            contenedorImgBig.style.justifyContent="center";
+            contenedorImgBig.style.transform="translateY(-10px)";
+            contenedorImgBig.style.paddingTop="70px";
+            contenedorImgBig.style.paddingBottom="150px";
+            let closeD1 = document.createElement("img");
+            contenedorImgBig.style.overflow= "auto";
+            closeD1.setAttribute("src", "assets-usados/close.svg");
+            closeD1.style.width="15px";
+            closeD1.style.height="15px";
+            closeD1.style.marginTop="90px";
+            closeD1.style.marginRight="8%";
+            closeD1.style.marginBottom="100px";
+            closeD1.addEventListener("click", ()=> {
+                contenedorImgBig.style.display="none";
+            })
+            closeD1.addEventListener("mouseover", ()=> {
+                closeD1.style.cursor="pointer";
+            })
+            window.addEventListener("keyup", (e)=> {
+                if(e.keyCode===27) { 
+            
+                    contenedorImgBig.style.display="none";
+                }
+            })
+            
+            contenedorImgBig.appendChild(closeD1);
+            let contcompleto = document.createElement("div");
+            contcompleto.style.display="flex";
+            contcompleto.style.flexDirection="column";
+            contcompleto.style.width="95%";
+            contcompleto.style.height="95%";
+            contcompleto.style.margin="auto";
+            contcompleto.style.justifyContent="center";
+            contcompleto.style.alignItems="center";
+            contcompleto.style.marginBottom="10px";
+            contenedorImgBig.appendChild(contcompleto);
+            let contenedorgifmax = document.createElement("div");
+            contenedorgifmax.style.width="95%";
+            contenedorgifmax.style.height="300px";
+            contcompleto.appendChild(contenedorgifmax);
+            const gifomaxi = document.createElement("img");
+            gifomaxi.setAttribute("src", gif);
+            gifomaxi.style.width="100%";
+            gifomaxi.style.height="100%";
+            contenedorgifmax.appendChild(gifomaxi);
+            let titulo_botones = document.createElement("div");
+            titulo_botones.style.width="95%";
+            titulo_botones.style.height="150px";
+            titulo_botones.style.display="flex";
+            titulo_botones.style.flexDirection="row";
+            titulo_botones.style.justifyContent="space-between";
+            contcompleto.appendChild(titulo_botones);
+            let titulosmax = document.createElement("div");
+            titulosmax.style.width="50%";
+            titulosmax.style.height="100%";
+            titulo_botones.appendChild(titulosmax);
+            let usermax = document.createElement("h4");
+            usermax.innerHTML="User";
+            usermax.style.fontWeight="100";
+            usermax.style.padding="15px 0 3px";
+            titulosmax.appendChild(usermax);
+            let titulogifmax = document.createElement("h3");
+            titulogifmax.innerHTML= titulo;
+            titulosmax.appendChild(titulogifmax);
+            titulosmax.style.display="flex";
+            titulosmax.style.flexDirection="column";
+            titulosmax.style.alignItems="flex-start";
+            let botonesmax = document.createElement("div");
+            botonesmax.style.width="50%";
+            botonesmax.style.display="flex";
+            botonesmax.style.alignItems="center";
+            botonesmax.style.justifyContent="flex-end";
+            botonesmax.style.transform="translateY(-20px)";
+            let favmax = document.createElement("img");
+            favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+            favmax.style.width="35px";
+            favmax.style.height="35px";
+            botonesmax.appendChild(favmax);
+            let downloadlink = document.createElement("a");
+            let downloadmax = document.createElement("img");
+            downloadlink.appendChild(downloadmax)
+            botonesmax.appendChild(downloadlink);
+            downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+            downloadmax.style.width="35px";
+            downloadmax.style.height="35px";
+            downloadmax.style.margin="0 10px 0 20px";
+            titulo_botones.appendChild(botonesmax);
+            downloadmax.addEventListener("mouseover", ()=> {
+                downloadmax.removeAttribute("src");
+                downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
+                downloadmax.style.cursor="pointer";
+            })
+            downloadmax.addEventListener("mouseout", ()=> {
+                downloadmax.removeAttribute("src");
+                downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+            })
+            favmax.addEventListener("mouseover", ()=> {
+                favmax.removeAttribute("src");
+                favmax.setAttribute("src", "assets-usados/icon-fav-hover.svg")
+                favmax.style.cursor="pointer";
+            })
+            favmax.addEventListener("mouseout", ()=> {
+                favmax.removeAttribute("src");
+                favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+            })
+            
+            downloadmax.addEventListener("click", ()=> {
+                let href = createBlob(gif);
+              href.then(url => {
+        
+             downloadlink.setAttribute("href", url);
+             downloadlink.setAttribute("download", "mygifo");
+            })
+            favmax.addEventListener("click", ()=> {
+                dataFavoritos.push(fav);
+                localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+                console.log(dataFavoritos);
+              })
+        })
+          
+        }
 
 
 
-        console.log()
 
-
-
-
-
-
-trendingF();
-
-
-
-
+trendingF()
 
 
 botonDerH.addEventListener("click", () => {
@@ -795,6 +1070,4 @@ botonDerH.addEventListener("click", () => {
 
 botonIzqH.addEventListener("click", () => {
     flecha('-');
-});
-
-}
+})

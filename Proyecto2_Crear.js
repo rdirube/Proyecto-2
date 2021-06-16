@@ -30,6 +30,8 @@ const instagram = document.getElementById("instagram-d");
 const timerVid = document.getElementById("timer-vid");
 const camara = document.getElementById("camara");
 const camaraBis = document.getElementById("camara-bis");
+const p = document.getElementsByTagName("p");
+const h2 = document.getElementsByTagName("h2");
 const pantallaCompl = document.getElementById("pantalla-completa");
 const pantallaCamara = document.getElementById("pantalla-camara");
 var MisGifos = [];
@@ -462,8 +464,7 @@ function nightMode() {
     camara.classList.toggle("camaraNoct");
     camaraBis.classList.toggle("camara-bisNoct");
     pantallaCompleta.classList.toggle("pantalla-completaNoct");
-    btnCrear.classList.toggle("btn-crearNoct");
-    btnCont.classList.toggle("cont-btnNoct");
+   
     pasos.classList.toggle("pasosNoct");
     for (let i = 0; i < link.length; i++) {
         link[i].classList.toggle("linkNoct");
@@ -474,20 +475,36 @@ function nightMode() {
     if (b) {
         logoD.removeAttribute("src");
         logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
-        crearD.removeAttribute("src");
-        crearD.setAttribute("src", "assets-usados/CTA-crar-gifo-modo-noc.svg");
-        for(let i=0; i<6; i++){
+        for(let i=0; i<4; i++){
             p[i].style.color="white";
         }
         modo.innerHTML="Modo Diurno";
-        body.style.backgroundColor="#37383C";
-        h1[0].style.color="white";
-        h4[0].style.color="white";
+    
+        btnCrear.style.borderColor="#37383C";
+        btnCrear.style.color="#37383C";
+        btnCont.style.backgroundColor="#37383C";
+        btnCrear.addEventListener("mouseover", ()=> {
+            btnCrear.style.borderColor="white";
+            btnCrear.style.backgroundColor="#37383C";
+            btnCrear.style.color="white";
+        })
+        btnCrear.addEventListener("mouseout", ()=> {
+            btnCrear.style.borderColor="#37383C";
+            btnCrear.style.color="#37383C";
+            btnCont.style.backgroundColor="#37383C";
+        })
         h2[0].style.color="white";
-        buscar.style.backgroundColor="#37383C";
-        buscar.style.color="white";
+        h2[1].style.color="white";
         imgCinta.removeAttribute("src");
         imgCinta.setAttribute("src", "assets-usados/pelicula-modo-noc.svg");
+        imgCamara.removeAttribute("src");
+        imgCamara.setAttribute("src", "assets-usados/camara-modo-noc.svg");
+        paso1.style.color="white";
+        paso1.style.borderColor="white";
+        paso2.style.color="white";
+        paso2.style.borderColor="white";
+        paso3.style.color="white";
+        paso3.style.borderColor="white";
         b = false;
         
     }
@@ -496,31 +513,41 @@ function nightMode() {
     else if (!b) {
     logoD.removeAttribute("src");
     logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
-    
-    for(let i=0; i<2; i++){
-        p[i].style.color="#6742E7";
-    }
-
-    for(let i=2; i<6; i++){
+    for(let i=0; i<4; i++){
         p[i].style.color="black";
     }
-        h1[0].style.color="#6742E7";
-        h4[0].style.color="#6742E7";
+    btnCrear.style.borderColor="#6742E7";
+    btnCrear.style.backgroundColor="white";
+    btnCrear.style.color="#6742E7";
+    btnCrear.addEventListener("mouseover", ()=> {
+        btnCrear.style.borderColor="#6742E7";
+        btnCrear.style.backgroundColor="#6742E7";
+        btnCrear.style.color="white";
+    })
+    btnCrear.addEventListener("mouseout", ()=> {
+        btnCrear.style.borderColor="#6742E7";
+    btnCrear.style.backgroundColor="white";
+    btnCrear.style.color="#6742E7";
+    })
+    btnCont.style.backgroundColor="white";
+    paso1.style.color="white";
+    paso1.style.color="#6742E7";
+        paso1.style.borderColor="#6742E7";
+        paso2.style.color="#6742E7";
+        paso2.style.borderColor="#6742E7";
+        paso3.style.color="#6742E7";
+        paso3.style.borderColor="#6742E7";
         h2[0].style.color="#6742E7";
-        buscar.style.backgroundColor="white";
-        buscar.style.color="black";
+        h2[1].style.color="#6742E7";
         modo.innerHTML="Modo Nocturno";
-
-
+        imgCinta.removeAttribute("src");
+        imgCinta.setAttribute("src", "assets-usados/pelicula.svg");
+        imgCamara.removeAttribute("src");
+        imgCamara.setAttribute("src", "assets-usados/camara.svg");
         b = true;
-
-
-
     }
-    if (nightmode_check === "true") {
-        nightMode();
-    }
-    
+
+
     // toggle "modo nocturno" - "modo diurno"
 }
 

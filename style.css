@@ -96,6 +96,7 @@ p {
     position:absolute;
     top:75px;
     width:100%;
+    height:120vh;
     z-index: 50;
     opacity: 0.8;
     background-color: #6742E7;
@@ -172,7 +173,7 @@ p {
 
 
 .divResultadoNoct {
-    color:rgb(100,100,100);
+    color: white;
     cursor:pointer;
     width:100%;
     transform:translateX(18px);
@@ -187,10 +188,10 @@ p {
     content: "";
     display: block;
     border-top: 1px solid white;
-    width: 30%;
+    width: 40px;
     position: relative;
     bottom: -18px;
-    left:47px;
+    left:40px;
 }
 
 
@@ -261,16 +262,25 @@ span {
 
 #timer-vid {
     transform: translateX(300px);
-    width:200px;}
+    width:200px;
+}
 
-#favoritos {
+.favoritos {
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-bottom:70px;
-    
+    padding-bottom:10px;
+}
 
+
+.favoritosNoct {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom:10px;
+    background-color: #37383C;
 }
 
 
@@ -281,7 +291,7 @@ span {
     color: #6742E7;
 }
 
-#gifos {
+.gifos {
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -289,13 +299,23 @@ span {
     margin:auto;
 }
 
+.gifosNoct {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    background-color: #37383C;
+}
+
+
 #gifos h4 {
     padding-top:5px;
     font-size:1.1rem;
     color: #6742E7;
 }
 
-#fav-0 {
+.fav-0 {
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -306,7 +326,7 @@ span {
     width:100%;
 }
 
-#fav-0-noct {
+.fav-0-noct {
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -318,20 +338,40 @@ span {
     background-color:#37383C ;
 }
 
+
+.contFavoritosNoct{
+    background-color: #37383C;
+}
+
 #busc{
     width:85%;
 }
  
-#gif-0{
+.gifosContNoct{
+    background-color: #37383C;
+}
+
+.gif-0{
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin:auto;
-    padding:55px 0 25px;
+    padding:55px 0 75px;
     text-align: center;
     width:90%;
+}
 
+.gif-0-Noct{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    padding:55px 0 75px;
+    text-align: center;
+    width:90%;
+    background-color: #37383C;
 }
 
 #fav-0 h2 {
@@ -476,6 +516,7 @@ span {
     flex-direction:column;
     justify-content: center;
     align-items: center;
+    border-color: white;
     transform: translateX(-20px);
     background-color: #37383C;
 }
@@ -659,6 +700,8 @@ height:100%;
     color: #6742E7;
     padding-bottom:15px;
 }
+
+
 .titulo {
    display:flex;
    justify-content: flex-start;
@@ -843,6 +886,11 @@ height:100%;
 
 .icono {
     margin:0px 6px;
+    cursor:pointer;
+}
+
+.redes{
+    cursor: pointer;
 }
 
 .violeta h3 {
@@ -867,9 +915,11 @@ height:100%;
    }
    
 
-#verMasCont {
+#ver-mas-cont {
     display:none;
 }
+
+
 
 #ver-mas-h {
     display:none;
@@ -883,32 +933,40 @@ height:100%;
  .pasos {
    width:100%;
    margin:0 auto;
-   border-bottom: 7px solid #6742E7;
    display:flex;
    justify-content: center;
    align-items:center;
    padding: 20px 0 15px;
  }
 
- .pasos {
+ .pasos:after {
+    content: '';
     width: 65%;
-    margin:0 auto;
-    border-bottom: 7px solid #6742E7;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    padding: 20px 0 15px;
+    height: 7px;
+    background-color: #6742E7;
+    position: absolute;
+    bottom: 65px;
   }
 
+
+
   .pasosNoct {
-    width:65%;
+    width:100%;
     margin:0 auto;
-    border-bottom: 7px solid white;
     display:flex;
     justify-content: center;
     align-items:center;
     padding: 20px 0 15px;
     background-color: #37383C;
+  }
+
+  .pasosNoct:after {
+    content: '';
+    width: 65%;
+    height: 7px;
+    background-color: white;
+    position: absolute;
+    bottom: 65px;
   }
 
  .paso{
@@ -945,7 +1003,9 @@ height:100%;
 }
 
 
-
+.icono {
+    cursor:pointer;
+}
 
  #gif-com {
      width:60%;
@@ -1153,8 +1213,8 @@ height:100%;
     }
 
     .linkNoct {
+        text-decoration: none;
         color: white;
-        padding-right: 45px;
         font-size:1rem;
     }
     

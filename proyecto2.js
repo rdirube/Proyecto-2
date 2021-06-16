@@ -47,7 +47,7 @@ const ApiKey = "og2cGOovwMy2VkjKm8PCJRTApTXFM8BJ";
 const gifosEncontrados= document.getElementById("gifos-encontrados");
 const categorias = document.getElementById("categorias");
 const trendingsN = document.getElementById("trendings-n");
- const verMasCont = document.getElementById("verMasCont");
+ const verMasCont = document.getElementById("ver-mas-cont");
  const divFantasma = document.getElementsByClassName("div-fantasma");
  const verMas = document.getElementById("ver-mas");
  const botones = document.getElementsByClassName("botones");
@@ -122,7 +122,7 @@ botonDerH.addEventListener("mouseout", ()=> {
 
 crearD.addEventListener("mouseover", ()=> {
     crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-hover.svg");
+    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg");
 })
 
 crearD.addEventListener("mouseout", ()=> {
@@ -132,7 +132,7 @@ crearD.addEventListener("mouseout", ()=> {
 
 crearD.addEventListener("mousedown", ()=> {
     crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-active.svg");
+    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
     
 })
 
@@ -196,6 +196,16 @@ verMas.addEventListener("mouseout", ()=> {
 
 
 
+
+function agregarfav() {
+    if (localStorage.getItem('dataFavoritos')) {
+        dataFavoritos = JSON.parse(localStorage.getItem('dataFavoritos'));
+    } else if (localStorage.getItem('dataFavoritos') == null) {
+        dataFavoritos = [];
+    }
+    return dataFavoritos;
+}
+agregarfav();
 //Botones y hovers
 
 
@@ -1168,7 +1178,7 @@ botonIzqD.addEventListener("click", () => {
 
 
 
-verMasH.addEventListener("click", ()=> {
+verMas.addEventListener("click", ()=> {
     searchMas();
      gifoMas();
 })
@@ -1355,14 +1365,13 @@ function nightMode() {
     }
     // toggle logo + menú icons
     if (b) {
+        buscCont2.style.backgroundColor="#37383C";
         logoD.removeAttribute("src");
         logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
         lupitaD.removeAttribute("src");
         lupitaD.setAttribute("src", "assets-usados/icon-search-mod-noc.svg");
         closeLup.removeAttribute("src");
         closeLup.setAttribute("src", "assets-usados/close-modo-noct.svg");
-        crearD.removeAttribute("src");
-        crearD.setAttribute("src", "assets-usados/CTA-crar-gifo-modo-noc.svg");
         burger.removeAttribute("src");
         burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
         botonDerD.removeAttribute("src");
@@ -1370,12 +1379,36 @@ function nightMode() {
         botonIzqD.removeAttribute("src");
         buscador.removeAttribute("id");
         buscador.setAttribute("id", "buscadorNoct");
+        botonIzqD.removeAttribute("src");
         botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");
-        
+        botonIzqD.addEventListener("mouseover", ()=>{
+           botonIzqD.removeAttribute("src");
+           botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg")
+        })
         verMas.removeAttribute("src");
         verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
         closeD.removeAttribute("src");
         closeD.setAttribute("src", "assets-usados/close-modo-noct.svg");
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg");
+        crearD.addEventListener("mouseover", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover-modo-noc.svg")
+        })
+        crearD.addEventListener("mouseout", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg")
+        })
+        crearD.addEventListener("mousedown", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active-modo-noc.svg");
+            
+        })
+        
+        crearD.addEventListener("mouseup", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg");
+        })
         for(let i=0; i<6; i++){
             p[i].style.color="white";
         }
@@ -1409,6 +1442,7 @@ function nightMode() {
     
        
     else if (!b) {
+    buscCont2.style.backgroundColor="white";
     logoD.removeAttribute("src");
     logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
     closeLup.removeAttribute("src");
@@ -1417,8 +1451,6 @@ function nightMode() {
     lupitaD.setAttribute("src", "assets-usados/icon-search.svg");
     closeD.removeAttribute("src");
     closeD.setAttribute("src", "assets-usados/close.svg");
-    crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
     burger.removeAttribute("src");
     burger.setAttribute("src", "assets-usados/burger.svg");
     botonDerD.removeAttribute("src");
@@ -1429,6 +1461,26 @@ function nightMode() {
     verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
     lupitaPrincipal.removeAttribute("src");
     lupitaPrincipal.setAttribute("src", "assets-usados/icon-search.svg");
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    crearD.addEventListener("mouseover", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg")
+    })
+    crearD.addEventListener("mouseout", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    })
+    crearD.addEventListener("mousedown", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
+        
+    })
+    
+    crearD.addEventListener("mouseup", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    })
     verMas.addEventListener("mouseover", ()=> {
         verMas.removeAttribute("src");
         verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
@@ -1461,13 +1513,7 @@ function nightMode() {
         tituloBusqueda.style.color="white";
 
         b = true;
-
-
-
     }
-  
-    
-    // toggle "modo nocturno" - "modo diurno"
 }
 // IF CHECK FOR NIGHTMODE STATUS IN LOCAL STORAGE
 

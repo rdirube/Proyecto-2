@@ -7,22 +7,16 @@ const barra = document.getElementById("barra");
  const burger = document.getElementById("burger");
  const burgerN = document.getElementById("burguer-n");
  const closeD = document.getElementById("close-d");
- const closeN = document.getElementById("close-n");
- const closeH = document.getElementById("close-h");
  const menu = document.getElementById("menu");
+ const menuInt = document.getElementById("menu-int");
  const modo = document.getElementById("modo");
  const linkF = document.getElementById("link-f");
  const linkG = document.getElementById("link-g");
  const header = document.getElementById("header");
  const crearD = document.getElementById("crear-d");
- const crearDH = document.getElementById("crear-dh");
- const crearDA = document.getElementById("crear-da")
- const crearN = document.getElementById("crear-n");
- const crearNH = document.getElementById("crear-nh");
- const crearNA = document.getElementById("crear-na");
  const gifos = document.getElementById("gifos");
  const contGifs = document.getElementById("contGifs");
- const verMasCont = document.getElementById("verMasCont");
+ const verMasCont = document.getElementById("ver-mas-cont");
  const verMas = document.getElementById("ver-mas");
  const verMasH = document.getElementById("ver-mas-h");
  const botonIzqD = document.getElementById("boton-izq-d");
@@ -41,6 +35,7 @@ const cursor = document.getElementsByClassName("pointer");
 const violeta = document.getElementsByClassName("violeta");
 const trending = document.getElementById("trending");
 const trendingGif = document.getElementsByClassName("trending_gifs");
+const gifTrending = document.getElementById("gif-trending")
  const container = document.getElementsByClassName("container");
 const matchList = document.getElementById("matchList");
 const resultado= document.getElementsByClassName("resultado");
@@ -65,13 +60,13 @@ let modosToggle = false;
 let position = 1;
 link[3].style.color="rgb(150,150,150)";
 link[3].style.cursor="default";
+let dataFavoritos2 = [];
 let MisGifos=[];
 let gifarray = [];
 let indexgif = 1;
 let getData = JSON.parse(localStorage.getItem("myGifostorage"));
 console.log(getData);
 
-console.log(getData.innerHTML);
 verMas.addEventListener("mouseover", ()=> {
     verMas.style.display="none";
     verMasH.style.display="block";
@@ -127,30 +122,69 @@ botonDerH.addEventListener("mouseout", ()=> {
 
 
 crearD.addEventListener("mouseover", ()=> {
-    crearD.style.display="none";
-    crearDH.style.display="block";
-    crearDH.style.cursor="pointer";
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg");
 })
 
-crearDH.addEventListener("mouseout", ()=> {
-    crearD.style.display="block";
-    crearDH.style.display="none";
+crearD.addEventListener("mouseout", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
 })
 
-crearDA.addEventListener("mouseup", ()=> {
-    crearD.style.display="block";
-    crearDA.style.display="none";
+crearD.addEventListener("mousedown", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
+    
 })
 
-crearDH.addEventListener("mousedown", ()=> {
-    crearDH.style.display="none";
-    crearDA.style.display="block";
-    crearDA.style.cursor="pointer";
-    crearD.style.display="none";
+crearD.addEventListener("mouseup", ()=> {
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+})
+
+
+twitter.addEventListener("mouseover", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter-hover.svg");
+})
+
+twitter.addEventListener("mouseout", ()=> {
+    twitter.removeAttribute("src");
+    twitter.setAttribute("src", "assets-usados/icon-twitter.svg");
+})
+
+
+facebook.addEventListener("mouseover", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon_facebook_hover.svg");
+
+})
+
+facebook.addEventListener("mouseout", ()=> {
+    facebook.removeAttribute("src");
+    facebook.setAttribute("src", "assets-usados/icon_facebook.svg");
+
+})
+
+instagram.addEventListener("mouseover", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram-hover.svg")
+})
+
+instagram.addEventListener("mouseout", ()=> {
+    instagram.removeAttribute("src");
+    instagram.setAttribute("src", "assets-usados/icon_instagram.svg");
+})
+
+
+
+logoD.addEventListener("click", ()=> {
+    window.location.reload();
 })
 
 burger.addEventListener("click", ()=> {
-    menu.style.display="block";
+    menu.style.display="flex";
+    menuInt.style.display="flex";
     closeD.style.display="block";
     burger.style.display="none";
     menu.style.backgroundColor="#6742E7";
@@ -160,7 +194,6 @@ closeD.addEventListener("click", ()=> {
     menu.style.display="none";
     closeD.style.display="none";
     burger.style.display="block";
-    menu.style.backgroundColor="white";
 })
 
 
@@ -169,10 +202,20 @@ logoD.addEventListener("click", ()=> {
 })
 
 
+function agregarfav() {
+    if (localStorage.getItem('dataFavoritos')) {
+        dataFavoritos2 = JSON.parse(localStorage.getItem('dataFavoritos'));
+    } else if (localStorage.getItem('dataFavoritos') == null) {
+        dataFavoritos2 = [];
+    }
+    return dataFavoritos2;
+}
+agregarfav();
+
 
 
 function GifosComp() {
-    if (getData.length>0){
+    
     getData.forEach(element => {
     console.log(element);
     console.log(`${GIPHY_URL}${element}/giphy.gif`)
@@ -251,15 +294,43 @@ function GifosComp() {
        })
       
        trash1.addEventListener("click", ()=> {
-           removegifo(element);
+           removegifo(`${GIPHY_URL}${element}/giphy.gif`);
        })
+
 
        max1.addEventListener("click", ()=> {
            agrandarMisgifs(`${GIPHY_URL}${element}/giphy.gif`, element);
        })
 
-})}}
+})}
 
+
+
+function windowB () {
+    if (window.matchMedia("(min-width: 780px)").matches) {
+      contGifs.style.gridTemplateRows ="repeat(2, 230px)";
+      contGifs.style.gridTemplateColumns="repeat(4, minmax(200px, 1fr))";
+      contGifs.style.gridGap="30px";
+      menu.style.display="flex";
+      menuInt.style.display="flex";
+      crearD.style.display="block";
+    } else {
+      contGifs.style.gridTemplateRows ="repeat(6, 230px)";
+      contGifs.style.gridTemplateColumns="repeat(2, minmax(200px, 1fr))";
+      gifTrending.style.justifyContent="flex-start";
+      crearD.style.display="none";
+      closeD.style.display="none";
+      burger.style.display="block";
+      menu.style.display="none";
+      menuInt.style.display="none";
+    }}
+
+
+
+    window.addEventListener("resize", ()=> {
+        windowB();
+        
+    })
 
 
 
@@ -353,12 +424,151 @@ function trendingF() {
         imgid = 'trending' + imgid;
         let gifo = document.getElementById(imgid);
         gifo.setAttribute("src", response.data[i].images.original.url);
+        flechas.style.overflowX="hidden";
+        gifTrending.style.overflowX="scroll";
+        gifTrending.style.overflowY="hidden";
         titulo[i].innerHTML=response.data[i].title;
         divFantasma[i].addEventListener("click", ()=> {
             agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
         })}
 
    } } ).catch(e=> console.log(e))
+}
+
+
+function agrandarMin(gif,titulo,fav){
+    let contenedorImgBig = document.createElement("div");
+    body.appendChild(contenedorImgBig);
+    contenedorImgBig.style.width="100%";
+    contenedorImgBig.style.height="700px";
+    contenedorImgBig.style.backgroundColor="white"
+    contenedorImgBig.style.display="flex";
+    contenedorImgBig.style.flexDirection="column";
+    contenedorImgBig.style.zIndex="1000";
+    contenedorImgBig.style.position="fixed";
+    contenedorImgBig.style.top="0";
+    contenedorImgBig.style.bottom="0";
+    contenedorImgBig.style.alignItems="flex-end";
+    contenedorImgBig.style.justifyContent="center";
+    contenedorImgBig.style.transform="translateY(-10px)";
+    contenedorImgBig.style.paddingTop="70px";
+    contenedorImgBig.style.paddingBottom="150px";
+    let closeD1 = document.createElement("img");
+    contenedorImgBig.style.overflow= "auto";
+    closeD1.setAttribute("src", "assets-usados/close.svg");
+    closeD1.style.width="15px";
+    closeD1.style.height="15px";
+    closeD1.style.marginTop="90px";
+    closeD1.style.marginRight="8%";
+    closeD1.style.marginBottom="100px";
+    closeD1.addEventListener("click", ()=> {
+        contenedorImgBig.style.display="none";
+    })
+    closeD1.addEventListener("mouseover", ()=> {
+        closeD1.style.cursor="pointer";
+    })
+    window.addEventListener("keyup", (e)=> {
+        if(e.keyCode===27) { 
+    
+            contenedorImgBig.style.display="none";
+        }
+    })
+    
+    contenedorImgBig.appendChild(closeD1);
+    let contcompleto = document.createElement("div");
+    contcompleto.style.display="flex";
+    contcompleto.style.flexDirection="column";
+    contcompleto.style.width="95%";
+    contcompleto.style.height="95%";
+    contcompleto.style.margin="auto";
+    contcompleto.style.justifyContent="center";
+    contcompleto.style.alignItems="center";
+    contcompleto.style.marginBottom="10px";
+    contenedorImgBig.appendChild(contcompleto);
+    let contenedorgifmax = document.createElement("div");
+    contenedorgifmax.style.width="95%";
+    contenedorgifmax.style.height="300px";
+    contcompleto.appendChild(contenedorgifmax);
+    const gifomaxi = document.createElement("img");
+    gifomaxi.setAttribute("src", gif);
+    gifomaxi.style.width="100%";
+    gifomaxi.style.height="100%";
+    contenedorgifmax.appendChild(gifomaxi);
+    let titulo_botones = document.createElement("div");
+    titulo_botones.style.width="95%";
+    titulo_botones.style.height="150px";
+    titulo_botones.style.display="flex";
+    titulo_botones.style.flexDirection="row";
+    titulo_botones.style.justifyContent="space-between";
+    contcompleto.appendChild(titulo_botones);
+    let titulosmax = document.createElement("div");
+    titulosmax.style.width="50%";
+    titulosmax.style.height="100%";
+    titulo_botones.appendChild(titulosmax);
+    let usermax = document.createElement("h4");
+    usermax.innerHTML="User";
+    usermax.style.fontWeight="100";
+    usermax.style.padding="15px 0 3px";
+    titulosmax.appendChild(usermax);
+    let titulogifmax = document.createElement("h3");
+    titulogifmax.innerHTML= titulo;
+    titulosmax.appendChild(titulogifmax);
+    titulosmax.style.display="flex";
+    titulosmax.style.flexDirection="column";
+    titulosmax.style.alignItems="flex-start";
+    let botonesmax = document.createElement("div");
+    botonesmax.style.width="50%";
+    botonesmax.style.display="flex";
+    botonesmax.style.alignItems="center";
+    botonesmax.style.justifyContent="flex-end";
+    botonesmax.style.transform="translateY(-20px)";
+    let favmax = document.createElement("img");
+    favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+    favmax.style.width="35px";
+    favmax.style.height="35px";
+    botonesmax.appendChild(favmax);
+    let downloadlink = document.createElement("a");
+    let downloadmax = document.createElement("img");
+    downloadlink.appendChild(downloadmax)
+    botonesmax.appendChild(downloadlink);
+    downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    downloadmax.style.width="35px";
+    downloadmax.style.height="35px";
+    downloadmax.style.margin="0 10px 0 20px";
+    titulo_botones.appendChild(botonesmax);
+    downloadmax.addEventListener("mouseover", ()=> {
+        downloadmax.removeAttribute("src");
+        downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
+        downloadmax.style.cursor="pointer";
+    })
+    downloadmax.addEventListener("mouseout", ()=> {
+        downloadmax.removeAttribute("src");
+        downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    })
+    favmax.addEventListener("mouseover", ()=> {
+        favmax.removeAttribute("src");
+        favmax.setAttribute("src", "assets-usados/icon-fav-hover.svg")
+        favmax.style.cursor="pointer";
+    })
+    favmax.addEventListener("mouseout", ()=> {
+        favmax.removeAttribute("src");
+        favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+    })
+    
+    downloadmax.addEventListener("click", ()=> {
+        let href = createBlob(gif);
+      href.then(url => {
+
+     downloadlink.setAttribute("href", url);
+     downloadlink.setAttribute("download", "mygifo");
+    })
+    favmax.addEventListener("click", ()=> {
+        dataFavoritos.push(fav);
+        localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+        console.log(dataFavoritos);
+      })
+})
+  
 }
 
 
@@ -657,7 +867,6 @@ function agrandarMisgifs (gif, gifremove) {
     contenedorgifmax.style.width="700px";
     contenedorgifmax.style.height="400px";
     contflechas.appendChild(contenedorgifmax);
-    let FlechaDer1 = document.createElement("img");
     const gifomaxi = document.createElement("img");
     gifomaxi.setAttribute("src", gif);
     gifomaxi.style.width="100%";
@@ -671,12 +880,11 @@ function agrandarMisgifs (gif, gifremove) {
     titulo_botones.style.justifyContent="space-between";
     contcompleto.appendChild(titulo_botones);
     let botonesmax = document.createElement("div");
-    botonesmax.style.width="50%";
+    botonesmax.style.width="100%";
     botonesmax.style.display="flex";
     botonesmax.style.alignItems="center";
     botonesmax.style.justifyContent="flex-end";
-   
-    
+    botonesmax.style.paddingTop="10px";
     let trash1 = document.createElement("img");
     trash1.setAttribute("src", "assets/icon-trash-normal.svg");
     trash1.style.width="45px";
@@ -707,7 +915,7 @@ function agrandarMisgifs (gif, gifremove) {
     })
     trash1.addEventListener("mouseout", ()=> {
         trash1.removeAttribute("src");
-        trash1.setAttribute("src", "assets/icon-trash-normal.svg.svg");
+        trash1.setAttribute("src", "assets/icon-trash-normal.svg");
     })
     
     downloadmax.addEventListener("click", ()=> {
@@ -724,31 +932,32 @@ function agrandarMisgifs (gif, gifremove) {
    
  }
 
-console.log(getData.length);
 
+
+function renovarLocalStorage(gifos) {
+    localStorage.setItem("myGifostorage", JSON.stringify(gifos));
+ }
 
 function removegifo(element) {
-for(let i=0; i< getData.length; i++) {
-    let gifarray = getData[i];
-    console.log(gifarray);
-    if (gifarray===element) {
-        localStorage.clear();
-        getData.splice(i,1);
-        renovarLocalStorage(getData);
-        location.reload();
+    let arraygifs = JSON.parse(localStorage.getItem("myGifostorage"));
+    console.log(arraygifs);
+for(let i = 0 ; i< arraygifs.length; i++) {
+    if (`${GIPHY_URL}${arraygifs[i]}/giphy.gif`===element) {
+        localStorage.removeItem("myGifostorage");   
+        arraygifs.splice(i,1); 
+        renovarLocalStorage(arraygifs);
+        location.reload();           
     }}}
 
+    
 
-
-    function renovarLocalStorage(gifos) {
-        localStorage.setItem("myGifostorage", JSON.stringify(gifos));
-     }
 
 
 
 
     function VerMasIni() {
-        if(getData.length>11*indexgif) {
+        if(getData==!null){
+        if(getData.length>8*indexgif) {
             verMasCont.style.display="flex";
             verMasCont.style.justifyContent= "center";
             verMasCont.style.alignItems= "center";
@@ -757,13 +966,10 @@ for(let i=0; i< getData.length; i++) {
             indexgif++;
         } else {
             verMasCont.style.display="none";
-        }}
+        }}}
 
 
         VerMasIni();
-
-
-
 
 
 
@@ -781,7 +987,7 @@ async function createBlob(url) {
 
 function GrillaMisGifos () {
     contGifs.style.width="100%";
-    contGifs.style.marginTop="40px";
+    contGifs.style.paddingTop="40px";
     contGifs.style.display="grid";
     contGifs.style.gridTemplateColumns="repeat(4, 300px)";
     contGifs.style.gridTemplateRows="repeat(2, 230px)";
@@ -791,94 +997,161 @@ function GrillaMisGifos () {
 }
 
 
-modo.addEventListener("click", ()=> {
-    if (modosToggle===false) {
-    barra.style.backgroundColor="#37383C";
-    menu.style.backgroundColor="#37383C";
-    logoD.removeAttribute("src");
-    logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
-    trending.style.backgroundColor="#222326";
-    gifos.removeAttribute("id");
-    gifos.setAttribute("id", "fav-0-noct");
-    sectionGif.style.backgroundColor="#37383C";
-    footer.removeAttribute("id");
-    footer.setAttribute("id", "footerNoct");
-    footer.style.borderBottomColor="#222326"
-    modo.innerHTML="Modo Diurno";
-    h4[0].style.color="white";
-    h2[0].style.color="white";
-    h2[1].style.color="white";
-    link[3].style.color="rgb(150,150,150)";
-    link[2].style.cursor="default";
-    for(let i=0; i<4; i++){
-        p[i].style.color="white";
+let nightmode_check = localStorage.getItem("nightmode-status");
+
+modo.addEventListener('click', nightMode);
+modo.addEventListener('click', () => {
+    if (nightmode_check !== "true") {
+        nightmode_check = "true";
+        localStorage.setItem("nightmode-status", "true");
+    } else {
+        nightmode_check = "false";
+        localStorage.setItem("nightmode-status", "false");
     }
-    link[1].style.color="white";
-    link[2].style.color="white";
-    crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/CTA-crar-gifo-modo-noc.svg");
-    burger.removeAttribute("src");
-    burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
-    header.removeAttribute("id");
-    header.setAttribute("id", "headerNoct");
-    botonDerD.removeAttribute("src");
-    botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
-    botonIzqD.removeAttribute("src");
-    botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");    
-    modosToggle=true;
-} 
-else if (modosToggle===true) {
-    barra.style.backgroundColor="white";
+})
+
+let b = true;
+function nightMode() {
+    menu.classList.toggle("menuNoct");
+    barra.classList.toggle("noctBarra");
+    gifos.classList.toggle("gifosNoct");
+    menuInt.classList.toggle("menu-intNoct");
+    contGifs.classList.toggle("contFavoritosNoct")
+    contenedorGif0.classList.toggle("gif-0-Noct");
+    trending.classList.toggle("trendingNoct");
+    sectionGif.classList.toggle("gifosContNoct");
+    footer.classList.toggle("footerNoct");
+    header.classList.toggle("headerNoct");
+    for (let i = 0; i < link.length; i++) {
+        link[i].classList.toggle("linkNoct");
+    }
+    // toggle logo + menú icons
+    if (b) {
+        verMasCont.style.backgroundColor="#37383C";
+        logoD.removeAttribute("src");
+        logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
+        
+        burger.removeAttribute("src");
+        burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
+        botonDerD.removeAttribute("src");
+        botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
+        botonIzqD.removeAttribute("src");
+        botonIzqD.removeAttribute("src");
+        botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");
+        botonIzqD.addEventListener("mouseover", ()=>{
+           botonIzqD.removeAttribute("src");
+           botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg")
+        })
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
+        closeD.removeAttribute("src");
+        closeD.setAttribute("src", "assets-usados/close-modo-noct.svg");
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg");
+        crearD.addEventListener("mouseover", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover-modo-noc.svg")
+        })
+        crearD.addEventListener("mouseout", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg")
+        })
+        for(let i=0; i<4; i++){
+            p[i].style.color="white";
+        }
+        modo.innerHTML="Modo Diurno";
+        h4[0].style.color="white";
+        for(let i=0; i<2; i++){
+            h2[i].style.color="white";
+        }
+        
+        b = false;
+        verMas.addEventListener("mouseover", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "assets-usados/CTA-ver+hover-modo-noc.svg");
+            verMas.style.cursor="pointer";
+        })
+        verMas.addEventListener("mouseout", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
+        })
+
+       
+    }
+    
+       
+    else if (!b) {
     logoD.removeAttribute("src");
     logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
-    trending.style.backgroundColor="#F4F5F9";
-    footer.removeAttribute("id");
-    footer.setAttribute("id", "footer");
-    menu.style.backgroundColor="white";
-    sectionGif.style.backgroundColor="white";
-    footer.style.borderBottomColor="white";
-    gifos.removeAttribute("id");
-    gifos.setAttribute("id", "gifos");
-    contenedorGif0.removeAttribute("id");
-    contenedorGif0.setAttribute("id", "gif-0");
-    modo.innerHTML="Modo Nocturno";
-    h4[0].style.color="#6742E7";
-    h2[0].style.color="#6742E7";
-    h2[1].style.color="#6742E7";
-    for(let i=0; i<4; i++){
-        p[i].style.color="black";
-    }
-    link[3].style.color="rgb(150,150,150)";
-    link[2].style.cursor="default";
-    link[1].style.color="#6742E7";
-    link[2].style.color="#6742E7";
+    closeD.removeAttribute("src");
+    closeD.setAttribute("src", "assets-usados/close.svg");
     crearD.removeAttribute("src");
     crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
     burger.removeAttribute("src");
     burger.setAttribute("src", "assets-usados/burger.svg");
-    header.removeAttribute("id");
-    header.setAttribute("id", "header");
     botonDerD.removeAttribute("src");
     botonDerD.setAttribute("src", "assets-usados/Button-Slider-right.svg");
     botonIzqD.removeAttribute("src");
     botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
-    modosToggle=false;
+    verMasCont.style.backgroundColor="white";
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
+    crearD.addEventListener("mouseover", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg");
+    })
     
-}})
+    crearD.addEventListener("mouseout", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    })
+    
+    crearD.addEventListener("mousedown", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
+        
+    })
+    
+    crearD.addEventListener("mouseup", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    })
+    verMas.addEventListener("mouseover", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
+        verMas.style.cursor="pointer";
+    })
+    
+    verMas.addEventListener("mouseout", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "assets-usados/CTA-ver-mas.svg");
+    })
+    for(let i=0; i<4; i++){
+        p[i].style.color="black";
+    }
+        h4[0].style.color="#6742E7";
+    for(let i=0; i<2; i++){
+        h2[i].style.color="#6742E7";
+     }
+        modo.innerHTML="Modo Nocturno";
+        b = true;
+    }
+}
+
 
 
 
 function paginaGifos()
  {
-if (getData.length=0) {
+if (getData===null) {
     contenedorGif0.style.display="block";
     contGifs.style.display="none";
 } else {
     contenedorGif0.style.display="none";
     
     GrillaMisGifos(); 
-   
+    GifosComp();
 }}
 
-GifosComp();
+
 paginaGifos();
