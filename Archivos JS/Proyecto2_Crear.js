@@ -1,3 +1,5 @@
+//====================VARIABLES A UTILIZAR============================//
+
 const menu = document.getElementById("menu");
 const menuInt = document.getElementById("menu-int");
 const modo = document.getElementById("modo");
@@ -39,57 +41,42 @@ const pantallaCompleta = document.getElementById("pantalla-completa");
 const ApiKey = "og2cGOovwMy2VkjKm8PCJRTApTXFM8BJ";
 const GIPHY_URL = 'https://media.giphy.com/media/';
 
-console.log(MisGifos);
-
-
-function checkForAddedMisGifos() {
-    if (localStorage.getItem('myGifostorage')) {
-        MisGifos = JSON.parse(localStorage.getItem('myGifostorage'));
-    } else if (localStorage.getItem('myGifostorage') == null) {
-        MisGifos = [];
-    }
-    return MisGifos;
-}
-checkForAddedMisGifos();
 
 
 
+//=======================HOVERS Y EVENTOS DE DISEÑO GENERAL============================//
 
 twitter.addEventListener("mouseover", ()=> {
     twitter.removeAttribute("src");
-    twitter.setAttribute("src", "assets-usados/icon-twitter-hover.svg");
+    twitter.setAttribute("src", "../assets/icon-twitter-hover.svg");
 })
 
 twitter.addEventListener("mouseout", ()=> {
     twitter.removeAttribute("src");
-    twitter.setAttribute("src", "assets-usados/icon-twitter.svg");
+    twitter.setAttribute("src", "../assets/icon-twitter.svg");
 })
-
 
 facebook.addEventListener("mouseover", ()=> {
     facebook.removeAttribute("src");
-    facebook.setAttribute("src", "assets-usados/icon_facebook_hover.svg");
+    facebook.setAttribute("src", "../assets/icon_facebook_hover.svg");
 
 })
 
 facebook.addEventListener("mouseout", ()=> {
     facebook.removeAttribute("src");
-    facebook.setAttribute("src", "assets-usados/icon_facebook.svg");
+    facebook.setAttribute("src", "../assets/icon_facebook.svg");
 
 })
 
 instagram.addEventListener("mouseover", ()=> {
     instagram.removeAttribute("src");
-    instagram.setAttribute("src", "assets-usados/icon_instagram-hover.svg")
+    instagram.setAttribute("src", "../assets/icon_instagram-hover.svg")
 })
 
 instagram.addEventListener("mouseout", ()=> {
     instagram.removeAttribute("src");
-    instagram.setAttribute("src", "assets-usados/icon_instagram.svg");
+    instagram.setAttribute("src", "../assets/icon_instagram.svg");
 })
-
-
-
 
 btnCrear.addEventListener("mouseover", ()=> {
     btnCrear.style.backgroundColor="#6742E7";
@@ -103,10 +90,120 @@ btnCrear.addEventListener("mouseout", ()=> {
 })
 
 
+
+//=================== MODO NOCTURNO =====================//
+
+let nightmode_check = localStorage.getItem("nightmode-status");
+
+modo.addEventListener('click', nightMode);
+modo.addEventListener('click', () => {
+    if (nightmode_check !== "true") {
+        nightmode_check = "true";
+        localStorage.setItem("nightmode-status", "true");
+    } else {
+        nightmode_check = "false";
+        localStorage.setItem("nightmode-status", "false");
+    }
+})
+
+let b = true;
+function nightMode() {
+    menu.classList.toggle("menuNoct");
+    barra.classList.toggle("noctBarra");
+    menuInt.classList.toggle("menu-intNoct");
+    footer.classList.toggle("footerNoct");
+    header.classList.toggle("headerNoct");
+    camara.classList.toggle("camaraNoct");
+    camaraBis.classList.toggle("camara-bisNoct");
+    pantallaCompleta.classList.toggle("pantalla-completaNoct");
+   
+    pasos.classList.toggle("pasosNoct");
+    for (let i = 0; i < link.length; i++) {
+        link[i].classList.toggle("linkNoct");
+    }
+    
+    if (b) {
+        logoD.removeAttribute("src");
+        logoD.setAttribute("src", "../assets/logo-mobile-modo-noct.svg");
+        for(let i=0; i<4; i++){
+            p[i].style.color="white";
+        }
+        modo.innerHTML="Modo Diurno";
+    
+        btnCrear.style.borderColor="#37383C";
+        btnCrear.style.color="#37383C";
+        btnCont.style.backgroundColor="#37383C";
+        btnCrear.addEventListener("mouseover", ()=> {
+            btnCrear.style.borderColor="white";
+            btnCrear.style.backgroundColor="#37383C";
+            btnCrear.style.color="white";
+        })
+        btnCrear.addEventListener("mouseout", ()=> {
+            btnCrear.style.borderColor="#37383C";
+            btnCrear.style.color="#37383C";
+            btnCont.style.backgroundColor="#37383C";
+        })
+        h2[0].style.color="white";
+        h2[1].style.color="white";
+        imgCinta.removeAttribute("src");
+        imgCinta.setAttribute("src", "../assets/pelicula-modo-noc.svg");
+        imgCamara.removeAttribute("src");
+        imgCamara.setAttribute("src", "../assets/camara-modo-noc.svg");
+        paso1.style.color="white";
+        paso1.style.borderColor="white";
+        paso2.style.color="white";
+        paso2.style.borderColor="white";
+        paso3.style.color="white";
+        paso3.style.borderColor="white";
+        b = false;  
+    }      
+    else if (!b) {
+    logoD.removeAttribute("src");
+    logoD.setAttribute("src", "../assets/logo-mobile.svg");
+    for(let i=0; i<4; i++){
+        p[i].style.color="black";
+    }
+    btnCrear.style.borderColor="#6742E7";
+    btnCrear.style.backgroundColor="white";
+    btnCrear.style.color="#6742E7";
+    btnCrear.addEventListener("mouseover", ()=> {
+        btnCrear.style.borderColor="#6742E7";
+        btnCrear.style.backgroundColor="#6742E7";
+        btnCrear.style.color="white";
+    })
+    btnCrear.addEventListener("mouseout", ()=> {
+        btnCrear.style.borderColor="#6742E7";
+    btnCrear.style.backgroundColor="white";
+    btnCrear.style.color="#6742E7";
+    })
+    btnCont.style.backgroundColor="white";
+    paso1.style.color="white";
+    paso1.style.color="#6742E7";
+        paso1.style.borderColor="#6742E7";
+        paso2.style.color="#6742E7";
+        paso2.style.borderColor="#6742E7";
+        paso3.style.color="#6742E7";
+        paso3.style.borderColor="#6742E7";
+        h2[0].style.color="#6742E7";
+        h2[1].style.color="#6742E7";
+        modo.innerHTML="Modo Nocturno";
+        imgCinta.removeAttribute("src");
+        imgCinta.setAttribute("src", "../assets/pelicula.svg");
+        imgCamara.removeAttribute("src");
+        imgCamara.setAttribute("src", "../assets/camara.svg");
+        b = true;
+    }
+}
+
+
+
+//====================== PASO 1 =====================//
+
 btnCrear.addEventListener("click", ()=> {
  inicioCamara();
 })
 
+//encendido de camara
 function inicioCamara() {
     btnCrear.style.visibility = "hidden";
     paso1.style.backgroundColor = "#6742E7";
@@ -116,7 +213,6 @@ function inicioCamara() {
     pintro1.innerHTML = "El acceso a tu camara será válido sólo";
     pintro2.innerHTML=" por el tiempo en el que estés creando el GIFO.";
     span.style.display="none";
-    // Obtener streaming de video y visualizarlo en el DOM
     navigator.mediaDevices.getUserMedia({video: true
     }).then(stream => {
         video.srcObject = stream;
@@ -146,6 +242,8 @@ function inicioCamara() {
 
 
 
+//======================PASO 2=========================//
+
 function startRecording() {
     navigator.mediaDevices.getUserMedia({video: true}).then(stream => {
        recorder = RecordRTC(stream, {
@@ -172,7 +270,7 @@ function startRecording() {
     btnCrear.addEventListener("click",stopVideo);
 }
 
-
+// STOP VIDEO
 
 function stopVideo() {
     btnCrear.removeEventListener('click',stopVideo);
@@ -193,6 +291,8 @@ function stopVideo() {
 }
 
 
+// CALLBACK
+
 function stopRecordingCallback() {
     video.src = URL.createObjectURL(recorder.getBlob());
     const gif_preview = document.createElement("img");
@@ -203,11 +303,14 @@ function stopRecordingCallback() {
 }
 
 
+// FUNCION REPETIR VIDEO
+
 function repetirVideo() {
     location.reload();
 }
 
 
+//timer design
 
 function calculateTimer(secs) {
     var hrs = Math.floor(secs / 3600);
@@ -247,15 +350,13 @@ function stopTime() {
 }
 
 
-
-
-
+//========================= PASO 3 ======================//
 
 function GifoUpload() {
     const form = new FormData();
     form.append('file', recorder.getBlob(), 'myGif.gif');
     console.log(form.get('file'));
-    // UPLOADING BUFFER???
+    // subiendo el buffer
     gifBuffering();
 
     fetch(`https://upload.giphy.com/v1/gifs?api_key=${ApiKey}`, {
@@ -320,7 +421,7 @@ function uploadSuccesfull(this_gif_src,gif_id) {
     link_icon.style.marginLeft = "10px"
     link_icon.style.cursor = "pointer";
     const download_icon = document.createElement("img");
-    download_icon.setAttribute('src', "assets-usados/icon-download.svg");
+    download_icon.setAttribute('src', "../assets/icon-download.svg");
     download_icon.style.height = "32px";
     download_icon.style.width = "32px";
     download_icon.id = "download-icon";
@@ -341,12 +442,12 @@ function uploadSuccesfull(this_gif_src,gif_id) {
     pantallaCompleta.appendChild(fondogif);
 
 
-    // Hover events
+    // Hovers
     download_icon.addEventListener('mouseenter', () => {
-        download_icon.setAttribute('src', "assets-usados/icon-download-hover.svg");
+        download_icon.setAttribute('src', "../assets/icon-download-hover.svg");
     });
     download_icon.addEventListener('mouseleave', () => {
-        download_icon.setAttribute('src', "assets-usados/icon-download.svg");
+        download_icon.setAttribute('src', "../assets/icon-download.svg");
     });
     link_icon.addEventListener('mouseenter', () => {
         link_icon.setAttribute('src', "assets/icon-link-hover.svg");
@@ -354,7 +455,7 @@ function uploadSuccesfull(this_gif_src,gif_id) {
     link_icon.addEventListener('mouseleave', () => {
         link_icon.setAttribute('src', "assets/icon-link-normal.svg")
     });
-    // ===== COPY LINK TO CLIPBOARD =====
+    // ===== CLIPBOARD COPIADO =====
     link_icon.addEventListener('click', () => {
         const copyLink = `${GIPHY_URL}${gif_id}/giphy.gif`;
         copy(copyLink);
@@ -377,7 +478,7 @@ function uploadSuccesfull(this_gif_src,gif_id) {
         fondogif.style.alignItems = "center";
         fondogif.style.justifyContent = "center";
         const buffer_img = document.createElement("img");
-        buffer_img.setAttribute('src', "./assets/loader.svg");
+        buffer_img.setAttribute('src', ".../assets/loader.svg");
         buffer_img.style.height = "22px";
         buffer_img.style.width = "22px";
         buffer_img.style.marginBottom = "10px";
@@ -402,8 +503,6 @@ function uploadSuccesfull(this_gif_src,gif_id) {
     
     }
 
-
-   
 
 
 
@@ -438,116 +537,21 @@ function uploadSuccesfull(this_gif_src,gif_id) {
 
 
 
-
-    //Modo Nocturno
-
-    let nightmode_check = localStorage.getItem("nightmode-status");
-
-modo.addEventListener('click', nightMode);
-modo.addEventListener('click', () => {
-    if (nightmode_check !== "true") {
-        nightmode_check = "true";
-        localStorage.setItem("nightmode-status", "true");
-    } else {
-        nightmode_check = "false";
-        localStorage.setItem("nightmode-status", "false");
-    }
-})
-
-let b = true;
-function nightMode() {
-    menu.classList.toggle("menuNoct");
-    barra.classList.toggle("noctBarra");
-    menuInt.classList.toggle("menu-intNoct");
-    footer.classList.toggle("footerNoct");
-    header.classList.toggle("headerNoct");
-    camara.classList.toggle("camaraNoct");
-    camaraBis.classList.toggle("camara-bisNoct");
-    pantallaCompleta.classList.toggle("pantalla-completaNoct");
-   
-    pasos.classList.toggle("pasosNoct");
-    for (let i = 0; i < link.length; i++) {
-        link[i].classList.toggle("linkNoct");
-    }
     
-    
-    // toggle logo + menú icons
-    if (b) {
-        logoD.removeAttribute("src");
-        logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
-        for(let i=0; i<4; i++){
-            p[i].style.color="white";
-        }
-        modo.innerHTML="Modo Diurno";
-    
-        btnCrear.style.borderColor="#37383C";
-        btnCrear.style.color="#37383C";
-        btnCont.style.backgroundColor="#37383C";
-        btnCrear.addEventListener("mouseover", ()=> {
-            btnCrear.style.borderColor="white";
-            btnCrear.style.backgroundColor="#37383C";
-            btnCrear.style.color="white";
-        })
-        btnCrear.addEventListener("mouseout", ()=> {
-            btnCrear.style.borderColor="#37383C";
-            btnCrear.style.color="#37383C";
-            btnCont.style.backgroundColor="#37383C";
-        })
-        h2[0].style.color="white";
-        h2[1].style.color="white";
-        imgCinta.removeAttribute("src");
-        imgCinta.setAttribute("src", "assets-usados/pelicula-modo-noc.svg");
-        imgCamara.removeAttribute("src");
-        imgCamara.setAttribute("src", "assets-usados/camara-modo-noc.svg");
-        paso1.style.color="white";
-        paso1.style.borderColor="white";
-        paso2.style.color="white";
-        paso2.style.borderColor="white";
-        paso3.style.color="white";
-        paso3.style.borderColor="white";
-        b = false;
-        
-    }
-    
-       
-    else if (!b) {
-    logoD.removeAttribute("src");
-    logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
-    for(let i=0; i<4; i++){
-        p[i].style.color="black";
-    }
-    btnCrear.style.borderColor="#6742E7";
-    btnCrear.style.backgroundColor="white";
-    btnCrear.style.color="#6742E7";
-    btnCrear.addEventListener("mouseover", ()=> {
-        btnCrear.style.borderColor="#6742E7";
-        btnCrear.style.backgroundColor="#6742E7";
-        btnCrear.style.color="white";
-    })
-    btnCrear.addEventListener("mouseout", ()=> {
-        btnCrear.style.borderColor="#6742E7";
-    btnCrear.style.backgroundColor="white";
-    btnCrear.style.color="#6742E7";
-    })
-    btnCont.style.backgroundColor="white";
-    paso1.style.color="white";
-    paso1.style.color="#6742E7";
-        paso1.style.borderColor="#6742E7";
-        paso2.style.color="#6742E7";
-        paso2.style.borderColor="#6742E7";
-        paso3.style.color="#6742E7";
-        paso3.style.borderColor="#6742E7";
-        h2[0].style.color="#6742E7";
-        h2[1].style.color="#6742E7";
-        modo.innerHTML="Modo Nocturno";
-        imgCinta.removeAttribute("src");
-        imgCinta.setAttribute("src", "assets-usados/pelicula.svg");
-        imgCamara.removeAttribute("src");
-        imgCamara.setAttribute("src", "assets-usados/camara.svg");
-        b = true;
-    }
+//====================== FUNCION AGREGADO A MIS GIFOS ======================//
 
-
-    // toggle "modo nocturno" - "modo diurno"
+function checkForAddedMisGifos() {
+    if (localStorage.getItem('myGifostorage')) {
+        MisGifos = JSON.parse(localStorage.getItem('myGifostorage'));
+    } else if (localStorage.getItem('myGifostorage') == null) {
+        MisGifos = [];
+    }
+    return MisGifos;
 }
+checkForAddedMisGifos();
+
+
+
+//no funciona al 100x100 esteticamente pero graba los gifos
+
 

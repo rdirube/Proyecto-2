@@ -1,6 +1,6 @@
 
 
-// Variables a utilizar en el proyecto
+//====================VARIABLES A UTILIZAR============================
  const barra = document.getElementById("barra");
  const logoMobile = document.getElementById("logo-mobile");
  const logoD = document.getElementById("logo-d");
@@ -83,20 +83,21 @@ var count_2 = 3;
 var position = 1;
 var imgData = {};
 let gifosSearchF = [];
-//hovers y actives
 
 
 
+
+//=========================HOVERS Y EVENTOS DE DISEÑO GENERAL==============================
 
 botonIzqD.addEventListener("mouseover", ()=> {
 botonIzqD.removeAttribute("src");
-botonIzqD.setAttribute("src", "assets-usados/button-slider-left-hover.svg");
+botonIzqD.setAttribute("src", "../assets/button-slider-left-hover.svg");
 botonIzqD.style.cursor= "pointer";})
 
 
 botonIzqD.addEventListener("mouseout", ()=> {
     botonIzqD.removeAttribute("src");
-    botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
+    botonIzqD.setAttribute("src", "../assets/button-slider-left.svg");
     
 } )
 
@@ -122,57 +123,57 @@ botonDerH.addEventListener("mouseout", ()=> {
 
 crearD.addEventListener("mouseover", ()=> {
     crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg");
+    crearD.setAttribute("src", "../assets/CTA-crear-gifo-hover.svg");
 })
 
 crearD.addEventListener("mouseout", ()=> {
     crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    crearD.setAttribute("src", "../assets/button-crear-gifo.svg");
 })
 
 crearD.addEventListener("mousedown", ()=> {
     crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
+    crearD.setAttribute("src", "../assets/CTA-crear-gifo-active.svg");
     
 })
 
 crearD.addEventListener("mouseup", ()=> {
     crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
+    crearD.setAttribute("src", "../assets/button-crear-gifo.svg");
 })
 
 
 twitter.addEventListener("mouseover", ()=> {
     twitter.removeAttribute("src");
-    twitter.setAttribute("src", "assets-usados/icon-twitter-hover.svg");
+    twitter.setAttribute("src", "../assets/icon-twitter-hover.svg");
 })
 
 twitter.addEventListener("mouseout", ()=> {
     twitter.removeAttribute("src");
-    twitter.setAttribute("src", "assets-usados/icon-twitter.svg");
+    twitter.setAttribute("src", "../assets/icon-twitter.svg");
 })
 
 
 facebook.addEventListener("mouseover", ()=> {
     facebook.removeAttribute("src");
-    facebook.setAttribute("src", "assets-usados/icon_facebook_hover.svg");
+    facebook.setAttribute("src", "../assets/icon_facebook_hover.svg");
 
 })
 
 facebook.addEventListener("mouseout", ()=> {
     facebook.removeAttribute("src");
-    facebook.setAttribute("src", "assets-usados/icon_facebook.svg");
+    facebook.setAttribute("src", "../assets/icon_facebook.svg");
 
 })
 
 instagram.addEventListener("mouseover", ()=> {
     instagram.removeAttribute("src");
-    instagram.setAttribute("src", "assets-usados/icon_instagram-hover.svg")
+    instagram.setAttribute("src", "../assets/icon_instagram-hover.svg")
 })
 
 instagram.addEventListener("mouseout", ()=> {
     instagram.removeAttribute("src");
-    instagram.setAttribute("src", "assets-usados/icon_instagram.svg");
+    instagram.setAttribute("src", "../assets/icon_instagram.svg");
 })
 
 
@@ -184,43 +185,229 @@ logoD.addEventListener("click", ()=> {
 
 verMas.addEventListener("mouseover", ()=> {
     verMas.removeAttribute("src");
-    verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
+    verMas.setAttribute("src", "../assets/CTA-ver-mas-hover.svg");
     verMas.style.cursor="pointer";
 })
 
 verMas.addEventListener("mouseout", ()=> {
     verMas.removeAttribute("src");
-    verMas.setAttribute("src", "assets-usados/CTA-ver-mas.svg");
+    verMas.setAttribute("src", "../assets/CTA-ver-mas.svg");
 })
-
-
-
-
-
-function agregarfav() {
-    if (localStorage.getItem('dataFavoritos')) {
-        dataFavoritos = JSON.parse(localStorage.getItem('dataFavoritos'));
-    } else if (localStorage.getItem('dataFavoritos') == null) {
-        dataFavoritos = [];
-    }
-    return dataFavoritos;
-}
-agregarfav();
-//Botones y hovers
-
-
-
-//Botón modo nocturno
-
 
 
 if(buscar.innerHTML="") {
     matchList.style.display="none";
 }
 
+  
+burger.addEventListener("click", ()=> {
+    menu.style.display="block";
+    closeD.style.display="block";
+    burger.style.display="none";
+
+    })
+     
+closeD.addEventListener("click", ()=> {
+    menu.style.display="none";
+    closeD.style.display="none";
+    burger.style.display="block"
+      })
+      
 
 
-// Función autocompletar
+
+
+
+//====================MODO NOCTURNO========================
+
+let nightmode_check = localStorage.getItem("nightmode-status");
+
+modo.addEventListener('click', nightMode);
+modo.addEventListener('click', () => {
+    if (nightmode_check !== "true") {
+        nightmode_check = "true";
+        localStorage.setItem("nightmode-status", "true");
+    } else {
+        nightmode_check = "false";
+        localStorage.setItem("nightmode-status", "false");
+    }
+})
+
+let b = true;
+function nightMode() {
+    menu.classList.toggle("menuNoct");
+    buscador.classList.toggle("buscadorNoct");
+    barra.classList.toggle("noctBarra");
+    menuInt.classList.toggle("menu-intNoct");
+    trending.classList.toggle("trendingNoct");
+    footer.classList.toggle("footerNoct");
+    buscCont.classList.toggle("busc-contNoct");
+    buscCont2.classList.toggle("busc-contNoct2");
+    header.classList.toggle("headerNoct");
+    for (let i = 0; i < link.length; i++) {
+        link[i].classList.toggle("linkNoct");
+    }
+    for(let i =0 ; i<5;i++) {
+        divResultado[i].classList.toggle("divResultadoNoct");
+        
+    }
+    // toggle logo + menú icons
+    if (b) {
+        buscCont2.style.backgroundColor="#37383C";
+        logoD.removeAttribute("src");
+        logoD.setAttribute("src", "../assets/logo-mobile-modo-noct.svg");
+        lupitaD.removeAttribute("src");
+        lupitaD.setAttribute("src", "../assets/icon-search-mod-noc.svg");
+        closeLup.removeAttribute("src");
+        closeLup.setAttribute("src", "../assets/close-modo-noct.svg");
+        burger.removeAttribute("src");
+        burger.setAttribute("src", "../assets/burger-modo-noct.svg");
+        botonDerD.removeAttribute("src");
+        botonDerD.setAttribute("src", "../assets/button-slider-right-md-noct.svg");
+        botonIzqD.removeAttribute("src");
+        buscador.removeAttribute("id");
+        buscador.setAttribute("id", "buscadorNoct");
+        botonIzqD.removeAttribute("src");
+        botonIzqD.setAttribute("src", "../assets/button-slider-left-md-noct.svg");
+        botonIzqD.addEventListener("mouseover", ()=>{
+           botonIzqD.removeAttribute("src");
+           botonIzqD.setAttribute("src", "../assets/button-slider-left-md-noct.svg")
+        })
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "../assets/CTA-ver+-modo-noc.svg");
+        closeD.removeAttribute("src");
+        closeD.setAttribute("src", "../assets/close-modo-noct.svg");
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "../assets/CTA-crear-gifo-modo-noc.svg");
+        crearD.addEventListener("mouseover", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "../assets/CTA-crear-gifo-hover-modo-noc.svg")
+        })
+        crearD.addEventListener("mouseout", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "../assets/CTA-crear-gifo-modo-noc.svg")
+        })
+        crearD.addEventListener("mousedown", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "../assets/CTA-crear-gifo-active-modo-noc.svg");
+            
+        })
+        
+        crearD.addEventListener("mouseup", ()=> {
+            crearD.removeAttribute("src");
+            crearD.setAttribute("src", "../assets/CTA-crear-gifo-modo-noc.svg");
+        })
+        for(let i=0; i<6; i++){
+            p[i].style.color="white";
+        }
+        modo.innerHTML="Modo Diurno";
+
+        h1[0].style.color="white";
+        h4[0].style.color="white";
+        h2[0].style.color="white";
+        buscar.style.backgroundColor="#37383C";
+        buscar.style.color="white";
+        b = false;
+        for(let i =0 ; i<5;i++) {
+            lupitaRes[i].removeAttribute("src");
+            lupitaRes[i].setAttribute("src", "../assets/icon-search-mod-noc.svg");
+        }
+        verMas.addEventListener("mouseover", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "../assets/CTA-ver+hover-modo-noc.svg");
+            verMas.style.cursor="pointer";
+        })
+        verMas.addEventListener("mouseout", ()=> {
+            verMas.removeAttribute("src");
+            verMas.setAttribute("src", "../assets/CTA-ver+-modo-noc.svg");
+        })
+        lupitaPrincipal.removeAttribute("src");
+        lupitaPrincipal.setAttribute("src", "../assets/icon-search-mod-noc.svg")
+
+        tituloBusqueda.style.color="white";
+       
+    }
+    
+       
+    else if (!b) {
+    buscCont2.style.backgroundColor="white";
+    logoD.removeAttribute("src");
+    logoD.setAttribute("src", "../assets/logo-mobile.svg");
+    closeLup.removeAttribute("src");
+    closeLup.setAttribute("src", "../assets/close.svg"); 
+    lupitaD.removeAttribute("src");
+    lupitaD.setAttribute("src", "../assets/icon-search.svg");
+    closeD.removeAttribute("src");
+    closeD.setAttribute("src", "../assets/close.svg");
+    burger.removeAttribute("src");
+    burger.setAttribute("src", "../assets/burger.svg");
+    botonDerD.removeAttribute("src");
+    botonDerD.setAttribute("src", "../assets/Button-Slider-right.svg");
+    botonIzqD.removeAttribute("src");
+    botonIzqD.setAttribute("src", "../assets/button-slider-left.svg");
+    verMas.removeAttribute("src");
+    verMas.setAttribute("src", "../assets/../assets/CTA-ver-mas.svg"); 
+    lupitaPrincipal.removeAttribute("src");
+    lupitaPrincipal.setAttribute("src", "../assets/icon-search.svg");
+    crearD.removeAttribute("src");
+    crearD.setAttribute("src", "../assets/button-crear-gifo.svg");
+    crearD.addEventListener("mouseover", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "../assets/CTA-crear-gifo-hover.svg")
+    })
+    crearD.addEventListener("mouseout", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "../assets/button-crear-gifo.svg");
+    })
+    crearD.addEventListener("mousedown", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "../assets/CTA-crear-gifo-active.svg");
+        
+    })
+    
+    crearD.addEventListener("mouseup", ()=> {
+        crearD.removeAttribute("src");
+        crearD.setAttribute("src", "../assets/button-crear-gifo.svg");
+    })
+    verMas.addEventListener("mouseover", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "../assets/CTA-ver-mas-hover.svg");
+        verMas.style.cursor="pointer";
+    })
+    
+    verMas.addEventListener("mouseout", ()=> {
+        verMas.removeAttribute("src");
+        verMas.setAttribute("src", "../assets/CTA-ver-mas.svg");
+    })
+    for(let i=0; i<2; i++){
+        p[i].style.color="#6742E7";
+    }
+
+    for(let i=2; i<6; i++){
+        p[i].style.color="black";
+    }
+    for(let i =0 ; i<5;i++) {
+        lupitaRes[i].removeAttribute("src");
+        lupitaRes[i].setAttribute("src", "../assets/icon-search.svg");
+    }
+        h1[0].style.color="#6742E7";
+        h4[0].style.color="#6742E7";
+        h2[0].style.color="#6742E7";
+        buscar.style.backgroundColor="white";
+        buscar.style.color="black";
+        modo.innerHTML="Modo Nocturno";
+
+        tituloBusqueda.style.color="#6742E7";
+        tituloBusqueda.style.color="white";
+
+        b = true;
+    }
+}
+
+
+
+
+// ===========================FUNCION BUSCADOR=========================================
 
 function autocompletar() {
     async function autocompletar(resultado) {
@@ -244,11 +431,11 @@ function autocompletar() {
            buscCont2.style.marginTop="15px";
            matchList.style.paddingBottom="15px";
            lupitaPrincipal.style.display="block";
-           lupitaPrincipal.setAttribute("src", "assets-usados/icon-search.svg");
+           lupitaPrincipal.setAttribute("src", "../assets/icon-search.svg");
            lupitaPrincipal.style.width="20px";
            lupitaPrincipal.style.height="20px";
            lupitaPrincipal.style.transform="translateX(-9px)";
-           lupitaRes[i].setAttribute("src", "assets-usados/icon-search.svg");
+           lupitaRes[i].setAttribute("src", "../assets/icon-search.svg");
            lupitaRes[i].style.width="20px";
            lupitaRes[i].style.height="20px";
            lupitaRes[i].style.transform="translateX(-25px)";
@@ -273,7 +460,9 @@ for (let i=0 ; i<5 ; i++) {
 }
 
 
-//Función para agrandar imagen
+
+
+//=====================AGRANDAR (MAX Y MIN)=============================
 function agrandar(gif, titulo,fav) {
     let contenedorImgBig = document.createElement("div");
     body.appendChild(contenedorImgBig);
@@ -293,7 +482,7 @@ function agrandar(gif, titulo,fav) {
     contenedorImgBig.style.paddingBottom="150px";
     let closeD1 = document.createElement("img");
     contenedorImgBig.style.overflow= "auto";
-    closeD1.setAttribute("src", "assets-usados/close.svg");
+    closeD1.setAttribute("src", "../assets/close.svg");
     closeD1.style.width="20px";
     closeD1.style.height="20px";
     closeD1.style.marginTop="90px";
@@ -373,7 +562,7 @@ function agrandar(gif, titulo,fav) {
    
     
     let favmax = document.createElement("img");
-    favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+    favmax.setAttribute("src", "../assets/icon-fav.svg");
     favmax.style.width="45px";
     favmax.style.height="45px";
     botonesmax.appendChild(favmax);
@@ -381,28 +570,28 @@ function agrandar(gif, titulo,fav) {
     let downloadmax = document.createElement("img");
     downloadlink.appendChild(downloadmax)
     botonesmax.appendChild(downloadlink);
-    downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    downloadmax.setAttribute("src", "../assets/icon-download.svg");
     downloadmax.style.width="45px";
     downloadmax.style.height="45px";
     downloadmax.style.margin="0 10px 0 20px";
     titulo_botones.appendChild(botonesmax);
     downloadmax.addEventListener("mouseover", ()=> {
         downloadmax.removeAttribute("src");
-        downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
+        downloadmax.setAttribute("src", "../assets/icon-download-hover.svg")
         downloadmax.style.cursor="pointer";
     })
     downloadmax.addEventListener("mouseout", ()=> {
         downloadmax.removeAttribute("src");
-        downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+        downloadmax.setAttribute("src", "../assets/icon-download.svg");
     })
     favmax.addEventListener("mouseover", ()=> {
         favmax.removeAttribute("src");
-        favmax.setAttribute("src", "assets-usados/icon-fav-hover.svg")
+        favmax.setAttribute("src", "../assets/icon-fav-hover.svg")
         favmax.style.cursor="pointer";
     })
     favmax.addEventListener("mouseout", ()=> {
         favmax.removeAttribute("src");
-        favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+        favmax.setAttribute("src", "../assets/icon-fav.svg");
     })
     
     downloadmax.addEventListener("click", ()=> {
@@ -423,136 +612,7 @@ function agrandar(gif, titulo,fav) {
 
     
 
-
-
-
-//AddEventListener del input
-buscar.addEventListener("input", ()=> {
-autocompletar();
-lupitaD.style.display="none";
-closeLup.style.display="block";
-})
-
-
-closeLup.addEventListener("click", ()=>{
-    matchList.style.display="none";
-    contTituloF.style.display="none";
-    closeLup.style.display="none";
-    lupitaD.style.display="block";
-    gifosEncontrados.style.display="none";
-    verMasCont.style.display="none";
-    categorias.style.display="block";
-    trendingsN.style.display="block";
-    contPalabra.style.display="none";
-    lupitaPrincipal.style.display="none"; 
-    buscCont.style.height="50px";
-    categorias.style.paddingBottom="15px";
-}
-)
-
-
-// Función Trending (3 trendings fijos)
-function trendingF() {
-
-    async function buscarTrending() {
-        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=3&offset=0&rating=g&lang=en`;
-        const resp = await fetch(url);
-        const info = await resp.json();
-        return info;
-    }
-  let datos = buscarTrending();
-
-  datos.then(response=> {
-    console.log(response.data);
-    for(let i=0;i<3;i++) {
     
-    if(window.matchMedia("(min-width:780px)").matches) {
-    let imgid = i + 1
-    imgid = 'trending' + imgid;
-    let gifo = document.getElementById(imgid);
-    gifo.setAttribute("src", response.data[i].images.original.url);
-    titulo[i].innerHTML=response.data[i].title;
-    let download1 = document.createElement("img");
-    let favor1 = document.createElement("img");
-    let max1 = document.createElement("img");
-    download1.setAttribute("src", "assets-usados/icon-download.svg");
-    favor1.setAttribute("src", "assets-usados/icon-fav.svg");
-    max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
-    download1.setAttribute("class", "icono");
-    favor1.setAttribute("class", "icono");
-    max1.setAttribute("class", "icono");
-    let linkDescarga1 = document.createElement("a");
-    linkDescarga1.setAttribute("download", "mygifo.gif");
-    botones[i].appendChild(linkDescarga1);
-    linkDescarga1.appendChild(download1);
-    botones[i].appendChild(favor1);
-    botones[i].appendChild(max1);
-    favor1.addEventListener("click", ()=> {
-        dataFavoritos.push(response.data[i]);
-        console.log(dataFavoritos);
-        localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
-      });
-     
-        max1.addEventListener("click", ()=> {
-            agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
-        });
-        download1.addEventListener("click", ()=> {
-            let href = createBlob(response.data[i].images.original.url);
-           href.then(url => {
-    
-            linkDescarga1.setAttribute("href", url);
-        })
-        linkDescarga1.setAttribute("download", "mygifo");})
-    
-        download1.addEventListener("mouseover", ()=> {
-            download1.removeAttribute("src");
-            download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
-        })
-        download1.addEventListener("mouseout", ()=> {
-            download1.removeAttribute("src");
-            download1.setAttribute("src", "assets-usados/icon-download.svg");
-        })
-    favor1.addEventListener("mouseover", ()=> {
-        favor1.removeAttribute("src");
-        favor1.setAttribute("src", "assets-usados/icon-fav-hover.svg")});
-        favor1.addEventListener("mouseout", ()=> {
-        favor1.removeAttribute("src");
-        favor1.setAttribute("src", "assets-usados/icon-fav.svg");
-        })
-        max1.addEventListener("mouseover", ()=> {
-            max1.removeAttribute("src");
-            max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
-        })
-        max1.addEventListener("mouseout", ()=> {
-            max1.removeAttribute("src");
-            max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
-        })
-        
-          favor1.addEventListener("mousedown", ()=>{
-          favor1.removeAttribute("src");
-          favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})  
-          favor1.addEventListener("mouseup", ()=>{
-            favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav.svg");}) 
-            gifTrending.style.overflow="visible";
-    } else  ;{
-        let imgid = i + 1;
-        imgid = 'trending' + imgid;
-        let gifo = document.getElementById(imgid);
-        gifo.setAttribute("src", response.data[i].images.original.url);
-        titulo[i].innerHTML=response.data[i].title;
-        flechas.style.overflowX="hidden";
-        gifTrending.style.overflowX="scroll";
-        gifTrending.style.overflowY="hidden";
-        divFantasma[i].addEventListener("click", ()=> {
-            agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
-        })}
-
-   } } ).catch(e=> console.log(e))
-}
-
-
-
 function agrandarMin(gif,titulo,fav){
     let contenedorImgBig = document.createElement("div");
     body.appendChild(contenedorImgBig);
@@ -572,7 +632,7 @@ function agrandarMin(gif,titulo,fav){
     contenedorImgBig.style.paddingBottom="150px";
     let closeD1 = document.createElement("img");
     contenedorImgBig.style.overflow= "auto";
-    closeD1.setAttribute("src", "assets-usados/close.svg");
+    closeD1.setAttribute("src", "../assets/close.svg");
     closeD1.style.width="15px";
     closeD1.style.height="15px";
     closeD1.style.marginTop="90px";
@@ -639,7 +699,7 @@ function agrandarMin(gif,titulo,fav){
     botonesmax.style.alignItems="center";
     botonesmax.style.justifyContent="flex-end";
     let favmax = document.createElement("img");
-    favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+    favmax.setAttribute("src", "../assets/icon-fav.svg");
     favmax.style.width="35px";
     favmax.style.height="35px";
     botonesmax.appendChild(favmax);
@@ -647,28 +707,28 @@ function agrandarMin(gif,titulo,fav){
     let downloadmax = document.createElement("img");
     downloadlink.appendChild(downloadmax)
     botonesmax.appendChild(downloadlink);
-    downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+    downloadmax.setAttribute("src", "../assets/icon-download.svg");
     downloadmax.style.width="35px";
     downloadmax.style.height="35px";
     downloadmax.style.margin="0 10px 0 20px";
     titulo_botones.appendChild(botonesmax);
     downloadmax.addEventListener("mouseover", ()=> {
         downloadmax.removeAttribute("src");
-        downloadmax.setAttribute("src", "assets-usados/icon-download-hover.svg")
+        downloadmax.setAttribute("src", "../assets/icon-download-hover.svg")
         downloadmax.style.cursor="pointer";
     })
     downloadmax.addEventListener("mouseout", ()=> {
         downloadmax.removeAttribute("src");
-        downloadmax.setAttribute("src", "assets-usados/icon-download.svg");
+        downloadmax.setAttribute("src", "../assets/icon-download.svg");
     })
     favmax.addEventListener("mouseover", ()=> {
         favmax.removeAttribute("src");
-        favmax.setAttribute("src", "assets-usados/icon-fav-hover.svg")
+        favmax.setAttribute("src", "../assets/icon-fav-hover.svg")
         favmax.style.cursor="pointer";
     })
     favmax.addEventListener("mouseout", ()=> {
         favmax.removeAttribute("src");
-        favmax.setAttribute("src", "assets-usados/icon-fav.svg");
+        favmax.setAttribute("src", "../assets/icon-fav.svg");
     })
     
     downloadmax.addEventListener("click", ()=> {
@@ -683,47 +743,136 @@ function agrandarMin(gif,titulo,fav){
         localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
         console.log(dataFavoritos);
       })
+})  }
+
+
+
+buscar.addEventListener("input", ()=> {
+autocompletar();
+lupitaD.style.display="none";
+closeLup.style.display="block";
 })
-  
+
+
+closeLup.addEventListener("click", ()=>{
+    matchList.style.display="none";
+    contTituloF.style.display="none";
+    closeLup.style.display="none";
+    lupitaD.style.display="block";
+    gifosEncontrados.style.display="none";
+    verMasCont.style.display="none";
+    categorias.style.display="block";
+    trendingsN.style.display="block";
+    contPalabra.style.display="none";
+    lupitaPrincipal.style.display="none"; 
+    buscCont.style.height="50px";
+    categorias.style.paddingBottom="15px";
 }
+)
 
 
-async function createBlob(url) {
-    try {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        return URL.createObjectURL(blob);
-    } catch (error) {
-        console.log("ERROR: ", error);
+//=======================GIFS TRENDING Y FUNCIÓN FLECHA===================
+function trendingF() {
+
+    async function buscarTrending() {
+        let url = `https://api.giphy.com/v1/gifs/trending?api_key=${ApiKey}&q=Proyecto%202&limit=3&offset=0&rating=g&lang=en`;
+        const resp = await fetch(url);
+        const info = await resp.json();
+        return info;
     }
+  let datos = buscarTrending();
+
+  datos.then(response=> {
+    console.log(response.data);
+    for(let i=0;i<3;i++) {
+    
+    if(window.matchMedia("(min-width:780px)").matches) {
+    let imgid = i + 1
+    imgid = 'trending' + imgid;
+    let gifo = document.getElementById(imgid);
+    gifo.setAttribute("src", response.data[i].images.original.url);
+    titulo[i].innerHTML=response.data[i].title;
+    let download1 = document.createElement("img");
+    let favor1 = document.createElement("img");
+    let max1 = document.createElement("img");
+    download1.setAttribute("src", "../assets/icon-download.svg");
+    favor1.setAttribute("src", "../assets/icon-fav.svg");
+    max1.setAttribute("src", "../assets/icon-max-normal.svg");
+    download1.setAttribute("class", "icono");
+    favor1.setAttribute("class", "icono");
+    max1.setAttribute("class", "icono");
+    let linkDescarga1 = document.createElement("a");
+    linkDescarga1.setAttribute("download", "mygifo.gif");
+    botones[i].appendChild(linkDescarga1);
+    linkDescarga1.appendChild(download1);
+    botones[i].appendChild(favor1);
+    botones[i].appendChild(max1);
+    favor1.addEventListener("click", ()=> {
+        dataFavoritos.push(response.data[i]);
+        console.log(dataFavoritos);
+        localStorage.setItem("dataFavoritos", JSON.stringify(dataFavoritos));
+      });
+     
+        max1.addEventListener("click", ()=> {
+            agrandar(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+        });
+        download1.addEventListener("click", ()=> {
+            let href = createBlob(response.data[i].images.original.url);
+           href.then(url => {
+    
+            linkDescarga1.setAttribute("href", url);
+        })
+        linkDescarga1.setAttribute("download", "mygifo");})
+    
+        download1.addEventListener("mouseover", ()=> {
+            download1.removeAttribute("src");
+            download1.setAttribute("src", "../assets/icon-download-hover.svg");
+        })
+        download1.addEventListener("mouseout", ()=> {
+            download1.removeAttribute("src");
+            download1.setAttribute("src", "../assets/icon-download.svg");
+        })
+    favor1.addEventListener("mouseover", ()=> {
+        favor1.removeAttribute("src");
+        favor1.setAttribute("src", "../assets/icon-fav-hover.svg")});
+        favor1.addEventListener("mouseout", ()=> {
+        favor1.removeAttribute("src");
+        favor1.setAttribute("src", "../assets/icon-fav.svg");
+        })
+        max1.addEventListener("mouseover", ()=> {
+            max1.removeAttribute("src");
+            max1.setAttribute("src", "../assets/icon-max-hover.svg");
+        })
+        max1.addEventListener("mouseout", ()=> {
+            max1.removeAttribute("src");
+            max1.setAttribute("src", "../assets/icon-max-normal.svg");
+        })
+        
+          favor1.addEventListener("mousedown", ()=>{
+          favor1.removeAttribute("src");
+          favor1.setAttribute("src", "../assets/icon-fav-active.svg");})  
+          favor1.addEventListener("mouseup", ()=>{
+            favor1.removeAttribute("src");
+            favor1.setAttribute("src", "../assets/icon-fav.svg");}) 
+    } else  ;{
+        let imgid = i + 1;
+        imgid = 'trending' + imgid;
+        let gifo = document.getElementById(imgid);
+        gifo.setAttribute("src", response.data[i].images.original.url);
+        titulo[i].innerHTML=response.data[i].title;
+        flechas.style.overflowX="hidden";
+        gifTrending.style.overflowX="scroll";
+        gifTrending.style.overflowY="hidden";
+        divFantasma[i].addEventListener("click", ()=> {
+            agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
+        })}
+
+   } } ).catch(e=> console.log(e))
 }
-    /*let a_download = document.createElement("a");
-    a_download.setAttribute("download", "download");
-    div_top.appendChild(a_download);
-
-    let href = createBlob(this_gif_src);
-    href.then(url => {
-        a_download.setAttribute("href", url);
-    })
-    a_download.setAttribute("download", "mygifo");
-    // download btn
-    / download btn
-    let download_svg = document.createElement("img");
-    download_svg.id = "download-svg";
-    download_svg.setAttribute('src', "assets/icon-download.svg");
-    download_svg.addEventListener('mouseenter', () => {
-        download_svg.setAttribute('src', "assets/icon-download-hover.svg");
-    });
-    download_svg.addEventListener('mouseleave', () => {
-        download_svg.setAttribute('src', "assets/icon-download.svg");
-    })
-    a_download.appendChild(download_svg);*/
 
 
 
-
-//Función cambio de Trendings
- function flecha(signo) {
+function flecha(signo) {
     if (signo == '+') {
         position = position + 1
     } else if (signo == '-') {
@@ -750,9 +899,9 @@ async function createBlob(url) {
     let download1 = document.createElement("img");
     let favor1 = document.createElement("img");
     let max1 = document.createElement("img");
-    download1.setAttribute("src", "assets-usados/icon-download.svg");
-    favor1.setAttribute("src", "assets-usados/icon-fav.svg");
-    max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+    download1.setAttribute("src", "../assets/icon-download.svg");
+    favor1.setAttribute("src", "../assets/icon-fav.svg");
+    max1.setAttribute("src", "../assets/icon-max-normal.svg");
     download1.setAttribute("class", "icono");
     favor1.setAttribute("class", "icono");
     max1.setAttribute("class", "icono");
@@ -788,11 +937,7 @@ async function createBlob(url) {
 
 
 
-
-
-
-
-//Función buscar Gifos
+//==================FUNCION BUSCAR Y "VER MAS"=======================
 function searchF() {
     async function buscarGifos(valor) {
         let url = `https://api.giphy.com/v1/gifs/search?api_key=${ApiKey}&q=${valor}&limit=12&offset=0&rating=g&lang=en`;
@@ -816,7 +961,7 @@ function searchF() {
             gifosEncontrados.style.alignItems="center";
             gifosEncontrados.style.margin="80px auto 20px";
             let ouch = document.createElement("img");
-            ouch.setAttribute("src", "assets-usados/icon-busqueda-sin-resultado.svg");
+            ouch.setAttribute("src", "../assets/icon-busqueda-sin-resultado.svg");
             gifosEncontrados.appendChild(ouch);
             let errorTexto = document.createElement("h2");
             errorTexto.innerHTML= "Intenta con otra busqueda."
@@ -824,8 +969,8 @@ function searchF() {
             errorTexto.style.padding="30px 0 40px";
             gifosEncontrados.appendChild(errorTexto);
          }  
-          else{
-        
+          else
+          {
      for(let i=0;i<=12;i++) {
         let gifo = document.createElement('img');
         gifo.setAttribute("src",response.data[i].images.original.url);
@@ -848,9 +993,9 @@ function searchF() {
      let download1 = document.createElement("img");
      let favor1 = document.createElement("img");
      let max1 = document.createElement("img");
-     download1.setAttribute("src", "assets-usados/icon-download.svg");
-     favor1.setAttribute("src", "assets-usados/icon-fav.svg");
-     max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+     download1.setAttribute("src", "../assets/icon-download.svg");
+     favor1.setAttribute("src", "../assets/icon-fav.svg");
+     max1.setAttribute("src", "../assets/icon-max-normal.svg");
      download1.setAttribute("class", "icono");
      favor1.setAttribute("class", "icono");
      max1.setAttribute("class", "icono");
@@ -875,7 +1020,7 @@ function searchF() {
      contTitulo.style.padding="0px 0px 25px 10px";
         download1.addEventListener("mouseover", ()=> {
             download1.removeAttribute("src");
-            download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
+            download1.setAttribute("src", "../assets/icon-download-hover.svg");
         })
 
         download1.addEventListener("click", ()=> {
@@ -890,28 +1035,28 @@ function searchF() {
 
         download1.addEventListener("mouseout", ()=> {
             download1.removeAttribute("src");
-            download1.setAttribute("src", "assets-usados/icon-download.svg");
+            download1.setAttribute("src", "../assets/icon-download.svg");
         })
         
         favor1.addEventListener("mouseover", ()=> {
             favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav-hover.svg");
+            favor1.setAttribute("src", "../assets/icon-fav-hover.svg");
         })
         favor1.addEventListener("mouseout", ()=> {
             favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+            favor1.setAttribute("src", "../assets/icon-fav.svg");
         })
         max1.addEventListener("mouseover", ()=> {
             max1.removeAttribute("src");
-            max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
+            max1.setAttribute("src", "../assets/icon-max-hover.svg");
         })
         max1.addEventListener("mouseout", ()=> {
             max1.removeAttribute("src");
-            max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+            max1.setAttribute("src", "../assets/icon-max-normal.svg");
         })
         favor1.addEventListener("mousedown", ()=>{
             favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");})
+            favor1.setAttribute("src", "../assets/icon-fav-active.svg");})
 
         favor1.addEventListener("click", ()=> {
             dataFavoritos.push(response.data[i]);
@@ -931,14 +1076,14 @@ function searchF() {
                 agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
             });
         }
-            }}}).catch(e=>console.log(e))}
+            }
+        }
+        }
+            ).catch(e=>console.log(e))
+        }
   
 
 
-
-  
-
-//función buscar más Gifos +12
 
   function searchMas() {
     async function buscarGifos(valor) {    
@@ -975,9 +1120,9 @@ function searchF() {
      let download1 = document.createElement("img");
      let favor1 = document.createElement("img");
      let max1 = document.createElement("img");
-     download1.setAttribute("src", "assets-usados/icon-download.svg");
-     favor1.setAttribute("src", "assets-usados/icon-fav.svg");
-     max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+     download1.setAttribute("src", "../assets/icon-download.svg");
+     favor1.setAttribute("src", "../assets/icon-fav.svg");
+     max1.setAttribute("src", "../assets/icon-max-normal.svg");
      download1.setAttribute("class", "icono");
      favor1.setAttribute("class", "icono");
      max1.setAttribute("class", "icono");
@@ -1002,33 +1147,33 @@ function searchF() {
      contTitulo.style.padding="0px 0px 25px 10px";
         download1.addEventListener("mouseover", ()=> {
             download1.removeAttribute("src");
-            download1.setAttribute("src", "assets-usados/icon-download-hover.svg");
+            download1.setAttribute("src", "../assets/icon-download-hover.svg");
         })
         
         download1.addEventListener("mouseout", ()=> {
             download1.removeAttribute("src");
-            download1.setAttribute("src", "assets-usados/icon-download.svg");
+            download1.setAttribute("src", "../assets/icon-download.svg");
         })
         
         favor1.addEventListener("mouseover", ()=> {
             favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav-hover.svg");
+            favor1.setAttribute("src", "../assets/icon-fav-hover.svg");
         })
         favor1.addEventListener("mouseout", ()=> {
             favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav.svg");
+            favor1.setAttribute("src", "../assets/icon-fav.svg");
         })
         max1.addEventListener("mouseover", ()=> {
             max1.removeAttribute("src");
-            max1.setAttribute("src", "assets-usados/icon-max-hover.svg");
+            max1.setAttribute("src", "../assets/icon-max-hover.svg");
         })
         max1.addEventListener("mouseout", ()=> {
             max1.removeAttribute("src");
-            max1.setAttribute("src", "assets-usados/icon-max-normal.svg");
+            max1.setAttribute("src", "../assets/icon-max-normal.svg");
         })
         favor1.addEventListener("mousedown", ()=>{
             favor1.removeAttribute("src");
-            favor1.setAttribute("src", "assets-usados/icon-fav-active.svg");});
+            favor1.setAttribute("src", "../assets/icon-fav-active.svg");});
         linkDescarga1.addEventListener("click", ()=>{
                  let href = createBlob(response.data[i].images.original.url);
            href.then(url => {
@@ -1052,17 +1197,44 @@ function searchF() {
             divFantasma1.addEventListener("click", ()=> {
                 agrandarMin(response.data[i].images.original.url, response.data[i].title, response.data[i]);
             });
-        }
-            
-    }limit=limit+12;
-        
-  }
-     ).catch(e=> console.log(e))
+        }        
+    }
+    limit=limit+12;}
+    )
+    .catch(e=> console.log(e)
+    )
+}
+
+
+
+
+    function gifoEncontrados() { 
+        gifosEncontrados.style.display= "grid";
+        gifosEncontrados.style.gridTemplateRows ="repeat(3, 230px)";
+        gifosEncontrados.style.gridTemplateColumns="repeat(4, 1fr)";
+        trendingsN.style.display="none";
+        categorias.style.display="none";
+        contTituloF.innerHTML="";
+        contTituloF.style.display="block";
+        contPalabra.style.display="block";
+        tituloBusqueda.style.display="flex";
+        contPalabra.appendChild(tituloBusqueda);
+        tituloBusqueda.innerHTML=`${buscar.value}`;
+        tituloBusqueda.style.textTransform="uppercase";
+        tituloBusqueda.style.fontWeight="bold";
+        tituloBusqueda.style.padding="30px";
+        tituloBusqueda.style.fontSize="22px";
+        tituloBusqueda.style.fontFamily="'Montserrat', sans-serif";
+        tituloBusqueda.style.color="#6742E7";
+        verMasCont.style.display="flex";
+        verMasCont.style.justifyContent= "center";
+        verMasCont.style.alignItems= "center";
+        verMasCont.style.margin="auto";
+        verMasCont.style.padding= "50px";
+        lupitaD.style.display="none";
+        closeLup.style.display="block";
     }
 
-
-
-trendingF();
 
 
 function gifoMas() { 
@@ -1071,6 +1243,9 @@ function gifoMas() {
     gifosEncontrados.style.gridTemplateColumns="repeat(4, minmax(200px, 1fr))";
 }
 
+
+
+//==================FUNCIÓN "RESIZE"==============
 function windowB () {
     if (window.matchMedia("(min-width: 780px)").matches) {
       gifosEncontrados.style.gridTemplateRows ="repeat(3, 230px)";
@@ -1089,28 +1264,9 @@ function windowB () {
       buscCont.style.width="80%";
       
     }}
-    /*if (modosToggle===true) {
-        menu.style.backgroundColor="#222326";
-    }
-    else {
-        menu.style.backgroundColor="#37383C";
-    } */
     
     
-    
-    burger.addEventListener("click", ()=> {
-        menu.style.display="block";
-        closeD.style.display="block";
-        burger.style.display="none";
   
-        })
-         
-          closeD.addEventListener("click", ()=> {
-              menu.style.display="none";
-              closeD.style.display="none";
-              burger.style.display="block"
-          })
-          
 
 window.addEventListener("resize", ()=> {
     windowB();
@@ -1119,35 +1275,44 @@ window.addEventListener("resize", ()=> {
 
 
 //Generador de Buscados
-function gifoEncontrados() { 
-    gifosEncontrados.style.display= "grid";
-    gifosEncontrados.style.gridTemplateRows ="repeat(3, 230px)";
-    gifosEncontrados.style.gridTemplateColumns="repeat(4, 1fr)";
-    trendingsN.style.display="none";
-    categorias.style.display="none";
-    contTituloF.innerHTML="";
-    contTituloF.style.display="block";
-    contPalabra.style.display="block";
-    tituloBusqueda.style.display="flex";
-    contPalabra.appendChild(tituloBusqueda);
-    tituloBusqueda.innerHTML=`${buscar.value}`;
-    tituloBusqueda.style.textTransform="uppercase";
-    tituloBusqueda.style.fontWeight="bold";
-    tituloBusqueda.style.padding="30px";
-    tituloBusqueda.style.fontSize="22px";
-    tituloBusqueda.style.fontFamily="'Montserrat', sans-serif";
-    tituloBusqueda.style.color="#6742E7";
-    verMasCont.style.display="flex";
-    verMasCont.style.justifyContent= "center";
-    verMasCont.style.alignItems= "center";
-    verMasCont.style.margin="auto";
-    verMasCont.style.padding= "50px";
-    lupitaD.style.display="none";
-    closeLup.style.display="block";
+
+
+
+//===============FUNCIONES FAVORITOS Y DOWNLOAD======================
+function checkForAddedFavoritos() {
+    console.log("chequeo added Mis GIFOS");
+    if (localStorage.getItem("dataFavoritos")) {
+      let  dataFavoritos = JSON.parse(localStorage.getItem("dataFavoritos"));
+    } else if (localStorage.getItem("dataFavoritos") == null) {
+       let dataFavoritos = [];
+    }
+    return dataFavoritos;
 }
 
 
-//Eventos vinculados a funciones
+async function createBlob(url) {
+    try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return URL.createObjectURL(blob);
+    } catch (error) {
+        console.log("ERROR: ", error);
+    }
+}
+
+
+function agregarfav() {
+    if (localStorage.getItem('dataFavoritos')) {
+        dataFavoritos = JSON.parse(localStorage.getItem('dataFavoritos'));
+    } else if (localStorage.getItem('dataFavoritos') == null) {
+        dataFavoritos = [];
+    }
+    return dataFavoritos;
+}
+
+
+
+//==================EVENTOS Y FUNCIONES GENERALES=====================
 
 lupitaD.addEventListener("click",()=>{
     gifoEncontrados();
@@ -1184,337 +1349,13 @@ verMas.addEventListener("click", ()=> {
 })
 
 
-
+trendingF();
 checkForAddedFavoritos()
-
-
-function checkForAddedFavoritos() {
-    console.log("chequeo added Mis GIFOS");
-    if (localStorage.getItem("dataFavoritos")) {
-      let  dataFavoritos = JSON.parse(localStorage.getItem("dataFavoritos"));
-    } else if (localStorage.getItem("dataFavoritos") == null) {
-       let dataFavoritos = [];
-    }
-    return dataFavoritos;
-}
+agregarfav();
 
 
 
-/*
-modo.addEventListener("click", ()=> {
-    if (modosToggle===false) {
-    barra.removeAttribute("id");
-    barra.setAttribute("id" , "noctBarra");
-    logoD.removeAttribute("src");
-    logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
-    buscador.removeAttribute("id");
-    buscador.setAttribute("id", "buscadorNoct");
-    trending.style.backgroundColor="#222326";
-    tituloBusqueda.style.color="white";
-    footer.removeAttribute("id");
-    footer.setAttribute("id", "footerNoct");
-    footer.style.borderBottomColor="#222326";
-    modo.innerHTML="Modo Diurno";
-    h1[0].style.color="white";
-    h4[0].style.color="white";
-    h2[0].style.color="white";
-    for(let i=0; i<6; i++){
-        p[i].style.color="white";
-    }
 
-    for(let i=0 ; i<4; i++) {
-        link[i].style.color="white";
-    }
-   
-    buscCont.style.borderColor="white";
-    buscCont.style.backgroundColor="#37383C";
-    buscCont2.style.backgroundColor="#37383C";
-    buscar.style.backgroundColor="#37383C";
-    buscar.style.color="white";
-    lupitaD.removeAttribute("src");
-    lupitaD.setAttribute("src", "assets-usados/icon-search-mod-noc.svg");
-    closeLup.removeAttribute("src");
-    closeLup.setAttribute("src", "assets-usados/close-modo-noct.svg");
-    crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/CTA-crar-gifo-modo-noc.svg");
-    burger.removeAttribute("src");
-    burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
-    header.removeAttribute("id");
-    header.setAttribute("id", "headerNoct");
-    botonDerD.removeAttribute("src");
-    botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
-    botonIzqD.removeAttribute("src");
-    botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");
-    botonDerD.addEventListener("mouseover", ()=> {
-        botonDerD.removeAttribute("src");
-        botonDerD.setAttribute("src", "assets-usados/burger-modo-noct.svg")
-    })
-    verMas.removeAttribute("src");
-    verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
-    closeD.removeAttribute("src");
-    closeD.setAttribute("src", "assets-usados/close-modo-noct.svg");
-    verMas.addEventListener("mouseover", ()=> {
-        verMas.removeAttribute("src");
-        verMas.setAttribute("src", "assets-usados/CTA-ver+hover-modo-noc.svg"); 
-    }); 
-    verMas.addEventListener("mouseout", ()=> {
-        verMas.removeAttribute("src");
-        verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg"); 
-    }); 
-    menu.removeAttribute("id");
-    menu.setAttribute("id", "menuNoct");
-    
-
-    
-    modosToggle=true;   
-    console.log(modosToggle);
-} 
-
-
-else if (modosToggle===true) {
-    barra.removeAttribute("id");
-    barra.setAttribute("id" , "barra");
-    logoD.removeAttribute("src");
-    logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
-    buscador.removeAttribute("id");
-    buscador.setAttribute("id", "buscador");
-    trending.style.backgroundColor="#F4F5F9";
-    footer.removeAttribute("id");
-    footer.setAttribute("id", "footer");
-    tituloBusqueda.style.color="#6742E7";
-    closeLup.removeAttribute("src");
-    closeLup.setAttribute("src", "assets-usados/close.svg");
-    footer.style.borderBottomColor="white"
-    modo.innerHTML="Modo Nocturno";
-    h1[0].style.color="#6742E7";
-    h2[0].style.color="#6742E7";
-    for(let i=0; i<2; i++){
-        p[i].style.color="#6742E7";
-    }
-
-    for(let i=2; i<6; i++){
-        p[i].style.color="black";
-    }
-   
-    for(let i=0 ; i<4; i++) {
-        link[i].style.color="#6742E7";
-    }
-    
-    
-    closeD.removeAttribute("src");
-    closeD.setAttribute("src", "assets-usados/close.svg");
-    buscCont.style.borderColor="#6742E7";
-    buscCont.style.backgroundColor="white";
-    buscCont2.style.backgroundColor="white";
-    buscar.style.backgroundColor="white";
-    buscar.style.color="black";
-    lupitaD.removeAttribute("src");
-    lupitaD.setAttribute("src", "assets-usados/icon-search.svg");
-    crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
-    burger.removeAttribute("src");
-    burger.setAttribute("src", "assets-usados/burger.svg");
-    header.removeAttribute("id");
-    header.setAttribute("id", "header");
-    botonDerD.removeAttribute("src");
-    botonDerD.setAttribute("src", "assets-usados/Button-Slider-right.svg");
-    botonIzqD.removeAttribute("src");
-    botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
-    verMas.removeAttribute("src");
-    verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
-    menu.removeAttribute("id");
-    menu.setAttribute("id", "menu");
-    
-   
-
-    modosToggle=false
-    console.log(modosToggle);
-    
-}})  */
-
-let nightmode_check = localStorage.getItem("nightmode-status");
-
-modo.addEventListener('click', nightMode);
-modo.addEventListener('click', () => {
-    if (nightmode_check !== "true") {
-        nightmode_check = "true";
-        localStorage.setItem("nightmode-status", "true");
-    } else {
-        nightmode_check = "false";
-        localStorage.setItem("nightmode-status", "false");
-    }
-})
-
-let b = true;
-function nightMode() {
-    menu.classList.toggle("menuNoct");
-    buscador.classList.toggle("buscadorNoct");
-    barra.classList.toggle("noctBarra");
-    menuInt.classList.toggle("menu-intNoct");
-    trending.classList.toggle("trendingNoct");
-    footer.classList.toggle("footerNoct");
-    buscCont.classList.toggle("busc-contNoct");
-    buscCont2.classList.toggle("busc-contNoct2");
-    header.classList.toggle("headerNoct");
-    for (let i = 0; i < link.length; i++) {
-        link[i].classList.toggle("linkNoct");
-    }
-    for(let i =0 ; i<5;i++) {
-        divResultado[i].classList.toggle("divResultadoNoct");
-        
-    }
-    // toggle logo + menú icons
-    if (b) {
-        buscCont2.style.backgroundColor="#37383C";
-        logoD.removeAttribute("src");
-        logoD.setAttribute("src", "assets-usados/logo-mobile-modo-noct.svg");
-        lupitaD.removeAttribute("src");
-        lupitaD.setAttribute("src", "assets-usados/icon-search-mod-noc.svg");
-        closeLup.removeAttribute("src");
-        closeLup.setAttribute("src", "assets-usados/close-modo-noct.svg");
-        burger.removeAttribute("src");
-        burger.setAttribute("src", "assets-usados/burger-modo-noct.svg");
-        botonDerD.removeAttribute("src");
-        botonDerD.setAttribute("src", "assets-usados/button-slider-right-md-noct.svg");
-        botonIzqD.removeAttribute("src");
-        buscador.removeAttribute("id");
-        buscador.setAttribute("id", "buscadorNoct");
-        botonIzqD.removeAttribute("src");
-        botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg");
-        botonIzqD.addEventListener("mouseover", ()=>{
-           botonIzqD.removeAttribute("src");
-           botonIzqD.setAttribute("src", "assets-usados/button-slider-left-md-noct.svg")
-        })
-        verMas.removeAttribute("src");
-        verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
-        closeD.removeAttribute("src");
-        closeD.setAttribute("src", "assets-usados/close-modo-noct.svg");
-        crearD.removeAttribute("src");
-        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg");
-        crearD.addEventListener("mouseover", ()=> {
-            crearD.removeAttribute("src");
-            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover-modo-noc.svg")
-        })
-        crearD.addEventListener("mouseout", ()=> {
-            crearD.removeAttribute("src");
-            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg")
-        })
-        crearD.addEventListener("mousedown", ()=> {
-            crearD.removeAttribute("src");
-            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active-modo-noc.svg");
-            
-        })
-        
-        crearD.addEventListener("mouseup", ()=> {
-            crearD.removeAttribute("src");
-            crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-modo-noc.svg");
-        })
-        for(let i=0; i<6; i++){
-            p[i].style.color="white";
-        }
-        modo.innerHTML="Modo Diurno";
-
-        h1[0].style.color="white";
-        h4[0].style.color="white";
-        h2[0].style.color="white";
-        buscar.style.backgroundColor="#37383C";
-        buscar.style.color="white";
-        b = false;
-        for(let i =0 ; i<5;i++) {
-            lupitaRes[i].removeAttribute("src");
-            lupitaRes[i].setAttribute("src", "assets-usados/icon-search-mod-noc.svg");
-        }
-        verMas.addEventListener("mouseover", ()=> {
-            verMas.removeAttribute("src");
-            verMas.setAttribute("src", "assets-usados/CTA-ver+hover-modo-noc.svg");
-            verMas.style.cursor="pointer";
-        })
-        verMas.addEventListener("mouseout", ()=> {
-            verMas.removeAttribute("src");
-            verMas.setAttribute("src", "assets-usados/CTA-ver+-modo-noc.svg");
-        })
-        lupitaPrincipal.removeAttribute("src");
-        lupitaPrincipal.setAttribute("src", "assets-usados/icon-search-mod-noc.svg")
-
-        tituloBusqueda.style.color="white";
-       
-    }
-    
-       
-    else if (!b) {
-    buscCont2.style.backgroundColor="white";
-    logoD.removeAttribute("src");
-    logoD.setAttribute("src", "assets-usados/logo-mobile.svg");
-    closeLup.removeAttribute("src");
-    closeLup.setAttribute("src", "assets-usados/close.svg"); 
-    lupitaD.removeAttribute("src");
-    lupitaD.setAttribute("src", "assets-usados/icon-search.svg");
-    closeD.removeAttribute("src");
-    closeD.setAttribute("src", "assets-usados/close.svg");
-    burger.removeAttribute("src");
-    burger.setAttribute("src", "assets-usados/burger.svg");
-    botonDerD.removeAttribute("src");
-    botonDerD.setAttribute("src", "assets-usados/Button-Slider-right.svg");
-    botonIzqD.removeAttribute("src");
-    botonIzqD.setAttribute("src", "assets-usados/button-slider-left.svg");
-    verMas.removeAttribute("src");
-    verMas.setAttribute("src", "assets-usados/assets-usados/CTA-ver-mas.svg"); 
-    lupitaPrincipal.removeAttribute("src");
-    lupitaPrincipal.setAttribute("src", "assets-usados/icon-search.svg");
-    crearD.removeAttribute("src");
-    crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
-    crearD.addEventListener("mouseover", ()=> {
-        crearD.removeAttribute("src");
-        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-hover.svg")
-    })
-    crearD.addEventListener("mouseout", ()=> {
-        crearD.removeAttribute("src");
-        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
-    })
-    crearD.addEventListener("mousedown", ()=> {
-        crearD.removeAttribute("src");
-        crearD.setAttribute("src", "assets-usados/CTA-crear-gifo-active.svg");
-        
-    })
-    
-    crearD.addEventListener("mouseup", ()=> {
-        crearD.removeAttribute("src");
-        crearD.setAttribute("src", "assets-usados/button-crear-gifo.svg");
-    })
-    verMas.addEventListener("mouseover", ()=> {
-        verMas.removeAttribute("src");
-        verMas.setAttribute("src", "assets-usados/CTA-ver-mas-hover.svg");
-        verMas.style.cursor="pointer";
-    })
-    
-    verMas.addEventListener("mouseout", ()=> {
-        verMas.removeAttribute("src");
-        verMas.setAttribute("src", "assets-usados/CTA-ver-mas.svg");
-    })
-    for(let i=0; i<2; i++){
-        p[i].style.color="#6742E7";
-    }
-
-    for(let i=2; i<6; i++){
-        p[i].style.color="black";
-    }
-    for(let i =0 ; i<5;i++) {
-        lupitaRes[i].removeAttribute("src");
-        lupitaRes[i].setAttribute("src", "assets-usados/icon-search.svg");
-    }
-        h1[0].style.color="#6742E7";
-        h4[0].style.color="#6742E7";
-        h2[0].style.color="#6742E7";
-        buscar.style.backgroundColor="white";
-        buscar.style.color="black";
-        modo.innerHTML="Modo Nocturno";
-
-        tituloBusqueda.style.color="#6742E7";
-        tituloBusqueda.style.color="white";
-
-        b = true;
-    }
-}
 // IF CHECK FOR NIGHTMODE STATUS IN LOCAL STORAGE
 
 

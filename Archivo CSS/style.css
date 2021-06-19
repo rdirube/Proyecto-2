@@ -936,7 +936,7 @@ height:100%;
    display:flex;
    justify-content: center;
    align-items:center;
-   padding: 20px 0 15px;
+   padding: 20px 0 25px;
  }
 
  .pasos:after {
@@ -956,7 +956,7 @@ height:100%;
     display:flex;
     justify-content: center;
     align-items:center;
-    padding: 20px 0 15px;
+    padding: 20px 0 25px;
     background-color: #37383C;
   }
 
