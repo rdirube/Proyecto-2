@@ -216,11 +216,8 @@ closeD.addEventListener("click", ()=> {
 
 
 
-
-
 //====================MODO NOCTURNO========================
 
-let nightmode_check = localStorage.getItem("nightmode-status");
 
 modo.addEventListener('click', nightMode);
 modo.addEventListener('click', () => {
@@ -324,8 +321,7 @@ function nightMode() {
         lupitaPrincipal.removeAttribute("src");
         lupitaPrincipal.setAttribute("src", "../assets/icon-search-mod-noc.svg")
 
-        tituloBusqueda.style.color="white";
-       
+        tituloBusqueda.style.color="white";  
     }
     
        
@@ -526,7 +522,7 @@ function agrandar(gif, titulo,fav) {
     contenedorgifmax.style.width="700px";
     contenedorgifmax.style.height="400px";
     contflechas.appendChild(contenedorgifmax);
-    let FlechaDer1 = document.createElement("img");
+
     const gifomaxi = document.createElement("img");
     gifomaxi.setAttribute("src", gif);
     gifomaxi.style.width="100%";
@@ -744,6 +740,7 @@ function agrandarMin(gif,titulo,fav){
         console.log(dataFavoritos);
       })
 })  }
+
 
 
 
